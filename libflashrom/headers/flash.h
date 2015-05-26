@@ -324,6 +324,8 @@ __attribute__((format(gnu_printf, 2, 3)));
 #else
 __attribute__((format(printf, 2, 3)));
 #endif
+
+#if !defined(QFLASHROM)
 #define msg_gerr(...)	print(MSG_ERROR, __VA_ARGS__)	/* general errors */
 #define msg_perr(...)	print(MSG_ERROR, __VA_ARGS__)	/* programmer errors */
 #define msg_cerr(...)	print(MSG_ERROR, __VA_ARGS__)	/* chip errors */
@@ -342,6 +344,7 @@ __attribute__((format(printf, 2, 3)));
 #define msg_gspew(...)	print(MSG_SPEW, __VA_ARGS__)	/* general debug spew  */
 #define msg_pspew(...)	print(MSG_SPEW, __VA_ARGS__)	/* programmer debug spew  */
 #define msg_cspew(...)	print(MSG_SPEW, __VA_ARGS__)	/* chip debug spew  */
+#endif
 
 /* layout.c */
 int register_include_arg(char *name);

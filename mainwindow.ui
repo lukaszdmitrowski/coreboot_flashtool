@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="b_sel_payload">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>120</x>
       <y>290</y>
       <width>99</width>
       <height>31</height>
@@ -30,8 +30,8 @@
    <widget class="QLabel" name="l_payload">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>150</y>
+      <x>180</x>
+      <y>70</y>
       <width>61</width>
       <height>17</height>
      </rect>
@@ -43,8 +43,8 @@
    <widget class="QLabel" name="l_payload_name">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>170</y>
+      <x>10</x>
+      <y>90</y>
       <width>391</width>
       <height>41</height>
      </rect>
@@ -79,7 +79,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="cb_sel_progr">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -89,10 +89,10 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="b_sel_payload_2">
+   <widget class="QPushButton" name="b_flash">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>320</x>
       <y>290</y>
       <width>99</width>
       <height>31</height>
@@ -102,10 +102,10 @@
      <string>Flash</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="b_sel_payload_3">
+   <widget class="QPushButton" name="b_erase">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>220</x>
       <y>290</y>
       <width>99</width>
       <height>31</height>
@@ -113,6 +113,29 @@
     </property>
     <property name="text">
      <string>Erase</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b_probe">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>290</y>
+      <width>99</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Probe</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>180</y>
+      <width>251</width>
+      <height>81</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -129,9 +152,15 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionSelect_ROM"/>
+    <addaction name="act_sel_payload"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -140,18 +169,24 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionSelect_ROM"/>
-   <addaction name="actionExtract"/>
+   <addaction name="act_sel_payload"/>
+   <addaction name="act_extract"/>
+   <addaction name="act_about"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionSelect_ROM">
+  <action name="act_sel_payload">
    <property name="text">
     <string>Select ROM</string>
    </property>
   </action>
-  <action name="actionExtract">
+  <action name="act_extract">
    <property name="text">
     <string>Extract</string>
+   </property>
+  </action>
+  <action name="act_about">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "selectprog.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFile>
+#include <QDebug>
 
 extern "C" {
-    #include "libflashrom/flash.h"
+#include "flash.h"
+#include "programmer.h"
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -33,19 +34,20 @@ void MainWindow::on_b_sel_payload_clicked()
 
 void MainWindow::fill_progr_cb()
 {
-    ui->comboBox->addItem("internal");
-    ui->comboBox->addItem("dummy");
-    ui->comboBox->addItem("nic3com");
-    ui->comboBox->addItem("nicrealtek");
-    ui->comboBox->addItem("gfxnvidia");
-    ui->comboBox->addItem("drkaiser");
-    ui->comboBox->addItem("satasii");
-    ui->comboBox->addItem("ft2232_spi");
-    ui->comboBox->addItem("serprog");
-    ui->comboBox->addItem("buspirate_spi");
-    ui->comboBox->addItem("rayer_spi");
-    ui->comboBox->addItem("nicintel");
-    ui->comboBox->addItem("nicintel_spi");
-    ui->comboBox->addItem("ogp_spi");
-    ui->comboBox->addItem("satamv");
+    //qDebug() << programmer_table[0].name;
+    ui->cb_sel_progr->addItem("internal");
+    ui->cb_sel_progr->addItem("dummy");
+    ui->cb_sel_progr->addItem("nic3com");
+    ui->cb_sel_progr->addItem("nicrealtek");
+    ui->cb_sel_progr->addItem("gfxnvidia");
+    ui->cb_sel_progr->addItem("drkaiser");
+    ui->cb_sel_progr->addItem("satasii");
+    ui->cb_sel_progr->addItem("ft2232_spi");
+    ui->cb_sel_progr->addItem("serprog");
+    ui->cb_sel_progr->addItem("buspirate_spi");
+    ui->cb_sel_progr->addItem("rayer_spi");
+    ui->cb_sel_progr->addItem("nicintel");
+    ui->cb_sel_progr->addItem("nicintel_spi");
+    ui->cb_sel_progr->addItem("ogp_spi");
+    ui->cb_sel_progr->addItem("satamv");
 }
