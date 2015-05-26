@@ -6,11 +6,14 @@
 #include <QMessageBox>
 #include <QFile>
 
+extern "C" {
+    #include "libflashrom/flash.h"
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    //creates user interaface
     ui->setupUi(this);
     fill_progr_cb();
 }

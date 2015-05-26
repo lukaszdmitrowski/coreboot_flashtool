@@ -19,6 +19,9 @@ HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
 
+LIBS     += -L/home/lukasz/coreboot_tool/flash_tool/libflashrom
+LIBS     += -lflashrom -lftdi
+
 win32 {
 
 } else {
