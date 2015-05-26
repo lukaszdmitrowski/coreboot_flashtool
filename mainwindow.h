@@ -16,11 +16,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionSelect_ROM_triggered();
-
-    void on_pushButton_clicked();
+    void on_b_sel_payload_clicked();
 
 private:
+    void fill_progr_cb();
     Ui::MainWindow *ui;
 };
 
