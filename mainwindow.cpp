@@ -23,11 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    //fill_progr_cb();
+    ui->setupUi(this);
+    fill_progr_cb();
     my_log_callback = &my_log;
     fl_set_log_callback(my_log_callback);
     fl_init(0);
-    ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
