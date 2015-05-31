@@ -1,3 +1,7 @@
 <RCC>
-    <qresource prefix="/Icons"/>
+    <qresource prefix="/Icons">
+        <file>icons/ic_file_upload_black_48dp.png</file>
+        <file>icons/ic_memory_black_48dp.png</file>
+        <file>icons/coreboot.png</file>
+    </qresource>
 </RCC>

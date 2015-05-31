@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>735</width>
-    <height>397</height>
+    <height>433</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Coreboot Flash Tool</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/Icons/icons/coreboot.png</normaloff>:/Icons/icons/coreboot.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="l_prog_name">
@@ -31,9 +35,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>70</y>
       <width>701</width>
-      <height>331</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -43,37 +47,11 @@
      <attribute name="title">
       <string>Flash</string>
      </attribute>
-     <widget class="QLabel" name="l_payload">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>30</y>
-        <width>61</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Payload: </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_payload_name">
-      <property name="geometry">
-       <rect>
-        <x>110</x>
-        <y>20</y>
-        <width>491</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QComboBox" name="cb_sel_progr">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>70</y>
+        <x>130</x>
+        <y>20</y>
         <width>311</width>
         <height>21</height>
        </rect>
@@ -82,8 +60,8 @@
      <widget class="QLabel" name="l_programmer">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>70</y>
+        <x>20</x>
+        <y>20</y>
         <width>101</width>
         <height>17</height>
        </rect>
@@ -95,9 +73,9 @@
      <widget class="QPushButton" name="b_probe">
       <property name="geometry">
        <rect>
-        <x>560</x>
-        <y>110</y>
-        <width>99</width>
+        <x>570</x>
+        <y>60</y>
+        <width>111</width>
         <height>31</height>
        </rect>
       </property>
@@ -108,9 +86,9 @@
      <widget class="QPushButton" name="b_erase">
       <property name="geometry">
        <rect>
-        <x>560</x>
-        <y>170</y>
-        <width>99</width>
+        <x>570</x>
+        <y>140</y>
+        <width>111</width>
         <height>31</height>
        </rect>
       </property>
@@ -118,25 +96,12 @@
        <string>Erase</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="b_sel_payload">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>30</y>
-        <width>99</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Select</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="b_flash">
       <property name="geometry">
        <rect>
-        <x>560</x>
-        <y>230</y>
-        <width>99</width>
+        <x>570</x>
+        <y>180</y>
+        <width>111</width>
         <height>31</height>
        </rect>
       </property>
@@ -147,19 +112,127 @@
      <widget class="QTextEdit" name="textEdit">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>110</y>
-        <width>521</width>
+        <x>20</x>
+        <y>60</y>
+        <width>531</width>
         <height>151</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="b_probe_2">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>100</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Verify</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Custom ROM</string>
+      <string>ROM options</string>
      </attribute>
+     <widget class="QPushButton" name="b_create_rom_3">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>90</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add </string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="b_create_rom_4">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>130</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remove</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>531</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No ROM is selected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ROM info:</string>
+      </property>
+     </widget>
     </widget>
+   </widget>
+   <widget class="QLabel" name="l_payload">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>61</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ROM: </string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b_sel_payload">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>20</y>
+      <width>99</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="l_payload_name">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>10</y>
+      <width>491</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -175,11 +248,19 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="act_sel_payload">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/icons/ic_memory_black_48dp.png</normaloff>:/Icons/icons/ic_memory_black_48dp.png</iconset>
+   </property>
    <property name="text">
     <string>Select ROM</string>
    </property>
   </action>
   <action name="act_extract">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/icons/ic_file_upload_black_48dp.png</normaloff>:/Icons/icons/ic_file_upload_black_48dp.png</iconset>
+   </property>
    <property name="text">
     <string>Extract</string>
    </property>
@@ -191,6 +272,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
