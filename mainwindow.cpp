@@ -10,12 +10,15 @@ extern "C" {
 #include "libflashrom.h"
 }
 
+
+
 fl_log_callback_t *my_log_callback;
 
 
 int my_log(fl_log_level_t log_level, const char *format, va_list)
 {
-    qDebug() << format;
+    QString str;
+    str.sprintf(format, va_list);
     return 1;
 }
 
@@ -28,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     my_log_callback = &my_log;
     fl_set_log_callback(my_log_callback);
     fl_init(0);
+    fl_supported_programmers();
 }
 
 MainWindow::~MainWindow()
