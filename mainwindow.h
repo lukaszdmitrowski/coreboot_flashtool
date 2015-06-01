@@ -19,7 +19,8 @@ private slots:
     void on_b_sel_payload_clicked();
 
 private:
-    void fill_progr_cb();
+    void fill_cb_programmers();
+    void fill_cb_arch();
     Ui::MainWindow *ui;
 };
 

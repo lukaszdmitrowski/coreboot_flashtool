@@ -40,6 +40,9 @@
 /** Pointer to log callback function. */
 static fl_log_callback_t *fl_log_callback = NULL;
 
+/** Programmers table **/
+const char **programmers = 0;
+
 /**
  * @brief Initialize libflashrom.
  *
@@ -48,10 +51,18 @@ static fl_log_callback_t *fl_log_callback = NULL;
  */
 int fl_init(const int perform_selfcheck)
 {
+    enum programmer p;
+
     /*if (perform_selfcheck && selfcheck())
 		return 1;
     myusec_calibrate_delay();*/
-    print(MSG_ERROR, "PRINT");
+
+    programmers = (const char**)malloc((PROGRAMMER_INVALID - 1) * sizeof(char*));
+    for (p = 0; p < PROGRAMMER_INVALID - 1; ++p)
+    {
+        programmers[p] = programmer_table[p].name;
+    }
+
 	return 0;
 }
 
@@ -61,6 +72,7 @@ int fl_init(const int perform_selfcheck)
  */
 int fl_shutdown(void)
 {
+    free(programmers);
 	return 0; /* TODO: nothing to do? */
 }
 
@@ -446,58 +458,9 @@ _free_out:
 
 /* NEW */
 
-char* fl_supported_programmers(void)
+const char** fl_supported_programmers(void)
 {
-    /*enum programmer p;
-    unsigned int max_programmers = sizeof(programmer_table) / sizeof(programmer_table[0]);
-
-    for (p = 0; p < PROGRAMMER_INVALID; ++p)
-    {
-
-    }*/
-
-    print(MSG_ERROR, "%s", programmer_table[0].name);
-    return "Dupa";
+    return programmers;
 }
-
-/*void list_programmers_linebreak(int startcol, int cols, int paren)
-{
-    const char *pname;
-    int pnamelen;
-    int remaining = 0, firstline = 1;
-    enum programmer p;
-    int i;
-
-    for (p = 0; p < PROGRAMMER_INVALID; p++) {
-        pname = programmer_table[p].name;
-        pnamelen = strlen(pname);
-        if (remaining - pnamelen - 2 < 0) {
-            if (firstline)
-                firstline = 0;
-            else
-                msg_ginfo("\n");
-            for (i = 0; i < startcol; i++)
-                msg_ginfo(" ");
-            remaining = cols - startcol;
-        } else {
-            msg_ginfo(" ");
-            remaining--;
-        }
-        if (paren && (p == 0)) {
-            msg_ginfo("(");
-            remaining--;
-        }
-        msg_ginfo("%s", pname);
-        remaining -= pnamelen;
-        if (p < PROGRAMMER_INVALID - 1) {
-            msg_ginfo(",");
-            remaining--;
-        } else {
-            if (paren)
-                msg_ginfo(")");
-        }
-    }
-}*/
-
 
 /** @} */ /* end fl-ops */
