@@ -52,4 +52,9 @@ int fl_image_read(fl_flashctx_t *, void *buffer, size_t buffer_len);
 int fl_image_write(fl_flashctx_t *, void *buffer, size_t buffer_len);
 int fl_image_verify(fl_flashctx_t *, void *buffer, size_t buffer_len);
 
+/* NEW */
+
+char* fl_supported_programmers(void);
+
+
 #endif				/* !__LIBFLASHROM_H__ */

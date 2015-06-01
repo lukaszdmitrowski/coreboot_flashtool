@@ -15,10 +15,10 @@ extern "C" {
 fl_log_callback_t *my_log_callback;
 
 
-int my_log(fl_log_level_t log_level, const char *format, va_list)
+int my_log(fl_log_level_t log_level, const char *format, va_list vl)
 {
     QString str;
-    str.sprintf(format, va_list);
+    str.sprintf(format, vl);
     return 1;
 }
 
