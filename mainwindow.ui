@@ -40,10 +40,17 @@
       <height>271</height>
      </rect>
     </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
     <property name="currentIndex">
      <number>1</number>
     </property>
     <widget class="QWidget" name="tab_flash">
+     <attribute name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/Icons/icons/flash.png</normaloff>:/Icons/icons/flash.png</iconset>
+     </attribute>
      <attribute name="title">
       <string>Flash</string>
      </attribute>
@@ -134,6 +141,10 @@
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
+     <attribute name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/Icons/icons/options.png</normaloff>:/Icons/icons/options.png</iconset>
+     </attribute>
      <attribute name="title">
       <string>ROM options</string>
      </attribute>
@@ -146,8 +157,15 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
       <property name="text">
        <string>Add </string>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/Icons/icons/add.png</normaloff>:/Icons/icons/add.png</iconset>
       </property>
      </widget>
      <widget class="QPushButton" name="b_create_rom_4">
@@ -161,6 +179,10 @@
       </property>
       <property name="text">
        <string>Remove</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/Icons/icons/remove.png</normaloff>:/Icons/icons/remove.png</iconset>
       </property>
      </widget>
      <widget class="QTextEdit" name="textEdit_2">
@@ -244,13 +266,14 @@ p, li { white-space: pre-wrap; }
    </attribute>
    <addaction name="act_sel_payload"/>
    <addaction name="act_extract"/>
+   <addaction name="act_supported_list"/>
    <addaction name="act_about"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="act_sel_payload">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/ic_memory_black_48dp.png</normaloff>:/Icons/icons/ic_memory_black_48dp.png</iconset>
+     <normaloff>:/Icons/icons/open.png</normaloff>:/Icons/icons/open.png</iconset>
    </property>
    <property name="text">
     <string>Select ROM</string>
@@ -259,15 +282,31 @@ p, li { white-space: pre-wrap; }
   <action name="act_extract">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/ic_file_upload_black_48dp.png</normaloff>:/Icons/icons/ic_file_upload_black_48dp.png</iconset>
+     <normaloff>:/Icons/icons/extract.png</normaloff>:/Icons/icons/extract.png</iconset>
    </property>
    <property name="text">
     <string>Extract</string>
    </property>
   </action>
   <action name="act_about">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/icons/about.png</normaloff>:/Icons/icons/about.png</iconset>
+   </property>
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="act_supported_list">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/icons/supported.png</normaloff>:/Icons/icons/supported.png</iconset>
+   </property>
+   <property name="text">
+    <string>Supported hardware</string>
+   </property>
+   <property name="toolTip">
+    <string>Supported hardware</string>
    </property>
   </action>
  </widget>

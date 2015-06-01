@@ -1,7 +1,14 @@
 <RCC>
     <qresource prefix="/Icons">
-        <file>icons/ic_file_upload_black_48dp.png</file>
-        <file>icons/ic_memory_black_48dp.png</file>
         <file>icons/coreboot.png</file>
+        <file>icons/add.png</file>
+        <file>icons/exit.png</file>
+        <file>icons/flash.png</file>
+        <file>icons/open.png</file>
+        <file>icons/options.png</file>
+        <file>icons/remove.png</file>
+        <file>icons/extract.png</file>
+        <file>icons/about.png</file>
+        <file>icons/supported.png</file>
     </qresource>
 </RCC>
