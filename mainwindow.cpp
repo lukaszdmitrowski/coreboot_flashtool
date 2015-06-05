@@ -13,11 +13,13 @@ extern "C" {
 
 fl_log_callback_t *my_log_callback;
 
+
 int my_log(fl_log_level_t log_level, const char *format, va_list vl)
 {
-    QString str;
-    str.sprintf(format, va_arg(vl, char*));
-    qDebug() << str;
+    QString text;
+    text.sprintf(format, va_arg(vl, char*));
+    qDebug() << text;
+    w->ui->log_flash->append(text);
     return 1;
 }
 
@@ -28,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     my_log_callback = &my_log;
     fl_init(0);
-    fl_set_log_callback(my_log_callback);
-    fill_cb_programmers();
     fill_cb_arch();
+    fill_cb_programmers();
+    fl_set_log_callback(my_log_callback);
 }
 
 MainWindow::~MainWindow()
@@ -48,9 +50,19 @@ void MainWindow::on_b_sel_payload_clicked()
     ui->l_payload_name->setText(rom_name);
 }
 
+void MainWindow::on_b_read_clicked()
+{
+}
+
+void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
+{
+    fl_programmer_init(programmer.toStdString().c_str(), "");
+}
+
 void MainWindow::fill_cb_programmers()
 {
     const char **programmers = fl_supported_programmers();
+
     for(int i = 0; i < 21; ++i)
     {
         ui->cb_sel_progr->addItem(*programmers);
@@ -65,3 +77,7 @@ void MainWindow::fill_cb_arch()
     ui->cb_sel_arch->addItem("arm");
     ui->cb_sel_arch->addItem("arm64");
 }
+
+
+
+

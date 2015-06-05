@@ -62,7 +62,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_flash">
      <attribute name="icon">
@@ -134,7 +134,7 @@
        <string>Flash</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QTextEdit" name="log_flash">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -208,7 +208,7 @@
         <normaloff>:/Icons/icons/remove.png</normaloff>:/Icons/icons/remove.png</iconset>
       </property>
      </widget>
-     <widget class="QTextEdit" name="textEdit_2">
+     <widget class="QTextEdit" name="log_rom_opt">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -381,7 +381,7 @@ p, li { white-space: pre-wrap; }
        <string>Create</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="textEdit_3">
+     <widget class="QTextEdit" name="log_create_rom">
       <property name="geometry">
        <rect>
         <x>20</x>

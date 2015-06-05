@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 
+extern "C" {
+#include "libflashrom.h"
+}
+
 namespace Ui {
 class MainWindow;
 }
@@ -14,14 +18,20 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Ui::MainWindow *ui;
 
 private slots:
     void on_b_sel_payload_clicked();
 
+    void on_cb_sel_progr_currentIndexChanged(const QString &arg1);
+
+    void on_b_read_clicked();
+
 private:
     void fill_cb_programmers();
     void fill_cb_arch();
-    Ui::MainWindow *ui;
 };
+
+extern MainWindow *w;
 
 #endif // MAINWINDOW_H
