@@ -22,9 +22,7 @@ public:
 
 private slots:
     void on_b_sel_payload_clicked();
-
     void on_cb_sel_progr_currentIndexChanged(const QString &arg1);
-
     void on_b_read_clicked();
 
 private:

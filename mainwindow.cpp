@@ -61,13 +61,19 @@ void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
 
 void MainWindow::fill_cb_programmers()
 {
-    const char **programmers = fl_supported_programmers();
+    unsigned int programmers_number = 0;
+    const char **programmers = 0;
 
-    for(int i = 0; i < 21; ++i)
+    programmers_number = fl_supported_programmers_number();
+    programmers = new const char*[programmers_number];
+    fl_supported_programmers(programmers);
+
+    for(unsigned int i = 0; i < programmers_number; ++i)
     {
-        ui->cb_sel_progr->addItem(*programmers);
-        ++programmers;
+        ui->cb_sel_progr->addItem(programmers[i]);
     }
+
+    delete [] programmers;
 }
 
 void MainWindow::fill_cb_arch()

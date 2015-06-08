@@ -54,7 +54,8 @@ int fl_image_verify(fl_flashctx_t *, void *buffer, size_t buffer_len);
 
 /* NEW */
 
-const char** fl_supported_programmers(void);
+int fl_supported_programmers(const char** supported_programmers);
+int fl_supported_programmers_number();
 
 
 #endif				/* !__LIBFLASHROM_H__ */
