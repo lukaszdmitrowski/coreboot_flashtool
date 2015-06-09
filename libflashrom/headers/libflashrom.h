@@ -43,6 +43,8 @@ int fl_programmer_shutdown(void);
 
 struct flashctx;
 typedef struct flashctx fl_flashctx_t;
+struct flashchip;
+typedef struct flashchip fl_flashchip_t;
 int fl_flash_probe(fl_flashctx_t **, const char *chip_name);
 size_t fl_flash_getsize(const fl_flashctx_t *);
 int fl_flash_erase(fl_flashctx_t *);
@@ -54,8 +56,10 @@ int fl_image_verify(fl_flashctx_t *, void *buffer, size_t buffer_len);
 
 /* NEW */
 
-int fl_supported_programmers(const char** supported_programmers);
+int fl_supported_programmers(const char **supported_programmers);
 int fl_supported_programmers_number();
+int fl_supported_flash_chips(const fl_flashchip_t **flashchip);
+int fl_supported_flash_chips_size();
 
 
 #endif				/* !__LIBFLASHROM_H__ */

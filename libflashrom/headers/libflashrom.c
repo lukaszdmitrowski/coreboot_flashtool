@@ -216,13 +216,12 @@ int fl_flash_probe(fl_flashctx_t **const flashctx, const char *const chip_name)
 size_t fl_flash_getsize(const fl_flashctx_t *const flashctx)
 {
     return flashctx->chip->total_size << 10;
-    return 0;
 }
 
 /** @private */
 int erase_and_write_flash(struct flashctx *flash, uint8_t *oldcontents, uint8_t *newcontents);
 /** @private */
-//void emergency_help_message(void);
+/* void emergency_help_message(void); - static function*/
 /**
  * @brief Erase the specified ROM chip.
  *
@@ -267,7 +266,7 @@ int fl_flash_erase(fl_flashctx_t *const flashctx)
         // so if the user wanted erase and reboots afterwards, the user
         // knows very well that booting won't work.
         //
-        //emergency_help_message();
+        /* emergency_help_message(); - static function */
         ret = 1;
     }
 
@@ -337,7 +336,7 @@ _out:
 }
 
 /** @private */
-//void nonfatal_help_message(void);
+/* void nonfatal_help_message(void); - static function */
 /**
  * @brief Write the specified image to the ROM chip.
  *
@@ -373,19 +372,19 @@ int fl_image_write(fl_flashctx_t *const flashctx, void *const buffer, const size
         goto _free_out;
     }
 
-    //handle_romentries(flashctx, oldcontents, newcontents);
+    /* handle_romentries(flashctx, oldcontents, newcontents); - does not exist */
 
     if (erase_and_write_flash(flashctx, oldcontents, newcontents)) {
         msg_cerr("Uh oh. Erase/write failed. Checking if anything changed.\n");
         if (!flashctx->chip->read(flashctx, newcontents, 0, flash_size)) {
             if (!memcmp(oldcontents, newcontents, flash_size)) {
                 msg_cinfo("Good. It seems nothing was changed.\n");
-                //nonfatal_help_message();
+                /* nonfatal_help_message(); - static function */
                 ret = 3;
                 goto _free_out;
             }
         }
-        //emergency_help_message();
+        /* emergency_help_message(); - static function */
         ret = 2;
         goto _free_out;
     }
@@ -396,7 +395,7 @@ _free_out:
 }
 
 /** @private */
-//int compare_range(const uint8_t *wantbuf, const uint8_t *havebuf, unsigned int start, unsigned int len);
+/* int compare_range(const uint8_t *wantbuf, const uint8_t *havebuf, unsigned int start, unsigned int len); - static function */
 /**
  * @brief Verify the ROM chip's contents with the specified image.
  *
@@ -419,7 +418,7 @@ int fl_image_verify(fl_flashctx_t *const flashctx, void *const buffer, const siz
         return 2;
     }
 
-    //uint8_t *const newcontents = buffer;
+    /* uint8_t *const newcontents = buffer; - used only in handle_romentries() function */
     uint8_t *const oldcontents = malloc(flash_size);
 
     if (!oldcontents) {
@@ -431,11 +430,13 @@ int fl_image_verify(fl_flashctx_t *const flashctx, void *const buffer, const siz
         goto _free_out;
     }
 
-    //handle_romentries(flashctx, oldcontents, newcontents);
+    /* handle_romentries(flashctx, oldcontents, newcontents); - does not exist */
 
     msg_cinfo("Verifying flash... ");
 
-    ret = 1;//compare_range(newcontents, oldcontents, 0, flash_size);
+    /* compare_range(newcontents, oldcontents, 0, flash_size); */
+
+    ret = 1;
     if (!ret)
         msg_cinfo("VERIFIED.\n");
 
@@ -448,13 +449,10 @@ _free_out:
 
 int fl_supported_programmers(const char **supported_programmers)
 {
-    enum programmer p;
-    //*supported_programmers = (const char**)malloc((PROGRAMMER_INVALID - 1) * sizeof(char*));
+    enum programmer p = 0;
 
-    for (p = 0; p < PROGRAMMER_INVALID - 1; ++p)
-    {
+    for (; p < PROGRAMMER_INVALID - 1; ++p)
        supported_programmers[p] = programmer_table[p].name;
-    }
 
     return 1;
 }
@@ -462,6 +460,24 @@ int fl_supported_programmers(const char **supported_programmers)
 int fl_supported_programmers_number()
 {
     return (PROGRAMMER_INVALID - 1);
+}
+
+int fl_supported_flash_chips(const fl_flashchip_t **flashchip)
+{
+    //*flashchip = malloc(sizeof(**flashchip));
+    //if (!*flashchip)
+    //    return 1;
+    //memset(*flashchip, 0, sizeof(**flashchip));
+    //const struct flashchip *test;
+    //test = flashchips;
+    *flashchip = flashchips;
+    msg_ginfo("flashchip vendor: %s", flashchips[0].vendor);
+    return 0;
+}
+
+int fl_supported_flash_chips_size()
+{
+    return flashchips_size;
 }
 
 /** @} */ /* end fl-ops */

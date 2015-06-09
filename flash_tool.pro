@@ -14,12 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    utests.cpp
+    utests.cpp \
+    supported.cpp
 
 HEADERS  += mainwindow.h \
-    utests.h
+    utests.h \
+    supported.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    supported.ui
 
 INCLUDEPATH += libflashrom/headers
 

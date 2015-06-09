@@ -25,9 +25,14 @@ private slots:
     void on_cb_sel_progr_currentIndexChanged(const QString &arg1);
     void on_b_read_clicked();
 
+    void on_act_sel_payload_triggered();
+
+    void on_act_supported_list_triggered();
+
 private:
     void fill_cb_programmers();
     void fill_cb_arch();
+    void open_select_rom_window();
 };
 
 extern MainWindow *w;

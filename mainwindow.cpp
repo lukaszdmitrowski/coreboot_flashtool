@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "supported.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -19,7 +20,7 @@ int my_log(fl_log_level_t log_level, const char *format, va_list vl)
     QString text;
     text.sprintf(format, va_arg(vl, char*));
     qDebug() << text;
-    w->ui->log_flash->append(text);
+    //w->ui->log_flash->append(text);
     return 1;
 }
 
@@ -43,11 +44,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_b_sel_payload_clicked()
 {
-    QString rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
-    QString rom_name;
-    rom_name = rom_path.section('/', -1);
-    ui->b_sel_payload->setVisible(false);
-    ui->l_payload_name->setText(rom_name);
+    open_select_rom_window();
 }
 
 void MainWindow::on_b_read_clicked()
@@ -84,6 +81,24 @@ void MainWindow::fill_cb_arch()
     ui->cb_sel_arch->addItem("arm64");
 }
 
+void MainWindow::open_select_rom_window()
+{
+    QString rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
+    QString rom_name;
+    rom_name = rom_path.section('/', -1);
+    ui->b_sel_payload->setVisible(false);
+    ui->l_payload_name->setText(rom_name);
+}
 
 
+void MainWindow::on_act_sel_payload_triggered()
+{
+    open_select_rom_window();
+}
 
+void MainWindow::on_act_supported_list_triggered()
+{
+    Supported supported_window;
+    supported_window.setModal(true);
+    supported_window.exec();
+}
