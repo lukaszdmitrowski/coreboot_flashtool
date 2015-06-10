@@ -4,6 +4,10 @@
 #include <QDialog>
 #include <QStandardItemModel>
 
+extern "C" {
+#include "libflashrom.h"
+}
+
 namespace Ui {
 class Supported;
 }
@@ -26,6 +30,7 @@ private slots:
 private:
     Ui::Supported *ui;
     QStandardItemModel *model;
+    QString test_state_to_qstring(fl_test_state test_state);
 };
 
 #endif // SUPPORTED_H
