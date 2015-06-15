@@ -11,6 +11,11 @@
 
 extern "C" {
 #include "libflashrom.h"
+#include "stdint.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include "bios_extract/bios_extract.h"
 }
 
 fl_log_callback_t *my_log_callback;
@@ -62,6 +67,11 @@ void MainWindow::on_b_sel_bios_out_clicked()
     open_select_bios_out_window();
 }
 
+void MainWindow::on_b_extract_clicked()
+{
+    extract_bios();
+}
+
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
 {
     fl_programmer_init(programmer.toStdString().c_str(), "");
@@ -94,18 +104,20 @@ void MainWindow::fill_cb_arch()
 
 void MainWindow::open_select_rom_window()
 {
-    QString rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
     QString rom_name;
-    rom_name = rom_path.section('/', -1);
+
+    flash_rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
+    rom_name = flash_rom_path.section('/', -1);
     ui->b_sel_payload->setVisible(false);
     ui->l_payload_name->setText(rom_name);
 }
 
 void MainWindow::open_select_bios_rom_window()
 {
-    QString rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
     QString rom_name;
-    rom_name = rom_path.section('/', -1);
+
+    bios_rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
+    rom_name = bios_rom_path.section('/', -1);
     ui->b_sel_bios_rom->setVisible(false);
     ui->l_ex_rom_name->setText(rom_name);
 }
@@ -139,3 +151,61 @@ void MainWindow::on_act_about_triggered()
     about_window.exec();
 }
 
+int MainWindow::extract_bios()
+{
+    int FileLength = 0;
+    uint32_t BIOSOffset = 0;
+    unsigned char *BIOSImage = NULL;
+    int fd;
+    uint32_t Offset1, Offset2;
+    int i, len;
+    unsigned char *tmp;
+
+    fd = open(bios_rom_path.toStdString().c_str(), O_RDONLY);
+    if (fd < 0) {
+        ui->log_extract->append("Error: Failed to open file");
+        return 1;
+    }
+
+    FileLength = lseek(fd, 0, SEEK_END);
+
+    if (FileLength < 0)
+        ui->log_extract->append("Error: Can't read file");
+
+    BIOSOffset = (0x100000 - FileLength) & 0xFFFFF;
+    BIOSImage = (unsigned char*)mmap(NULL, FileLength, PROT_READ, MAP_PRIVATE, fd, 0);
+
+    if (BIOSImage < 0)
+        ui->log_extract->append("Error: Failed to mmap");
+
+    ui->log_extract->append("Using file");
+
+    qDebug() << "bios_identification[i].String1: " << bios_identification[i].String1;
+
+    for (i = 0; bios_identification[i].Handler; i++) {
+        len = strlen(bios_identification[i].String1);
+        tmp =
+            (unsigned char*)memmem(BIOSImage, FileLength - len,
+               bios_identification[i].String1, len);
+        if (!tmp)
+            continue;
+        Offset1 = tmp - BIOSImage;
+
+        len = strlen(bios_identification[i].String2);
+        tmp =
+            (unsigned char*)memmem(BIOSImage, FileLength - len,
+               bios_identification[i].String2, len);
+        if (!tmp)
+            continue;
+        Offset2 = tmp - BIOSImage;
+
+        if (bios_identification[i].Handler
+            (BIOSImage, FileLength, BIOSOffset, Offset1, Offset2))
+            return 0;
+        else
+            return 1;
+    }
+
+    ui->log_extract->append("Error: Unable to detect BIOS Image type");
+    return 1;
+}
