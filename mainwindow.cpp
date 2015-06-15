@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "supported.h"
+#include "about.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -51,6 +52,16 @@ void MainWindow::on_b_read_clicked()
 {
 }
 
+void MainWindow::on_b_sel_bios_rom_clicked()
+{
+    open_select_bios_rom_window();
+}
+
+void MainWindow::on_b_sel_bios_out_clicked()
+{
+    open_select_bios_out_window();
+}
+
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
 {
     fl_programmer_init(programmer.toStdString().c_str(), "");
@@ -90,6 +101,24 @@ void MainWindow::open_select_rom_window()
     ui->l_payload_name->setText(rom_name);
 }
 
+void MainWindow::open_select_bios_rom_window()
+{
+    QString rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
+    QString rom_name;
+    rom_name = rom_path.section('/', -1);
+    ui->b_sel_bios_rom->setVisible(false);
+    ui->l_ex_rom_name->setText(rom_name);
+}
+
+void MainWindow::open_select_bios_out_window()
+{
+    QString rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
+    QString rom_name;
+    rom_name = rom_path.section('/', -1);
+    ui->b_sel_bios_out->setVisible(false);
+    ui->l_ex_out_name->setText(rom_name);
+}
+
 
 void MainWindow::on_act_sel_payload_triggered()
 {
@@ -102,3 +131,11 @@ void MainWindow::on_act_supported_list_triggered()
     supported_window.setModal(true);
     supported_window.exec();
 }
+
+void MainWindow::on_act_about_triggered()
+{
+    About about_window;
+    about_window.setModal(true);
+    about_window.exec();
+}
+
