@@ -16,12 +16,21 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     utests.cpp \
     supported.cpp \
-    about.cpp
+    about.cpp \
+    bios_extract/ami.c \
+    bios_extract/award.c \
+    bios_extract/bios_extract.c \
+    bios_extract/compat.c \
+    bios_extract/phoenix.c \
+    bios_extract/lh5_extract.c
 
 HEADERS  += mainwindow.h \
     utests.h \
     supported.h \
-    about.h
+    about.h \
+    bios_extract/bios_extract.h \
+    bios_extract/compat.h \
+    bios_extract/lh5_extract.h
 
 FORMS    += mainwindow.ui \
     supported.ui \

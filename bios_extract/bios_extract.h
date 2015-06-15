@@ -47,15 +47,8 @@ Bool PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 
 /* award.c */
 Bool AwardExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
-          uint32_t Offset1, uint32_t Offset2);
+		  uint32_t Offset1, uint32_t Offset2);
 
-struct BIOSIdentification{
-    char *String1;
-    char *String2;
-     Bool(*Handler) (unsigned char *Image, int ImageLength, int ImageOffset,
-             uint32_t Offset1, uint32_t Offset2);
-} ;
-
-struct BIOSIdentification bios_identification[10];
+int extract(const char *bios_rom_path);
 
 #endif				/* BIOS_EXTRACT_H */
