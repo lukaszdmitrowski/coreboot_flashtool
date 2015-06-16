@@ -64,24 +64,23 @@ int slabextract(const unsigned char *buffer, int bufferlen)
 	headersize = le16toh(h->headersize);
 	count = le16toh(h->entries);
 	if ((headersize < ((count * 8) + 4)) || (bufferlen < headersize)) {
-		fprintf(stderr,
-			"Invalid file header - probably not a SLAB file\n");
+        libbiosext_log("Invalid file header - probably not a SLAB file\n");
 		return 1;
 	}
-	printf("%d entries\n", count);
+    libbiosext_log("%d entries\n", count);
 
 	/* FIXME: Is the 37 really constant? */
 	if (((8 * count) + 37) < headersize) {
 		listpointer = buffer + 8 * count + 37;
-		printf("Name            Tp ");
+        libbiosext_log("Name            Tp ");
 	} else {
 		listpointer = NULL;	/* No names present */
-		printf("Name    ");
+        libbiosext_log("Name    ");
 	}
 
 	datapointer = buffer + le32toh(h->headersize);
 
-	printf("LoadAddr     size initialized\n");
+    libbiosext_log("LoadAddr     size initialized\n");
 
 	for (i = 0; i < count; i++) {
 		const struct slabentry *block;
@@ -97,11 +96,11 @@ int slabextract(const unsigned char *buffer, int bufferlen)
 					   le16toh(entry->dtor_offset));
 			sprintf(filename, "%.20s.bin", entry->name);
 			listpointer += strlen(entry->name) + 4;
-			printf("%-15s %02x ", entry->name, entry->segtype);
+            libbiosext_log("%-15s %02x ", entry->name, entry->segtype);
 		} else {
 			block = (const void *)(buffer + 4 + 8 * i);
 			sprintf(filename, "block%02d.bin", i);
-			printf("block%02d ", i);
+            libbiosext_log("block%02d ", i);
 		}
 
 		len = le32toh(block->length_flag);
@@ -111,15 +110,14 @@ int slabextract(const unsigned char *buffer, int bufferlen)
 			has_data = 0;
 		len &= 0x7fffffff;
 
-		printf("%08x %8d\t %s\n", le32toh(block->destaddr), len,
+        libbiosext_log("%08x %8d\t %s\n", le32toh(block->destaddr), len,
 		       has_data ? "yes" : "no");
 
 		if (has_data) {
 			int outfd;
 
 			if (datapointer + len > buffer + bufferlen) {
-				fprintf(stderr,
-					"Not enough data. File truncated?\n");
+                libbiosext_log("Not enough data. File truncated?\n");
 				return 1;
 			}
 			outfd =
@@ -128,23 +126,21 @@ int slabextract(const unsigned char *buffer, int bufferlen)
 			if (outfd != -1) {
 				int ret = write(outfd, datapointer, len);
 				if (ret == -1)
-					fprintf(stderr, "Can't write %s: %s\n",
+                    libbiosext_log("Can't write %s: %s\n",
 						filename, strerror(errno));
 				else if (ret < len)
-					fprintf(stderr,
-						"Can't write %s completely: Disk full?\n",
+                    libbiosext_log("Can't write %s completely: Disk full?\n",
 						filename);
 				close(outfd);
 			} else
-				fprintf(stderr,
-					"Can't create output file %s: %s\n",
+                libbiosext_log("Can't create output file %s: %s\n",
 					filename, strerror(errno));
 			datapointer += len;
 		}
 	}
 
 	if (datapointer != buffer + bufferlen)
-		fprintf(stderr, "Warning: Unexpected %d trailing bytes",
+        libbiosext_log("Warning: Unexpected %d trailing bytes",
 			(int)(buffer + bufferlen - datapointer));
 
 	return 0;
@@ -157,36 +153,35 @@ int main(int argc, char *argv[])
 	int InputBufferSize;
 
 	if (argc != 2) {
-		printf("usage: %s <input file>\n", argv[0]);
+        libbiosext_log("usage: %s <input file>\n", argv[0]);
 		return 1;
 	}
 
 	infd = open(argv[1], O_RDONLY);
 	if (infd < 0) {
-		fprintf(stderr, "Error: Failed to open %s: %s\n", argv[1],
+        libbiosext_log("Error: Failed to open %s: %s\n", argv[1],
 			strerror(errno));
 		return 1;
 	}
 
 	InputBufferSize = lseek(infd, 0, SEEK_END);
 	if (InputBufferSize < 0) {
-		fprintf(stderr, "Error: Failed to lseek \"%s\": %s\n", argv[1],
-			strerror(errno));
+        libbiosext_log("Error: Failed to lseek \"%s\": %s\n", argv[1],
+            strerror(errno));
 		return 1;
 	}
 
 	InputBuffer =
 	    mmap(NULL, InputBufferSize, PROT_READ, MAP_PRIVATE, infd, 0);
 	if (InputBuffer < 0) {
-		fprintf(stderr, "Error: Failed to mmap %s: %s\n", argv[1],
+        libbiosext_log("Error: Failed to mmap %s: %s\n", argv[1],
 			strerror(errno));
 		return 1;
 	}
 
 	/* fixed header size - everything else is checked dynamically in slabextract */
 	if (InputBufferSize < 4) {
-		fprintf(stderr,
-			"Error: \"%s\" is too small to be a SLAB file.\n",
+        libbiosext_log("Error: \"%s\" is too small to be a SLAB file.\n",
 			argv[1]);
 		return 1;
 	}

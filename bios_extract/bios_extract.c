@@ -41,21 +41,21 @@ unsigned char *MMapOutputFile(char *filename, int size)
 
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
-		fprintf(stderr, "Error: unable to open %s: %s\n\n", filename,
+        libbiosext_log("Error: unable to open %s: %s\n\n", filename,
 			strerror(errno));
 		return NULL;
 	}
 
 	/* grow file */
 	if (lseek(fd, size - 1, SEEK_SET) == -1) {
-		fprintf(stderr, "Error: Failed to grow \"%s\": %s\n", filename,
+        libbiosext_log("Error: Failed to grow \"%s\": %s\n", filename,
 			strerror(errno));
 		close(fd);
 		return NULL;
 	}
 
 	if (write(fd, "", 1) != 1) {
-		fprintf(stderr, "Error: Failed to write to \"%s\": %s\n",
+        libbiosext_log("Error: Failed to write to \"%s\": %s\n",
 			filename, strerror(errno));
 		close(fd);
 		return NULL;
@@ -63,7 +63,7 @@ unsigned char *MMapOutputFile(char *filename, int size)
 
 	Buffer = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 	if (Buffer == ((void *)-1)) {
-		fprintf(stderr, "Error: Failed to mmap %s: %s\n", filename,
+        libbiosext_log("Error: Failed to mmap %s: %s\n", filename,
 			strerror(errno));
 		close(fd);
 		return NULL;

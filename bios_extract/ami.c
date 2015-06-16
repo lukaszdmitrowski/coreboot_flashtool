@@ -167,7 +167,7 @@ AMI95Extract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 	memcpy(Date, BIOSImage + BIOSLength - 11, 8);
 	Date[8] = 0;
 
-	printf("AMI95 Version\t: %.4s (%s)\n", abc->Version, Date);
+    libbiosext_log("AMI95 Version\t: %.4s (%s)\n", abc->Version, Date);
 
 	/* First, the boot rom */
 	uint32_t BootOffset;
@@ -246,9 +246,9 @@ AMI95Extract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
         libbiosext_log(" -> %-20s", filename);
 
 		if (Compressed)
-			printf(" (%6d bytes)", BufferSize);
+            libbiosext_log(" (%6d bytes)", BufferSize);
 		else
-			printf("               ");
+            libbiosext_log("               ");
 
 		ModuleName = AMI95ModuleNameGet(part->PartID);
 		if (ModuleName)

@@ -40,7 +40,7 @@ AwardExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 	char *filename;
 	unsigned short crc;
 
-	printf("Found Award BIOS.\n");
+    libbiosext_log("Found Award BIOS.\n");
 
 	p = BIOSImage;
 	while (p) {
@@ -54,7 +54,7 @@ AwardExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 		if (!HeaderSize)
 			return FALSE;
 
-		printf("0x%05X (%6d bytes)    ->    %s  \t(%6d bytes)\n",
+        libbiosext_log("0x%05X (%6d bytes)    ->    %s  \t(%6d bytes)\n",
 		       (unsigned int)(p - BIOSImage), HeaderSize + PackedSize,
 		       filename, BufferSize);
 

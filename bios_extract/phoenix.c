@@ -257,7 +257,7 @@ phx_write_file(unsigned char *BIOSImage, char *filename, short filetype,
 	}
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
-		fprintf(stderr, "Error: unable to open %s: %s\n\n", filename,
+        libbiosext_log("Error: unable to open %s: %s\n\n", filename,
 			strerror(errno));
 		return;
 	}
@@ -293,14 +293,14 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 
 	if (Module->Signature[0] || (Module->Signature[1] != 0x31)
 	    || (Module->Signature[2] != 0x31)) {
-		fprintf(stderr, "Error: Invalid module signature at 0x%05X\n",
+        libbiosext_log("Error: Invalid module signature at 0x%05X\n",
 			Offset);
 		return 0;
 	}
 
 	if ((Offset + Module->HeadLen + 4 + le32toh(Module->FragLength)) >
 	    BIOSLength) {
-		fprintf(stderr, "Error: Module overruns buffer at 0x%05X\n",
+        libbiosext_log("Error: Module overruns buffer at 0x%05X\n",
 			Offset);
 		return le32toh(Module->Previous);
 	}
@@ -318,8 +318,7 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 		uint32_t FragLength = le32toh(Module->FragLength);
 
 		if (FragLength > le32toh(Module->ExpLen)) {
-			fprintf(stderr,
-				"Error: First fragment exceeds total size at %05X\n",
+            libbiosext_log("Error: First fragment exceeds total size at %05X\n",
 				Offset);
 			return le32toh(Module->Previous);
 		}
@@ -327,8 +326,7 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 		/* This over-allocates, but the total compressed size is not available here */
 		ModuleData = malloc(le32toh(Module->ExpLen));
 		if (!ModuleData) {
-			fprintf(stderr,
-				"Error: Can't reassemble fragments, no memory for %d bytes\n",
+            libbiosext_log("Error: Can't reassemble fragments, no memory for %d bytes\n",
 				le32toh(Module->ExpLen));
 			return le32toh(Module->Previous);
 		}
@@ -339,16 +337,15 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 		Packed = FragLength;
 		FragOffset = le32toh(Module->NextFrag) & (BIOSLength - 1);
 
-		printf("extra fragments: ");
+        libbiosext_log("extra fragments: ");
 		while (FragOffset) {
 			Fragment =
 			    (struct PhoenixFragment *)(BIOSImage + FragOffset);
 			FragLength = le32toh(Fragment->FragLength);
-			printf("(%05X, %d bytes) ", FragOffset, FragLength);
+            libbiosext_log("(%05X, %d bytes) ", FragOffset, FragLength);
 
 			if (Packed + FragLength > le32toh(Module->ExpLen)) {
-				fprintf(stderr,
-					"\nFragment too big at %05X for %05X\n",
+                libbiosext_log("\nFragment too big at %05X for %05X\n",
 					FragOffset, Offset);
 				free(ModuleData);
 				return le32toh(Module->Previous);
@@ -359,7 +356,7 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 			FragOffset =
 			    le32toh(Fragment->NextFrag) & (BIOSLength - 1);
 		}
-		printf("\n");
+        libbiosext_log("\n");
 
 	} else {
 		ModuleData = BIOSImage + Offset + Module->HeadLen;
@@ -377,7 +374,7 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
-		fprintf(stderr, "Error: unable to open %s: %s\n\n", filename,
+        libbiosext_log("Error: unable to open %s: %s\n\n", filename,
 			strerror(errno));
 		free(filename);
 		if ((le32toh(Module->NextFrag) & 0xF0000000) == 0xF0000000)
@@ -387,7 +384,7 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 
 	switch (Module->Compression) {
 	case 5:		/* LH5 */
-		printf("0x%05X (%6d bytes)   ->   %s\t(%d bytes)",
+        libbiosext_log("0x%05X (%6d bytes)   ->   %s\t(%d bytes)",
 		       Offset + Module->HeadLen + 4, Packed, filename,
 		       le32toh(Module->ExpLen));
 		Buffer = MMapOutputFile(filename, le32toh(Module->ExpLen));
@@ -403,15 +400,15 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 
 		/* case 3 *//* LZSS */
 	case 0:		/* not compressed at all */
-		printf("0x%05X (%6d bytes)   ->   %s", Offset + Module->HeadLen,
+        libbiosext_log("0x%05X (%6d bytes)   ->   %s", Offset + Module->HeadLen,
 		       Packed, filename);
 		write(fd, ModuleData, Packed);
 		break;
 
 	default:
-		fprintf(stderr, "Unsupported compression type for %s: %d\n",
+        libbiosext_log("Unsupported compression type for %s: %d\n",
 			filename, Module->Compression);
-		printf("0x%05X (%6d bytes)   ->   %s\t(%d bytes)",
+        libbiosext_log("0x%05X (%6d bytes)   ->   %s\t(%d bytes)",
 		       Offset + Module->HeadLen, Packed, filename,
 		       le32toh(Module->ExpLen));
 		write(fd, ModuleData, Packed);
@@ -426,11 +423,11 @@ static int PhoenixModule(unsigned char *BIOSImage, int BIOSLength, int Offset)
 
 	if (le16toh(Module->Offset) || le16toh(Module->Segment)) {
 		if (!Module->Compression)
-			printf("\t\t");
-		printf("\t [0x%04X:0x%04X]\n", le16toh(Module->Segment) << 12,
+            libbiosext_log("\t\t");
+        libbiosext_log("\t [0x%04X:0x%04X]\n", le16toh(Module->Segment) << 12,
 		       le16toh(Module->Offset));
 	} else
-		printf("\n");
+        libbiosext_log("\n");
 
 	return le32toh(Module->Previous);
 }
@@ -455,7 +452,7 @@ PhoenixExtractFFV(unsigned char *BIOSImage, int BIOSLength, int Offset)
 
 	Length = ((le16toh(Module->LengthHi) << 16) | Module->LengthLo) - 1;
 	if ((Offset + Length) >= BIOSLength) {
-		fprintf(stderr, "Error: Module overruns buffer at 0x%05X\n",
+        libbiosext_log("Error: Module overruns buffer at 0x%05X\n",
 			Offset);
 		return 1;
 	}
@@ -488,7 +485,7 @@ PhoenixExtractFFV(unsigned char *BIOSImage, int BIOSLength, int Offset)
 		}
 	}
 
-	printf("\t%-15s (%08X-%08X) %08X %02X %02X %s [%s]\n",
+    libbiosext_log("\t%-15s (%08X-%08X) %08X %02X %02X %s [%s]\n",
 	       Name, Offset, Offset + Length, Length, Module->Flags,
 	       Module->FileType, filename, get_file_type(Module->FileType));
 
@@ -536,8 +533,7 @@ PhoenixExtractFFV(unsigned char *BIOSImage, int BIOSLength, int Offset)
 
 			RealData = MMapOutputFile(filename, RealLen);
 			if (!RealData) {
-				fprintf(stderr,
-					"Failed to mmap file for uncompressed data.\n");
+                libbiosext_log("Failed to mmap file for uncompressed data.\n");
 				break;
 			}
 			if ((phx.compression == COMP_LZHUF)
@@ -547,20 +543,19 @@ PhoenixExtractFFV(unsigned char *BIOSImage, int BIOSLength, int Offset)
 				     sizeof(struct PhoenixFFVCompressionHeader),
 				     PackedLen, RealData, RealLen) == -1) {
 					munmap(RealData, RealLen);
-					fprintf(stderr,
-						"Failed to uncompress section with LHA5.\n");
+                    libbiosext_log("Failed to uncompress section with LHA5.\n");
 					/* dump original section in this case */
 					phx_write_file(BIOSImage, filename,
 						       Module->FileType, Offset,
 						       Length);
 				} else
-					printf("COMPRESSED\n");
+                    libbiosext_log("COMPRESSED\n");
 			} else
-				printf("Unsupported compression!\n");
+                libbiosext_log("Unsupported compression!\n");
 			munmap(RealData, RealLen);
 			break;
 		}
-		printf("\t\tSECTION: %s\n",
+        libbiosext_log("\t\tSECTION: %s\n",
 		       get_section_type(SectionHeader->Type));
 		phx_write_file(BIOSImage, filename, Module->FileType, Offset,
 			       Length);
@@ -596,25 +591,24 @@ PhoenixVolume1(unsigned char *BIOSImage, int BIOSLength, int Offset, int ModLen)
 	Modules = (struct PhoenixVolumeDirEntry *)(BIOSImage + Offset + 0x18);
 	NumModules = (ModLen - 0x18) / sizeof(struct PhoenixVolumeDirEntry);
 
-	printf("FFV modules: %u\n", NumModules);
+    libbiosext_log("FFV modules: %u\n", NumModules);
 
 	for (ModNum = 0; ModNum < NumModules; ModNum++) {
 		Type = Modules[ModNum].Type;
 		Base = Modules[ModNum].Base & (BIOSLength - 1);
 		Length = Modules[ModNum].Length - 1;
-		printf("[%2u]: (%08X-%08X) %02x\n", ModNum, Base, Base + Length,
+        libbiosext_log("[%2u]: (%08X-%08X) %02x\n", ModNum, Base, Base + Length,
 		       Type);
 
 		switch (Type) {
 		case 0x01:
-			printf("\tHole (raw code)\n");
+            libbiosext_log("\tHole (raw code)\n");
 			snprintf(Name, sizeof(Name), "hole_%02x.bin",
 				 HoleNum++);
 			fd = open(Name, O_RDWR | O_CREAT | O_TRUNC,
 				  S_IRUSR | S_IWUSR);
 			if (fd < 0) {
-				fprintf(stderr,
-					"Error: unable to open %s: %s\n\n",
+                libbiosext_log("Error: unable to open %s: %s\n\n",
 					Name, strerror(errno));
 				continue;
 			}
@@ -674,7 +668,7 @@ void PhoenixVolume2(unsigned char *BIOSImage, int BIOSLength, int Offset)
 	NumModules =
 	    (Volume->Length - 8) / sizeof(struct PhoenixVolumeDirEntry2);
 
-	printf("FFV modules: %u\n", NumModules);
+    libbiosext_log("FFV modules: %u\n", NumModules);
 
 	for (ModNum = 0; ModNum < NumModules; ModNum++) {
 		sprintf(guid, "%08X-%04X-%04X-%04X-%04X%08X",
@@ -687,7 +681,7 @@ void PhoenixVolume2(unsigned char *BIOSImage, int BIOSLength, int Offset)
 		    );
 		Base = Volume->Modules[ModNum].Base & (BIOSLength - 1);
 		Length = Volume->Modules[ModNum].Length - 1;
-		printf("[%2u]: (%08X-%08X) %s\n", ModNum, Base, Base + Length,
+        libbiosext_log("[%2u]: (%08X-%08X) %s\n", ModNum, Base, Base + Length,
 		       guid);
 
 		if (!strcmp(guid, GUID_FFVMODULE)) {
@@ -700,12 +694,11 @@ void PhoenixVolume2(unsigned char *BIOSImage, int BIOSLength, int Offset)
 			}
 		} else if (!strcmp(guid, GUID_ESCD)) {
 			/* Extended System Configuration Data (and similar?) */
-			printf("\tESCD\n");
+            libbiosext_log("\tESCD\n");
 			fd = open("ESCD.bin", O_RDWR | O_CREAT | O_TRUNC,
 				  S_IRUSR | S_IWUSR);
 			if (fd < 0) {
-				fprintf(stderr,
-					"Error: unable to open ESCD.bin: %s\n\n",
+                libbiosext_log("Error: unable to open ESCD.bin: %s\n\n",
 					strerror(errno));
 				continue;
 			}
@@ -713,21 +706,20 @@ void PhoenixVolume2(unsigned char *BIOSImage, int BIOSLength, int Offset)
 			close(fd);
 		} else if (!strcmp(guid, GUID_RAWCODE)) {
 			/* Raw BIOS code */
-			printf("\tHole (raw code)\n");
+            libbiosext_log("\tHole (raw code)\n");
 			snprintf(Name, sizeof(Name), "hole_%02x.bin",
 				 HoleNum++);
 			fd = open(Name, O_RDWR | O_CREAT | O_TRUNC,
 				  S_IRUSR | S_IWUSR);
 			if (fd < 0) {
-				fprintf(stderr,
-					"Error: unable to open %s: %s\n\n",
+                libbiosext_log("Error: unable to open %s: %s\n\n",
 					Name, strerror(errno));
 				continue;
 			}
 			write(fd, BIOSImage + Base, Length);
 			close(fd);
 		} else {
-			fprintf(stderr, "\tUnknown FFV module GUID: %s\n",
+            libbiosext_log("\tUnknown FFV module GUID: %s\n",
 				guid);
 		}
 	}
@@ -742,7 +734,7 @@ void PhoenixFFVDirectory(unsigned char *BIOSImage, int BIOSLength, int Offset)
 	Module = (struct PhoenixFFVModule *)(BIOSImage + Offset);
 
 	if (Module->Signature != 0xF8) {
-		fprintf(stderr, "Error: Invalid module signature at 0x%05X\n",
+        libbiosext_log("Error: Invalid module signature at 0x%05X\n",
 			Offset);
 		return;
 	}
@@ -750,7 +742,7 @@ void PhoenixFFVDirectory(unsigned char *BIOSImage, int BIOSLength, int Offset)
 	Length = (le16toh(Module->LengthHi) << 16) | Module->LengthLo;
 
 	if ((Offset + Length) > BIOSLength) {
-		fprintf(stderr, "Error: Module overruns buffer at 0x%05X\n",
+        libbiosext_log("Error: Module overruns buffer at 0x%05X\n",
 			Offset);
 		return;
 	}
@@ -764,8 +756,7 @@ void PhoenixFFVDirectory(unsigned char *BIOSImage, int BIOSLength, int Offset)
 	} else if (!strcmp(Name, "volumedir.bin2")) {
 		PhoenixVolume2(BIOSImage, BIOSLength, Offset);
 	} else {
-		fprintf(stderr,
-			"FFV points to something other than the volumedir: %s\n",
+        libbiosext_log("FFV points to something other than the volumedir: %s\n",
 			Name);
 	}
 }
@@ -778,7 +769,7 @@ Bool PhoenixFFV(unsigned char *BIOSImage, int BIOSLength, struct PhoenixID *FFV)
 	    le32toh(*((uint32_t *) (((char *)FFV) + 0xA))) & (BIOSLength - 1);
 
 	if (!Offset) {
-		fprintf(stderr, "BCPFFV module offset is NULL.\n");
+        libbiosext_log("BCPFFV module offset is NULL.\n");
 		return FALSE;
 	}
 
@@ -797,7 +788,7 @@ PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 	struct PhoenixID *ID, *SYS = NULL, *FFV = NULL;
 	uint32_t Offset;
 
-	printf("Found Phoenix BIOS \"%s\"\n", (char *)(BIOSImage + Offset1));
+    libbiosext_log("Found Phoenix BIOS \"%s\"\n", (char *)(BIOSImage + Offset1));
 
 	/* TODO: Print more information about image */
 	/* TODO: Group modules by firmware volumes */
@@ -818,7 +809,7 @@ PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 	     (struct PhoenixID *)(((unsigned char *)ID) +
 				  le16toh(ID->Length))) {
 #if 0
-		printf
+        libbiosext_log
 		    ("PhoenixID: Name %c%c%c%c%c%c, Flags 0x%04X, Length %d\n",
 		     ID->Name[0], ID->Name[1], ID->Name[2], ID->Name[3],
 		     ID->Name[4], ID->Name[5], le16toh(ID->Flags),
@@ -836,7 +827,7 @@ PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 	}
 
 	if (!SYS) {
-		fprintf(stderr, "Error: Failed to locate BCPSYS offset.\n");
+        libbiosext_log("Error: Failed to locate BCPSYS offset.\n");
 		return FALSE;
 	}
 
@@ -844,7 +835,7 @@ PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 
 	unsigned char *bcpcmp = memmem(BIOSImage, BIOSLength - 6, "BCPCMP", 6);
 	if (!bcpcmp) {
-		fprintf(stderr, "Error: Failed to locate BCPCMP offset.\n");
+        libbiosext_log("Error: Failed to locate BCPCMP offset.\n");
 		return FALSE;
 	}
 
@@ -863,12 +854,12 @@ PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 	strncpy(Version, ((char *)SYS) + 0x37, 8);
 	Version[8] = 0;
 
-	printf("Version \"%s\", created on %s at %s.\n", Version, Date, Time);
+    libbiosext_log("Version \"%s\", created on %s at %s.\n", Version, Date, Time);
 
 	Offset = le32toh(*((uint32_t *) (((char *)SYS) + 0x77)));
 	Offset &= (BIOSLength - 1);
 	if (!Offset) {
-		fprintf(stderr, "BCPSYS module offset is NULL.\n");
+        libbiosext_log("BCPSYS module offset is NULL.\n");
 		if (!FFV) {
 			return FALSE;
 		}
