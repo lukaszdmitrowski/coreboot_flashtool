@@ -49,3 +49,6 @@ win32 {
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    Makefile
