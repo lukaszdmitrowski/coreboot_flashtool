@@ -53,6 +53,8 @@ Bool PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 Bool AwardExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 		  uint32_t Offset1, uint32_t Offset2);
 
+int libbiosext_log(const char *const format, ...);
+
 int start_bios_extract(const char *bios_rom_path);
 
 #endif				/* BIOS_EXTRACT_H */

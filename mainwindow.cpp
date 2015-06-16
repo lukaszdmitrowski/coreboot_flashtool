@@ -11,25 +11,33 @@
 
 extern "C" {
 #include "libflashrom.h"
-int bios_extract_log(const char* text);
 #include "bios_extract/bios_extract.h"
 }
 
 fl_log_callback_t *my_log_callback;
 
-
-int my_log(fl_log_level_t log_level, const char *format, va_list vl)
+int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
 {
         QString text;
-        text.sprintf(format, va_arg(vl, char*));
+        text.vsprintf(format, vl);
+        //text.sprintf(format, va_arg(vl, char*));
         qDebug() << text;
         //w->ui->log_flash->append(text);
         return 1;
 }
 
-int bios_extract_log(const char* format)
+int libbiosext_log(const char *const format, ...)
 {
+        int ret = 0;
+        QString text;
+        va_list args;
+
+        va_start(args, format);
+        text.vsprintf(format, args);
         w->ui->log_extract->append(text);
+        va_end(args);
+
+        return ret;
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -37,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
         ui->setupUi(this);
-        my_log_callback = &my_log;
+        my_log_callback = &libflashrom_log;
         fl_init(0);
         fill_cb_arch();
         fill_cb_programmers();

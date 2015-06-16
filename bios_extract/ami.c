@@ -154,11 +154,9 @@ AMI95Extract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 	if (!ABCOffset) {
 		if ((BIOSImage[8] == '1') && (BIOSImage[9] == '0') &&
 		    (BIOSImage[11] == '1') && (BIOSImage[12] == '0'))
-			fprintf(stderr,
-				"Error: This is an AMI '94 (1010) BIOS Image.\n");
+            libbiosext_log("Error: This is an AMI '94 (1010) BIOS Image.\n");
 		else
-			fprintf(stderr,
-				"Error: This is an AMI '94 BIOS Image.\n");
+            libbiosext_log("Error: This is an AMI '94 BIOS Image.\n");
 		return FALSE;
 	}
 
@@ -177,12 +175,12 @@ AMI95Extract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 
 	BootOffset = AMIBOffset & 0xFFFF0000;
 
-	printf("0x%05X (%6d bytes) -> amiboot.rom\n", BootOffset,
+    libbiosext_log("0x%05X (%6d bytes) -> amiboot.rom\n", BootOffset,
 	       BIOSLength - BootOffset);
 
 	fd = open("amiboot.rom", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
-		fprintf(stderr, "Error: unable to open %s: %s\n\n",
+        libbiosext_log("Error: unable to open %s: %s\n\n",
 			"amiboot.rom", strerror(errno));
 		return FALSE;
 	}
@@ -239,13 +237,13 @@ AMI95Extract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 		}
 
 		if (Compressed)
-			printf("0x%05X (%6d bytes)", Offset - BIOSOffset + 0x14,
+            libbiosext_log("0x%05X (%6d bytes)", Offset - BIOSOffset + 0x14,
 			       ROMSize);
 		else
-			printf("0x%05X (%6d bytes)", Offset - BIOSOffset + 0x0C,
+            libbiosext_log("0x%05X (%6d bytes)", Offset - BIOSOffset + 0x0C,
 			       ROMSize);
 
-		printf(" -> %-20s", filename);
+        libbiosext_log(" -> %-20s", filename);
 
 		if (Compressed)
 			printf(" (%6d bytes)", BufferSize);
@@ -254,9 +252,9 @@ AMI95Extract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 
 		ModuleName = AMI95ModuleNameGet(part->PartID);
 		if (ModuleName)
-			printf("  \"%s\"\n", ModuleName);
+            libbiosext_log("  \"%s\"\n", ModuleName);
 		else
-			printf("\n");
+            libbiosext_log("\n");
 
 		Buffer = MMapOutputFile(filename, BufferSize);
 		if (!Buffer)

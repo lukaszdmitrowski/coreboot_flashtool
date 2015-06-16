@@ -28,15 +28,6 @@
 #include "compat.h"
 #include "bios_extract.h"
 
-static void HelpPrint(char *name)
-{
-    bios_extract_log("\n");
-    bios_extract_log("Program to extract compressed modules from BIOS images.\n");
-    bios_extract_log("Supports AMI, Award, Asus and Phoenix BIOSes.\n");
-    bios_extract_log("\n");
-    bios_extract_log("Usage:\n\t%s <filename>\n", name);
-}
-
 unsigned char *MMapOutputFile(char *filename, int size)
 {
 	unsigned char *Buffer;
@@ -121,14 +112,14 @@ int start_bios_extract(const char *bios_rom_path)
 
     fd = open(bios_rom_path, O_RDONLY);
 	if (fd < 0) {
-        fprintf(stderr, "Error: Failed to open %s: %s\n", bios_rom_path,
+        libbiosext_log("Error: Failed to open %s: %s\n", bios_rom_path,
 			strerror(errno));
 		return 1;
 	}
 
 	FileLength = lseek(fd, 0, SEEK_END);
 	if (FileLength < 0) {
-        fprintf(stderr, "Error: Failed to lseek \"%s\": %s\n", bios_rom_path,
+        libbiosext_log("Error: Failed to lseek \"%s\": %s\n", bios_rom_path,
 			strerror(errno));
 		return 1;
 	}
@@ -137,12 +128,12 @@ int start_bios_extract(const char *bios_rom_path)
 
 	BIOSImage = mmap(NULL, FileLength, PROT_READ, MAP_PRIVATE, fd, 0);
 	if (BIOSImage < 0) {
-        fprintf(stderr, "Error: Failed to mmap %s: %s\n", bios_rom_path,
+        libbiosext_log("Error: Failed to mmap %s: %s\n", bios_rom_path,
 			strerror(errno));
 		return 1;
 	}
 
-    printf("Using file \"%s\" (%ukB)\n", bios_rom_path, FileLength >> 10);
+    libbiosext_log("Using file \"%s\" (%ukB)\n", bios_rom_path, FileLength >> 10);
 
 	for (i = 0; BIOSIdentification[i].Handler; i++) {
 		len = strlen(BIOSIdentification[i].String1);
@@ -168,6 +159,6 @@ int start_bios_extract(const char *bios_rom_path)
 			return 1;
 	}
 
-	fprintf(stderr, "Error: Unable to detect BIOS Image type.\n");
+    libbiosext_log("Error: Unable to detect BIOS Image type.\n");
 	return 1;
 }
