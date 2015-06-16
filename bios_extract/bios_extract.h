@@ -34,6 +34,10 @@
 #endif
 #endif
 
+#if !defined(uint32_t)
+#include <inttypes.h>
+#endif
+
 /* bios_extract.c */
 unsigned char *MMapOutputFile(char *filename, int size);
 
@@ -49,6 +53,6 @@ Bool PhoenixExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 Bool AwardExtract(unsigned char *BIOSImage, int BIOSLength, int BIOSOffset,
 		  uint32_t Offset1, uint32_t Offset2);
 
-int extract(const char *bios_rom_path);
+int start_bios_extract(const char *bios_rom_path);
 
 #endif				/* BIOS_EXTRACT_H */

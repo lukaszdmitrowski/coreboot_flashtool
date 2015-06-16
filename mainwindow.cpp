@@ -11,10 +11,7 @@
 
 extern "C" {
 #include "libflashrom.h"
-#include "stdint.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/mman.h>
+int bios_extract_log(const char* text);
 #include "bios_extract/bios_extract.h"
 }
 
@@ -28,6 +25,11 @@ int my_log(fl_log_level_t log_level, const char *format, va_list vl)
         qDebug() << text;
         //w->ui->log_flash->append(text);
         return 1;
+}
+
+int bios_extract_log(const char* format)
+{
+        w->ui->log_extract->append(text);
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -145,7 +147,6 @@ void MainWindow::on_act_supported_list_triggered()
 
 void MainWindow::on_act_about_triggered()
 {
-
         About about_window;
         about_window.setModal(true);
         about_window.exec();
@@ -153,5 +154,7 @@ void MainWindow::on_act_about_triggered()
 
 int MainWindow::extract_bios()
 {
-       extract(bios_rom_path.toStdString().c_str());
+        qDebug() << bios_rom_path.toStdString().c_str();
+        start_bios_extract(bios_rom_path.toStdString().c_str());
+        return 1;
 }

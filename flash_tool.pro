@@ -16,21 +16,12 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     utests.cpp \
     supported.cpp \
-    about.cpp \
-    bios_extract/ami.c \
-    bios_extract/award.c \
-    bios_extract/bios_extract.c \
-    bios_extract/compat.c \
-    bios_extract/phoenix.c \
-    bios_extract/lh5_extract.c
+    about.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
     supported.h \
-    about.h \
-    bios_extract/bios_extract.h \
-    bios_extract/compat.h \
-    bios_extract/lh5_extract.h
+    about.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
@@ -38,10 +29,13 @@ FORMS    += mainwindow.ui \
 
 INCLUDEPATH += libflashrom/headers
 
-LIBS     += -L/home/lukasz/coreboot_flashtool/libflashrom\
+LIBS    += -L/home/lukasz/coreboot_flashtool/libflashrom\
         -lflashrom\
         -lftdi \
-        -lusb
+        -lusb \
+
+LIBS    += -L/home/lukasz/coreboot_flashtool/bios_extract\
+        -lbiosext\
 
 win32 {
 

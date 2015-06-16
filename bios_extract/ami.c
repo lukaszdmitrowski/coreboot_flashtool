@@ -19,7 +19,6 @@
  * the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-extern "C"{
 #include <stdio.h>
 #include <inttypes.h>
 #include <errno.h>
@@ -31,7 +30,6 @@ extern "C"{
 #include "bios_extract.h"
 #include "compat.h"
 #include "lh5_extract.h"
-}
 
 struct AMI95ModuleName {
 	uint8_t Id;

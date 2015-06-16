@@ -30,11 +30,11 @@
 
 static void HelpPrint(char *name)
 {
-	printf("\n");
-	printf("Program to extract compressed modules from BIOS images.\n");
-	printf("Supports AMI, Award, Asus and Phoenix BIOSes.\n");
-	printf("\n");
-	printf("Usage:\n\t%s <filename>\n", name);
+    bios_extract_log("\n");
+    bios_extract_log("Program to extract compressed modules from BIOS images.\n");
+    bios_extract_log("Supports AMI, Award, Asus and Phoenix BIOSes.\n");
+    bios_extract_log("\n");
+    bios_extract_log("Usage:\n\t%s <filename>\n", name);
 }
 
 unsigned char *MMapOutputFile(char *filename, int size)
@@ -85,21 +85,26 @@ unsigned char *MMapOutputFile(char *filename, int size)
 
 /* TODO: Make bios identification more flexible */
 
-  bios_identification[] = {
-    {
-    "AMIBOOT ROM", "AMIBIOSC", AMI95Extract}, {
-    "$ASUSAMI$", "AMIBIOSC", AMI95Extract}, {
-    "AMIEBBLK", "AMIBIOSC", AMI95Extract}, {
-    "Award BootBlock", "= Award Decompression Bios =", AwardExtract}, {
-    "Phoenix FirstBIOS", "BCPSEGMENT", PhoenixExtract}, {
-    "PhoenixBIOS 4.0", "BCPSEGMENT", PhoenixExtract}, {
-    "PhoenixBIOS Version", "BCPSEGMENT", PhoenixExtract}, {
-    "Phoenix ServerBIOS 3", "BCPSEGMENT", PhoenixExtract}, {
-    "Phoenix TrustedCore", "BCPSEGMENT", PhoenixExtract}, {
-    "Phoenix SecureCore", "BCPSEGMENT", PhoenixExtract}, {
+static struct {
+	char *String1;
+	char *String2;
+	 Bool(*Handler) (unsigned char *Image, int ImageLength, int ImageOffset,
+			 uint32_t Offset1, uint32_t Offset2);
+} BIOSIdentification[] = {
+	{
+	"AMIBOOT ROM", "AMIBIOSC", AMI95Extract}, {
+	"$ASUSAMI$", "AMIBIOSC", AMI95Extract}, {
+	"AMIEBBLK", "AMIBIOSC", AMI95Extract}, {
+	"Award BootBlock", "= Award Decompression Bios =", AwardExtract}, {
+	"Phoenix FirstBIOS", "BCPSEGMENT", PhoenixExtract}, {
+	"PhoenixBIOS 4.0", "BCPSEGMENT", PhoenixExtract}, {
+	"PhoenixBIOS Version", "BCPSEGMENT", PhoenixExtract}, {
+	"Phoenix ServerBIOS 3", "BCPSEGMENT", PhoenixExtract}, {
+	"Phoenix TrustedCore", "BCPSEGMENT", PhoenixExtract}, {
+	"Phoenix SecureCore", "BCPSEGMENT", PhoenixExtract}, {
 NULL, NULL, NULL},};
 
-int main(int argc, char *argv[])
+int start_bios_extract(const char *bios_rom_path)
 {
 	int FileLength = 0;
 	uint32_t BIOSOffset = 0;
@@ -109,21 +114,21 @@ int main(int argc, char *argv[])
 	int i, len;
 	unsigned char *tmp;
 
-	if ((argc != 2) || !strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")) {
+    /*if ((argc != 2) || !strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")) {
 		HelpPrint(argv[0]);
 		return 1;
-	}
+    }*/
 
-	fd = open(argv[1], O_RDONLY);
+    fd = open(bios_rom_path, O_RDONLY);
 	if (fd < 0) {
-		fprintf(stderr, "Error: Failed to open %s: %s\n", argv[1],
+        fprintf(stderr, "Error: Failed to open %s: %s\n", bios_rom_path,
 			strerror(errno));
 		return 1;
 	}
 
 	FileLength = lseek(fd, 0, SEEK_END);
 	if (FileLength < 0) {
-		fprintf(stderr, "Error: Failed to lseek \"%s\": %s\n", argv[1],
+        fprintf(stderr, "Error: Failed to lseek \"%s\": %s\n", bios_rom_path,
 			strerror(errno));
 		return 1;
 	}
@@ -132,12 +137,12 @@ int main(int argc, char *argv[])
 
 	BIOSImage = mmap(NULL, FileLength, PROT_READ, MAP_PRIVATE, fd, 0);
 	if (BIOSImage < 0) {
-		fprintf(stderr, "Error: Failed to mmap %s: %s\n", argv[1],
+        fprintf(stderr, "Error: Failed to mmap %s: %s\n", bios_rom_path,
 			strerror(errno));
 		return 1;
 	}
 
-	printf("Using file \"%s\" (%ukB)\n", argv[1], FileLength >> 10);
+    printf("Using file \"%s\" (%ukB)\n", bios_rom_path, FileLength >> 10);
 
 	for (i = 0; BIOSIdentification[i].Handler; i++) {
 		len = strlen(BIOSIdentification[i].String1);
