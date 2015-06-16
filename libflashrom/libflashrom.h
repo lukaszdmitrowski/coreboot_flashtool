@@ -78,7 +78,7 @@ typedef struct {
 } fl_chipset_info_t;
 
 int fl_version(fl_flashrom_info_t *flashrom_info);
-int fl_supported_programmers(const char **supported_programmers);
+int fl_supported_programmers(const char **programmers);
 int fl_supported_flash_chips(fl_flashchip_info_t *fchips);
 int fl_supported_boards(fl_board_info_t *boards);
 int fl_supported_chipsets(fl_chipset_info_t *chipsets);

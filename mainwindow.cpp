@@ -11,7 +11,7 @@
 
 extern "C" {
 #include "libflashrom.h"
-#include "bios_extract/bios_extract.h"
+#include "bios_extract.h"
 }
 
 fl_log_callback_t *my_log_callback;
@@ -90,6 +90,7 @@ void MainWindow::on_b_extract_clicked()
 
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
 {
+        fl_shutdown();
         fl_programmer_init(programmer.toStdString().c_str(), "");
 }
 
@@ -139,11 +140,15 @@ void MainWindow::open_select_bios_rom_window()
 
 void MainWindow::open_select_bios_out_window()
 {
-        QString rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
-        QString rom_name;
-        rom_name = rom_path.section('/', -1);
+        QString rom_dir = QFileDialog::getExistingDirectory(this,
+                                                            tr("Select output dir"),
+                                                            ".",
+                                                            QFileDialog::ShowDirsOnly
+                                                            | QFileDialog::DontResolveSymlinks);
+        rom_dir.append("/");
         ui->b_sel_bios_out->setVisible(false);
-        ui->l_ex_out_name->setText(rom_name);
+        ui->l_ex_out_name->setText(rom_dir);
+        set_output_directory(rom_dir.toStdString().c_str());
 }
 
 
