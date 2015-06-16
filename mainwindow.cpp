@@ -19,10 +19,10 @@ fl_log_callback_t *my_log_callback;
 int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
 {
         QString text;
+
         text.vsprintf(format, vl);
-        //text.sprintf(format, va_arg(vl, char*));
-        qDebug() << text;
-        //w->ui->log_flash->append(text);
+        w->ui->log_flash->append(text);
+
         return 1;
 }
 
@@ -34,7 +34,7 @@ int libbiosext_log(const char *const format, ...)
 
         va_start(args, format);
         text.vsprintf(format, args);
-        w->ui->log_extract->append(text);
+        w->ui->log_extract->insertPlainText(text);
         va_end(args);
 
         return ret;
@@ -45,6 +45,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
         ui->setupUi(this);
+
+        ui->log_flash->setReadOnly(true);
+        ui->log_rom_opt->setReadOnly(true);
+        ui->log_extract->setReadOnly(true);
+        ui->log_create_rom->setReadOnly(true);
+
         my_log_callback = &libflashrom_log;
         fl_init(0);
         fill_cb_arch();
@@ -162,7 +168,5 @@ void MainWindow::on_act_about_triggered()
 
 int MainWindow::extract_bios()
 {
-        qDebug() << bios_rom_path.toStdString().c_str();
-        start_bios_extract(bios_rom_path.toStdString().c_str());
-        return 1;
+        return start_bios_extract(bios_rom_path.toStdString().c_str());
 }

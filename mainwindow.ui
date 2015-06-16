@@ -62,7 +62,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_flash">
      <attribute name="icon">
@@ -145,8 +145,12 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>Sans</family>
+        <pointsize>11</pointsize>
        </font>
+      </property>
+      <property name="cursorWidth">
+       <number>0</number>
       </property>
      </widget>
      <widget class="QPushButton" name="b_verify">
@@ -213,8 +217,8 @@
      <widget class="QPushButton" name="b_create_rom_3">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>150</y>
+        <x>370</x>
+        <y>20</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -233,8 +237,8 @@
      <widget class="QPushButton" name="b_create_rom_4">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>190</y>
+        <x>490</x>
+        <y>20</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -252,16 +256,24 @@
        <rect>
         <x>10</x>
         <y>90</y>
-        <width>481</width>
+        <width>631</width>
         <height>161</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Sans</family>
+       </font>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Cantarell';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="cursorWidth">
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="label">
@@ -280,8 +292,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>120</y>
+        <x>250</x>
+        <y>30</y>
         <width>111</width>
         <height>17</height>
        </rect>
@@ -354,8 +366,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="b_extract">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>160</y>
+        <x>530</x>
+        <y>40</y>
         <width>99</width>
         <height>31</height>
        </rect>
@@ -369,16 +381,37 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>10</x>
         <y>90</y>
-        <width>481</width>
+        <width>631</width>
         <height>161</height>
        </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777213</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Sans</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="cursor" stdset="0">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::PreventContextMenu</enum>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Cantarell';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="cursorWidth">
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="l_ex_out_name">
@@ -533,12 +566,21 @@ p, li { white-space: pre-wrap; }
         <height>161</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Sans</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="cursorWidth">
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
