@@ -1,0 +1,9 @@
+ami.c
+award.c
+bios_extract.c
+bios_extract.h
+compat.c
+compat.h
+lh5_extract.c
+lh5_extract.h
+phoenix.c
