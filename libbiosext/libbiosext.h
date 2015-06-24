@@ -16,8 +16,8 @@
  * the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef BIOS_EXTRACT_H
-#define BIOS_EXTRACT_H
+#ifndef LIBIOSEXT_H
+#define LIBIOSEXT_H
 
 #define Bool int
 //#define FALSE 0
@@ -59,4 +59,4 @@ void set_output_directory(const char *dir_path);
 
 int start_bios_extract(const char *bios_rom_path);
 
-#endif				/* BIOS_EXTRACT_H */
+#endif				/* LIBIOSEXT_H */

@@ -26,7 +26,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "compat.h"
-#include "bios_extract.h"
+#include "libbiosext.h"
 
 char output_dir[1024];
 

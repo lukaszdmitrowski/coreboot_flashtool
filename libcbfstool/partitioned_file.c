@@ -117,7 +117,8 @@ partitioned_file_t *partitioned_file_create(const char *filename,
 	assert(flashmap->data);
 
 	if (fmap_find((const uint8_t *)flashmap->data, flashmap->size) != 0) {
-		ERROR("Attempted to create a partitioned image out of something that isn't an FMAP\n");
+                //ERROR("Attempted to create a partitioned image out of something that isn't an FMAP\n");
+                libcbfstool_log("Test");
 		return NULL;
 	}
 	struct fmap *bootstrap_fmap = (struct fmap *)flashmap->data;

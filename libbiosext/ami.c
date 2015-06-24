@@ -27,7 +27,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "bios_extract.h"
+#include "libbiosext.h"
 #include "compat.h"
 #include "lh5_extract.h"
 

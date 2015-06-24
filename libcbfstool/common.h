@@ -26,6 +26,8 @@
 #include <string.h>
 #include <assert.h>
 
+#include "libcbfstool.h"
+
 /* Endianess */
 #include "swab.h"
 #ifndef __APPLE__
@@ -38,11 +40,11 @@ int is_big_endian(void);
 
 /* Message output */
 extern int verbose;
-#define ERROR(...) { fprintf(stderr, "E: " __VA_ARGS__); }
-#define WARN(...) { fprintf(stderr, "W: " __VA_ARGS__); }
-#define LOG(...) { fprintf(stderr, __VA_ARGS__); }
-#define INFO(...) { if (verbose > 0) fprintf(stderr, "INFO: " __VA_ARGS__); }
-#define DEBUG(...) { if (verbose > 1) fprintf(stderr, "DEBUG: " __VA_ARGS__); }
+#define ERROR(...) { libcbfstool_log(__VA_ARGS__); }
+#define WARN(...) { libcbfstool_log(__VA_ARGS__); }
+#define LOG(...) { libcbfstool_log(__VA_ARGS__); }
+#define INFO(...) { if (verbose > 0) libcbfstool_log(__VA_ARGS__); }
+#define DEBUG(...) { if (verbose > 1) libcbfstool_log(__VA_ARGS__); }
 
 /* Helpers */
 #define ARRAY_SIZE(a) (int)(sizeof(a) / sizeof((a)[0]))

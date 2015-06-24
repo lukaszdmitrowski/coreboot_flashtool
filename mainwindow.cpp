@@ -41,6 +41,20 @@ int libbiosext_log(const char *const format, ...)
         return ret;
 }
 
+int libcbfstool_log(const char *const format, ...)
+{
+        int ret = 0;
+        QString text;
+        va_list args;
+
+        va_start(args, format);
+        text.vsprintf(format, args);
+        w->ui->log_create_rom->insertPlainText(text);
+        va_end(args);
+
+        return ret;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -102,7 +116,7 @@ void MainWindow::on_b_extract_clicked()
 void MainWindow::on_b_create_rom_clicked()
 {
         char **cbfs_params;
-        /* PROGNAME + NAME + COMMAND + ARCH + SIZE */
+        /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
         int param_count = 7;
 
         QString params[10];
@@ -113,18 +127,18 @@ void MainWindow::on_b_create_rom_clicked()
         params[4] =  ui->cb_sel_arch->currentText();
         params[5] = "-s";
         params[6] = ui->edit_size->text() + 'K';
-        params[7] = ui->edit_bootblock_off->text();
-        params[8] = ui->edit_cbfs_off->text();
 
         if (params[1].isEmpty())
                 params[1] = "coreboot.rom";
-        if (!params[7].isEmpty()) {
-                ++param_count;
-                params[5] = "-b " + params[5];
+        if (!ui->edit_bootblock_off->text().isEmpty()) {
+                param_count += 2;
+                params[7] = "-b ";
+                params[8] = ui->edit_bootblock_off->text().isEmpty();
         }
-        if (!params[8].isEmpty()) {
-                ++param_count;
-                params[6] = "-o " + params[6];
+        if (!ui->edit_cbfs_off->text().isEmpty()) {
+                param_count += 2;
+                params[9] = "-o ";
+                params[10] = ui->edit_cbfs_name->text();
         }
 
         cbfs_params = new char*[param_count];
@@ -135,9 +149,9 @@ void MainWindow::on_b_create_rom_clicked()
 
         start_cbfs(param_count, cbfs_params);
 
-        qDebug() << "param_count: " << param_count;
+        //qDebug() << "param_count: " << param_count;
         for (int i = 0; i < param_count; ++i) {
-                qDebug() << "cbfs_param: " << cbfs_params[i];
+                //qDebug() << "cbfs_param: " << cbfs_params[i];
                 delete [] cbfs_params[i];
         }
         delete [] cbfs_params;
