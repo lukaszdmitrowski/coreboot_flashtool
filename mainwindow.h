@@ -32,6 +32,10 @@ private slots:
 
     void on_b_extract_clicked();
 
+    void on_b_create_rom_clicked();
+
+    void on_b_sel_boot_block_clicked();
+
 private:
     void fill_cb_programmers();
     void fill_cb_arch();
@@ -41,6 +45,7 @@ private:
     int extract_bios();
     QString flash_rom_path;
     QString bios_rom_path;
+    QString bootblock_path;
 };
 
 extern MainWindow *w;

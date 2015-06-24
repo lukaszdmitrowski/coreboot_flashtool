@@ -28,15 +28,20 @@ FORMS    += mainwindow.ui \
     about.ui
 
 INCLUDEPATH += libflashrom \
-                libbiosext
+                libbiosext \
+                libcbfstool
 
 LIBS    += -L/home/lukasz/coreboot_flashtool/libflashrom\
-        -lflashrom\
-        -lftdi \
-        -lusb \
+        -lflashrom
 
 LIBS    += -L/home/lukasz/coreboot_flashtool/libbiosext\
-        -lbiosext\
+        -lbiosext
+
+LIBS    += -L/home/lukasz/coreboot_flashtool/libcbfstool\
+        -lcbfstool
+
+LIBS    += -lftdi \
+        -lusb
 
 win32 {
 

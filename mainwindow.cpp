@@ -12,6 +12,7 @@
 extern "C" {
 #include "libflashrom.h"
 #include "bios_extract.h"
+#include "libcbfstool.h"
 }
 
 fl_log_callback_t *my_log_callback;
@@ -83,9 +84,59 @@ void MainWindow::on_b_sel_bios_out_clicked()
         open_select_bios_out_window();
 }
 
+void MainWindow::on_b_sel_boot_block_clicked()
+{
+        QString bootblock_name;
+
+        bootblock_path = QFileDialog::getOpenFileName(this, tr("Select bootblock"), ".", "All files (*.*)");
+        bootblock_name = bootblock_path.section('/', -1);
+        ui->b_sel_bios_rom->setVisible(false);
+        ui->l_bootblack_name->setText(bootblock_name);
+}
+
 void MainWindow::on_b_extract_clicked()
 {
         extract_bios();
+}
+
+void MainWindow::on_b_create_rom_clicked()
+{
+        uint32_t arch = 0;
+        uint32_t alignment = 64;
+        uint32_t baseaddress = 0;
+
+        QString selected_arch = ui->cb_sel_arch->currentText();
+        qDebug() << "selected_arch: " << selected_arch << "currentIndex: " << ui->cb_sel_arch->currentIndex();
+
+        if (selected_arch.compare("x86") == 0) {
+                qDebug() << "x86";
+                arch = CBFS_ARCHITECTURE_X86;
+        } else if (selected_arch.compare("mips") == 0) {
+                qDebug() << "mips";
+                arch = CBFS_ARCHITECTURE_MIPS;
+        } else if (selected_arch.compare("arm") == 0) {
+                qDebug() << "arm";
+                arch = CBFS_ARCHITECTURE_ARM;
+        } else if (selected_arch.compare("arm64") == 0) {
+                qDebug() << "arm64";
+                arch = CBFS_ARCHITECTURE_AARCH64;
+        } else {
+                qDebug() << "unknown";
+                arch = CBFS_ARCHITECTURE_UNKNOWN;
+        }
+
+        struct buffer bootblock;
+        libcbfs_buffer_from_file(&bootblock, bootblock_path.toStdString().c_str());
+
+        baseaddress = ui->edit_bootblock_off->text().toUInt();
+
+        /*int cbfs_legacy_image_create(struct cbfs_image *image,
+                                      uint32_t arch,
+                                      uint32_t align,
+                                      struct buffer *bootblock,
+                                      uint32_t bootblock_offset,
+                                      uint32_t header_offset,
+                                      uint32_t entries_offset);*/
 }
 
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
