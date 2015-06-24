@@ -453,7 +453,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>90</y>
+        <y>60</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -501,7 +501,7 @@ p, li { white-space: pre-wrap; }
        <string>Bootblock:</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="edit_bootblock_off">
       <property name="geometry">
        <rect>
         <x>500</x>
@@ -511,7 +511,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="edit_cbfs_off">
       <property name="geometry">
        <rect>
         <x>500</x>
@@ -538,7 +538,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>90</y>
+        <y>60</y>
         <width>131</width>
         <height>27</height>
        </rect>
@@ -607,6 +607,52 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>30</y>
+        <width>68</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Name: </string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_cbfs_name">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>30</y>
+        <width>171</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="l_size">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>90</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Size:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_size">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>90</y>
+        <width>131</width>
+        <height>27</height>
+       </rect>
       </property>
      </widget>
     </widget>

@@ -11,7 +11,7 @@
 
 extern "C" {
 #include "libflashrom.h"
-#include "bios_extract.h"
+#include "libbiosext.h"
 #include "libcbfstool.h"
 }
 
@@ -101,42 +101,46 @@ void MainWindow::on_b_extract_clicked()
 
 void MainWindow::on_b_create_rom_clicked()
 {
-        uint32_t arch = 0;
-        uint32_t alignment = 64;
-        uint32_t baseaddress = 0;
+        char **cbfs_params;
+        /* PROGNAME + NAME + COMMAND + ARCH + SIZE */
+        int param_count = 7;
 
-        QString selected_arch = ui->cb_sel_arch->currentText();
-        qDebug() << "selected_arch: " << selected_arch << "currentIndex: " << ui->cb_sel_arch->currentIndex();
+        QString params[10];
+        params[0] = "coreboot_flash_tool";
+        params[1] = ui->edit_cbfs_name->text();
+        params[2] = "create";
+        params[3] = "-m";
+        params[4] =  ui->cb_sel_arch->currentText();
+        params[5] = "-s";
+        params[6] = ui->edit_size->text() + 'K';
+        params[7] = ui->edit_bootblock_off->text();
+        params[8] = ui->edit_cbfs_off->text();
 
-        if (selected_arch.compare("x86") == 0) {
-                qDebug() << "x86";
-                arch = CBFS_ARCHITECTURE_X86;
-        } else if (selected_arch.compare("mips") == 0) {
-                qDebug() << "mips";
-                arch = CBFS_ARCHITECTURE_MIPS;
-        } else if (selected_arch.compare("arm") == 0) {
-                qDebug() << "arm";
-                arch = CBFS_ARCHITECTURE_ARM;
-        } else if (selected_arch.compare("arm64") == 0) {
-                qDebug() << "arm64";
-                arch = CBFS_ARCHITECTURE_AARCH64;
-        } else {
-                qDebug() << "unknown";
-                arch = CBFS_ARCHITECTURE_UNKNOWN;
+        if (params[1].isEmpty())
+                params[1] = "coreboot.rom";
+        if (!params[7].isEmpty()) {
+                ++param_count;
+                params[5] = "-b " + params[5];
+        }
+        if (!params[8].isEmpty()) {
+                ++param_count;
+                params[6] = "-o " + params[6];
         }
 
-        struct buffer bootblock;
-        libcbfs_buffer_from_file(&bootblock, bootblock_path.toStdString().c_str());
+        cbfs_params = new char*[param_count];
+        for (int i = 0; i < param_count; ++i) {
+                cbfs_params[i] = new char[params[i].length() + 1];
+                strcpy(cbfs_params[i], params[i].toStdString().c_str());
+        }
 
-        baseaddress = ui->edit_bootblock_off->text().toUInt();
+        start_cbfs(param_count, cbfs_params);
 
-        /*int cbfs_legacy_image_create(struct cbfs_image *image,
-                                      uint32_t arch,
-                                      uint32_t align,
-                                      struct buffer *bootblock,
-                                      uint32_t bootblock_offset,
-                                      uint32_t header_offset,
-                                      uint32_t entries_offset);*/
+        qDebug() << "param_count: " << param_count;
+        for (int i = 0; i < param_count; ++i) {
+                qDebug() << "cbfs_param: " << cbfs_params[i];
+                delete [] cbfs_params[i];
+        }
+        delete [] cbfs_params;
 }
 
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
