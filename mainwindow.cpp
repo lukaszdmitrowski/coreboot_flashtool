@@ -107,7 +107,7 @@ void MainWindow::on_b_sel_boot_block_clicked()
 
         bootblock_path = QFileDialog::getOpenFileName(this, tr("Select bootblock"), ".", "All files (*.*)");
         bootblock_name = bootblock_path.section('/', -1);
-        ui->b_sel_bios_rom->setVisible(false);
+        ui->b_sel_boot_block->setVisible(false);
         ui->l_bootblack_name->setText(bootblock_name);
 }
 
@@ -122,7 +122,7 @@ void MainWindow::on_b_create_rom_clicked()
         /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
         int param_count = 7;
 
-        QString params[10];
+        QString params[11];
         params[0] = "flash_tool";
         params[1] = ui->edit_cbfs_name->text();
         params[2] = "create";
@@ -134,14 +134,14 @@ void MainWindow::on_b_create_rom_clicked()
         if (params[1].isEmpty())
                 params[1] = "coreboot.rom";
         if (!ui->edit_bootblock_off->text().isEmpty()) {
+                params[param_count] = "-b ";
+                params[param_count + 1] = ui->edit_bootblock_off->text().isEmpty();
                 param_count += 2;
-                params[7] = "-b ";
-                params[8] = ui->edit_bootblock_off->text().isEmpty();
         }
         if (!ui->edit_cbfs_off->text().isEmpty()) {
+                params[param_count] = "-o ";
+                params[param_count + 1] = ui->edit_cbfs_name->text();
                 param_count += 2;
-                params[9] = "-o ";
-                params[10] = ui->edit_cbfs_name->text();
         }
 
         cbfs_params = new char*[param_count];
@@ -268,29 +268,18 @@ void MainWindow::print_rom()
         params[1] = flash_rom_path;
         params[2] = "print";
 
-        //qDebug() << "Before alloc";
         cbfs_params = new char*[param_count];
         for (int i = 0; i < param_count; ++i) {
                 cbfs_params[i] = new char[params[i].length()];
                 strcpy(cbfs_params[i], params[i].toStdString().c_str());
         }
 
-        //qDebug() << "Before cbfs";
-
-        //qDebug() << "param_count: " << param_count;
-        for (int i = 0; i < param_count; ++i) {
-                //qDebug() << "cbfs_param: " << cbfs_params[i];
-        }
-
         start_cbfs(param_count, cbfs_params);
 
-        //qDebug() << "Before delete";
         for (int i = 0; i < param_count; ++i) {
                 delete [] cbfs_params[i];
         }
-        //qDebug() << "Before pointer delete";
         delete [] cbfs_params;
-        //qDebug() << "After";
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)

@@ -39,20 +39,20 @@ void AddPayload::on_b_add_payload_clicked()
         /* PROGNAME(1) + NAME(1) + COMMAND(1) */
         int param_count = 3;
 
-        QString params[6];
+        QString params[7];
         params[0] = "flash_tool";
         params[1] = w->get_flash_rom_path();
         params[2] = "add-payload";
 
         if (!payload_path.isEmpty()) {
+                params[param_count] = "-f ";
+                params[param_count + 1] = payload_path;
                 param_count += 2;
-                params[3] = "-f ";
-                params[4] = payload_path;
         }
         if (!ui->edit_name->text().isEmpty()) {
+                params[param_count] = "-n ";
+                params[param_count + 1] = ui->edit_name->text();
                 param_count += 2;
-                params[5] = "-n ";
-                params[6] = ui->edit_name->text();
         }
 
         cbfs_params = new char*[param_count];
@@ -61,11 +61,14 @@ void AddPayload::on_b_add_payload_clicked()
                 strcpy(cbfs_params[i], params[i].toStdString().c_str());
         }
 
-        start_cbfs(param_count, cbfs_params);
-
         qDebug() << "param_count: " << param_count;
         for (int i = 0; i < param_count; ++i) {
                 qDebug() << "cbfs_param: " << cbfs_params[i];
+        }
+
+        start_cbfs(param_count, cbfs_params);
+
+        for (int i = 0; i < param_count; ++i) {
                 delete [] cbfs_params[i];
         }
         delete [] cbfs_params;
