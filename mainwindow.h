@@ -21,6 +21,7 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
     QTextEdit *cbfs_log_out;
+    QString get_flash_rom_path();
 
 private slots:
     void on_b_sel_payload_clicked();
@@ -35,6 +36,10 @@ private slots:
     void on_b_extract_clicked();
     void on_b_create_rom_clicked();
     void on_b_sel_boot_block_clicked();
+
+    void on_b_add_payload_clicked();
+
+    void on_tabWidget_currentChanged(int index);
 
 private:
     void fill_cb_programmers();

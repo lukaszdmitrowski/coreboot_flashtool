@@ -941,6 +941,8 @@ int start_cbfs(int param_count, char **params)
         char *cmd = params[2];
 	optind += 2;
 
+    LOG("1");
+
 	for (i = 0; i < ARRAY_SIZE(commands); i++) {
 		if (strcmp(cmd, commands[i].name) != 0)
 			continue;
@@ -1078,6 +1080,8 @@ int start_cbfs(int param_count, char **params)
 				break;
 			}
 		}
+
+        LOG("2");
 
 		if (commands[i].function == cbfs_create) {
 			if (param.fmap) {

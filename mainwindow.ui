@@ -214,12 +214,12 @@
      <attribute name="title">
       <string>ROM options</string>
      </attribute>
-     <widget class="QPushButton" name="b_add_comp">
+     <widget class="QPushButton" name="b_add_payload">
       <property name="geometry">
        <rect>
-        <x>390</x>
+        <x>270</x>
         <y>30</y>
-        <width>111</width>
+        <width>121</width>
         <height>31</height>
        </rect>
       </property>
@@ -227,7 +227,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>Add </string>
+       <string> Add payload</string>
       </property>
       <property name="icon">
        <iconset resource="resources.qrc">
@@ -288,19 +288,6 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>ROM info:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_opt_components">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>40</y>
-        <width>111</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Components:</string>
       </property>
      </widget>
      <widget class="QLabel" name="l_opt_rom">

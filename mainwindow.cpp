@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "supported.h"
 #include "about.h"
+#include "addpayload.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -66,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->log_extract->setReadOnly(true);
         ui->log_create_rom->setReadOnly(true);
 
+        ui->tabWidget->setCurrentIndex(0);
+
         my_log_callback = &libflashrom_log;
         fl_init(0);
         fill_cb_arch();
@@ -119,8 +122,6 @@ void MainWindow::on_b_create_rom_clicked()
         /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
         int param_count = 7;
 
-        cbfs_log_out = ui->log_create_rom;
-
         QString params[10];
         params[0] = "flash_tool";
         params[1] = ui->edit_cbfs_name->text();
@@ -145,7 +146,7 @@ void MainWindow::on_b_create_rom_clicked()
 
         cbfs_params = new char*[param_count];
         for (int i = 0; i < param_count; ++i) {
-                cbfs_params[i] = new char[params[i].length() + 1];
+                cbfs_params[i] = new char[params[i].length()];
                 strcpy(cbfs_params[i], params[i].toStdString().c_str());
         }
 
@@ -157,6 +158,13 @@ void MainWindow::on_b_create_rom_clicked()
                 delete [] cbfs_params[i];
         }
         delete [] cbfs_params;
+}
+
+void MainWindow::on_b_add_payload_clicked()
+{
+        AddPayload addpayload_window;
+        addpayload_window.setModal(true);
+        addpayload_window.exec();
 }
 
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
@@ -255,27 +263,46 @@ void MainWindow::print_rom()
         /* PROGNAME(1) + NAME(1) + COMMAND(1) */
         int param_count = 3;
 
-        cbfs_log_out = ui->log_rom_opt;
-
         QString params[3];
         params[0] = "./flash_tool";
         params[1] = flash_rom_path;
         params[2] = "print";
 
-        qDebug() << "flash_rom_path: " << flash_rom_path;
-
+        //qDebug() << "Before alloc";
         cbfs_params = new char*[param_count];
         for (int i = 0; i < param_count; ++i) {
-                cbfs_params[i] = new char[params[i].length() + 1];
+                cbfs_params[i] = new char[params[i].length()];
                 strcpy(cbfs_params[i], params[i].toStdString().c_str());
         }
 
-        start_cbfs(param_count, cbfs_params);
+        //qDebug() << "Before cbfs";
 
         //qDebug() << "param_count: " << param_count;
         for (int i = 0; i < param_count; ++i) {
                 //qDebug() << "cbfs_param: " << cbfs_params[i];
+        }
+
+        start_cbfs(param_count, cbfs_params);
+
+        //qDebug() << "Before delete";
+        for (int i = 0; i < param_count; ++i) {
                 delete [] cbfs_params[i];
         }
+        //qDebug() << "Before pointer delete";
         delete [] cbfs_params;
+        //qDebug() << "After";
+}
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    if (index == 3) {
+            cbfs_log_out = ui->log_create_rom;
+    } else {
+            cbfs_log_out = ui->log_rom_opt;
+    }
+}
+
+QString MainWindow::get_flash_rom_path()
+{
+        return flash_rom_path;
 }

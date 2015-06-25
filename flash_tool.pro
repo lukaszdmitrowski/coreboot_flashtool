@@ -16,16 +16,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     utests.cpp \
     supported.cpp \
-    about.cpp
+    about.cpp \
+    addpayload.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
     supported.h \
-    about.h
+    about.h \
+    addpayload.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
-    about.ui
+    about.ui \
+    addpayload.ui
 
 INCLUDEPATH += libflashrom \
                 libbiosext \
