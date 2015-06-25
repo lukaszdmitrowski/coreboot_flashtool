@@ -49,7 +49,7 @@ int libcbfstool_log(const char *const format, ...)
 
         va_start(args, format);
         text.vsprintf(format, args);
-        w->ui->log_create_rom->insertPlainText(text);
+        w->cbfs_log_out->insertPlainText(text);
         va_end(args);
 
         return ret;
@@ -119,8 +119,10 @@ void MainWindow::on_b_create_rom_clicked()
         /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
         int param_count = 7;
 
+        cbfs_log_out = ui->log_create_rom;
+
         QString params[10];
-        params[0] = "coreboot_flash_tool";
+        params[0] = "flash_tool";
         params[1] = ui->edit_cbfs_name->text();
         params[2] = "create";
         params[3] = "-m";
@@ -195,6 +197,8 @@ void MainWindow::open_select_rom_window()
         rom_name = flash_rom_path.section('/', -1);
         ui->b_sel_payload->setVisible(false);
         ui->l_payload_name->setText(rom_name);
+        ui->l_opt_sel_name->setText(rom_name);
+        print_rom();
 }
 
 void MainWindow::open_select_bios_rom_window()
@@ -227,7 +231,7 @@ void MainWindow::on_act_sel_payload_triggered()
 }
 
 void MainWindow::on_act_supported_list_triggered()
-{             
+{
         Supported supported_window;
         supported_window.setModal(true);
         supported_window.exec();
@@ -243,4 +247,35 @@ void MainWindow::on_act_about_triggered()
 int MainWindow::extract_bios()
 {
         return start_bios_extract(bios_rom_path.toStdString().c_str());
+}
+
+void MainWindow::print_rom()
+{
+        char **cbfs_params;
+        /* PROGNAME(1) + NAME(1) + COMMAND(1) */
+        int param_count = 3;
+
+        cbfs_log_out = ui->log_rom_opt;
+
+        QString params[3];
+        params[0] = "./flash_tool";
+        params[1] = flash_rom_path;
+        params[2] = "print";
+
+        qDebug() << "flash_rom_path: " << flash_rom_path;
+
+        cbfs_params = new char*[param_count];
+        for (int i = 0; i < param_count; ++i) {
+                cbfs_params[i] = new char[params[i].length() + 1];
+                strcpy(cbfs_params[i], params[i].toStdString().c_str());
+        }
+
+        start_cbfs(param_count, cbfs_params);
+
+        //qDebug() << "param_count: " << param_count;
+        for (int i = 0; i < param_count; ++i) {
+                //qDebug() << "cbfs_param: " << cbfs_params[i];
+                delete [] cbfs_params[i];
+        }
+        delete [] cbfs_params;
 }

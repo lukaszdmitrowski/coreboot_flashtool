@@ -512,7 +512,7 @@ static int cbfs_layout(void)
 		if (!param.show_immutable && readonly)
 			continue;
 
-		printf("'%s'", current->name);
+        printf("'%s'", current->name);
 
 		// Detect consecutive sections that describe the same region and
 		// show them as aliases. This cannot find equivalent entries

@@ -708,7 +708,7 @@ int cbfs_print_header_info(struct cbfs_image *image)
 {
 	char *name = strdup(image->buffer.name);
 	assert(image);
-	printf("%s: %zd kB, bootblocksize %d, romsize %d, offset 0x%x\n"
+    LOG("%s: %zd kB, bootblocksize %d, romsize %d, offset 0x%x\n"
 	       "alignment: %d bytes, architecture: %s\n\n",
 	       basename(name),
 	       image->buffer.size / 1024,
@@ -799,7 +799,7 @@ int cbfs_print_entry_info(struct cbfs_image *image, struct cbfs_file *entry,
 	if (!fp)
 		fp = stdout;
 
-	fprintf(fp, "%-30s 0x%-8x %-12s %d\n",
+    LOG("%-30s 0x%-8x %-12s %d\n",
 		*name ? name : "(empty)",
 		cbfs_get_entry_addr(image, entry),
 		get_cbfs_entry_type_name(ntohl(entry->type)),
@@ -844,7 +844,7 @@ int cbfs_print_directory(struct cbfs_image *image)
 {
 	if (cbfs_is_legacy_cbfs(image))
 		cbfs_print_header_info(image);
-	printf("%-30s %-10s %-12s Size\n", "Name", "Offset", "Type");
+    LOG("%-30s %-10s %-12s Size\n", "Name", "Offset", "Type");
 	cbfs_walk(image, cbfs_print_entry_info, NULL);
 	return 0;
 }

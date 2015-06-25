@@ -1,5 +1,13 @@
 #!/bin/bash
-gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror -Wall -Wextra -Wcast-qual -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings -c -o libcbfstool.o libcbfstool.c
+
+rm *.o
+rm libcbfstool.a
+
+gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror -Wall -Wextra -Wcast-qual -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings -c -o common.o common.c
+
+gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror -Wall -Wextra -Wcast-qual -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings -c -o cbfs_image.o cbfs_image.c
+
+gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror -Wall -Wextra -Wcast-qual -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings -c -o xdr.o xdr.c
 
 gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror -Wall -Wextra -Wcast-qual -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings -c -o partitioned_file.o partitioned_file.c
 
@@ -31,6 +39,8 @@ gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror 
 
 gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror -Wall -Wextra -Wcast-qual -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings -c -o LzFind.o lzma/C/LzFind.c
 
+gcc -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -Iflashmap -g3 -std=c99 -Werror -Wall -Wextra -Wcast-qual -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings -c -o libcbfstool.o libcbfstool.c
 
-ar rcs libcbfstool.a partitioned_file.o cbfs-mkstage.o cbfs-mkpayload.o cbfs-payload-linux.o fit.o fmap.o compress.o elfheaders.o linux_trampoline.o kv_pair.o valstr.o lzma.o LzmaEnc.o LzmaDec.o LzFind.o libcbfstool.o
+
+ar rcs libcbfstool.a partitioned_file.o cbfs-mkstage.o cbfs-mkpayload.o cbfs-payload-linux.o fit.o fmap.o compress.o elfheaders.o linux_trampoline.o kv_pair.o valstr.o lzma.o LzmaEnc.o LzmaDec.o LzFind.o common.o cbfs_image.o xdr.o libcbfstool.o
 

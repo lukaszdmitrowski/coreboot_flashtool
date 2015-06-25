@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTextEdit>
 
 extern "C" {
 #include "libflashrom.h"
@@ -19,6 +20,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
+    QTextEdit *cbfs_log_out;
 
 private slots:
     void on_b_sel_payload_clicked();
@@ -31,9 +33,7 @@ private slots:
     void on_b_sel_bios_out_clicked();
 
     void on_b_extract_clicked();
-
     void on_b_create_rom_clicked();
-
     void on_b_sel_boot_block_clicked();
 
 private:
@@ -43,6 +43,7 @@ private:
     void open_select_bios_rom_window();
     void open_select_bios_out_window();
     int extract_bios();
+    void print_rom();
     QString flash_rom_path;
     QString bios_rom_path;
     QString bootblock_path;
