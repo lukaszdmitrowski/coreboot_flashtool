@@ -47,7 +47,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>40</y>
+      <y>30</y>
       <width>651</width>
       <height>301</height>
      </rect>
@@ -217,7 +217,7 @@
      <widget class="QPushButton" name="b_add_payload">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>260</x>
         <y>30</y>
         <width>121</width>
         <height>31</height>
@@ -237,7 +237,7 @@
      <widget class="QPushButton" name="b_remove_comp">
       <property name="geometry">
        <rect>
-        <x>510</x>
+        <x>530</x>
         <y>30</y>
         <width>111</width>
         <height>31</height>
@@ -314,6 +314,26 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="b_add_component">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>30</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Add component</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/Icons/icons/add.png</normaloff>:/Icons/icons/add.png</iconset>
       </property>
      </widget>
     </widget>
@@ -467,7 +487,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>60</y>
+        <y>100</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -480,7 +500,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>120</y>
+        <y>160</y>
         <width>131</width>
         <height>31</height>
        </rect>
@@ -493,7 +513,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>150</y>
+        <y>190</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -506,7 +526,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>180</y>
+        <y>220</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -519,7 +539,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>120</y>
+        <y>160</y>
         <width>131</width>
         <height>27</height>
        </rect>
@@ -529,7 +549,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>150</y>
+        <y>190</y>
         <width>131</width>
         <height>27</height>
        </rect>
@@ -539,7 +559,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>510</x>
-        <y>180</y>
+        <y>220</y>
         <width>111</width>
         <height>27</height>
        </rect>
@@ -552,7 +572,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>60</y>
+        <y>100</y>
         <width>131</width>
         <height>27</height>
        </rect>
@@ -561,14 +581,14 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="b_create_rom">
       <property name="geometry">
        <rect>
-        <x>440</x>
-        <y>220</y>
+        <x>10</x>
+        <y>50</y>
         <width>99</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>Create</string>
+       <string>Create ROM</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="log_create_rom">
@@ -597,24 +617,11 @@ p, li { white-space: pre-wrap; }
        <number>0</number>
       </property>
      </widget>
-     <widget class="QLabel" name="label_8">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>40</y>
-        <width>261</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Create ROM using cbfs_tool:</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="l_bootblack_name">
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>190</y>
+        <y>230</y>
         <width>131</width>
         <height>17</height>
        </rect>
@@ -627,9 +634,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>30</y>
+        <y>70</y>
         <width>68</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -640,7 +647,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>460</x>
-        <y>30</y>
+        <y>70</y>
         <width>171</width>
         <height>27</height>
        </rect>
@@ -650,7 +657,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>90</y>
+        <y>130</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -663,7 +670,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>90</y>
+        <y>130</y>
         <width>131</width>
         <height>27</height>
        </rect>

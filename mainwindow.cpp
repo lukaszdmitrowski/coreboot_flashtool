@@ -3,6 +3,7 @@
 #include "supported.h"
 #include "about.h"
 #include "addpayload.h"
+#include "addcomponent.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -162,9 +163,16 @@ void MainWindow::on_b_create_rom_clicked()
 
 void MainWindow::on_b_add_payload_clicked()
 {
-        AddPayload addpayload_window;
-        addpayload_window.setModal(true);
-        addpayload_window.exec();
+        AddPayload add_payload_window;
+        add_payload_window.setModal(true);
+        add_payload_window.exec();
+}
+
+void MainWindow::on_b_add_component_clicked()
+{
+        AddComponent add_component_window;
+        add_component_window.setModal(true);
+        add_component_window.exec();
 }
 
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)

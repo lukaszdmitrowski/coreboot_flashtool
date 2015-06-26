@@ -41,6 +41,8 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_b_add_component_clicked();
+
 private:
     void fill_cb_programmers();
     void fill_cb_arch();

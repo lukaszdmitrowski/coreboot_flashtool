@@ -17,18 +17,21 @@ SOURCES += main.cpp\
     utests.cpp \
     supported.cpp \
     about.cpp \
-    addpayload.cpp
+    addpayload.cpp \
+    addcomponent.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
     supported.h \
     about.h \
-    addpayload.h
+    addpayload.h \
+    addcomponent.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
     about.ui \
-    addpayload.ui
+    addpayload.ui \
+    addcomponent.ui
 
 INCLUDEPATH += libflashrom \
                 libbiosext \
