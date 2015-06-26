@@ -43,6 +43,8 @@ private slots:
 
     void on_b_add_component_clicked();
 
+    void on_b_remove_comp_clicked();
+
 private:
     void fill_cb_programmers();
     void fill_cb_arch();

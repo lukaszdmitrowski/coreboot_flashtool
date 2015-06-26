@@ -4,6 +4,7 @@
 #include "about.h"
 #include "addpayload.h"
 #include "addcomponent.h"
+#include "deletecomponents.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -173,6 +174,13 @@ void MainWindow::on_b_add_component_clicked()
         AddComponent add_component_window;
         add_component_window.setModal(true);
         add_component_window.exec();
+}
+
+void MainWindow::on_b_remove_comp_clicked()
+{
+        DeleteComponents delete_component_window;
+        delete_component_window.setModal(true);
+        delete_component_window.exec();
 }
 
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
