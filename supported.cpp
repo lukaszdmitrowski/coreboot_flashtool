@@ -20,13 +20,9 @@ Supported::~Supported()
 
 void Supported::on_b_show_chips_clicked()
 {
-    unsigned int flashchip_info_size = 0;
     fl_flashchip_info_t *flashchip_info = 0;
 
-    flashchip_info_size = fl_supported_flash_chips_number();
-    flashchip_info = new fl_flashchip_info_t[flashchip_info_size];
-    memset(flashchip_info, 0, sizeof(flashchip_info) * flashchip_info_size);
-    fl_supported_flash_chips(flashchip_info);
+    flashchip_info = fl_supported_flash_chips();
 
     model->clear();
     model->setHorizontalHeaderItem(0, new QStandardItem(QString("Vendor")));
@@ -35,7 +31,7 @@ void Supported::on_b_show_chips_clicked()
     model->setHorizontalHeaderItem(3, new QStandardItem(QString("Broken")));
     model->setHorizontalHeaderItem(4, new QStandardItem(QString("Size [kB]")));
 
-    for (unsigned int i = 0; i < flashchip_info_size - 1; ++i) {
+    for (unsigned int i = 0; flashchip_info[i].name; ++i) {
         QList<QStandardItem*> flashchip_row;
         QString tested;
         QString known_broken;
@@ -96,13 +92,11 @@ void Supported::on_b_show_chips_clicked()
     ui->tableView->setColumnWidth(2, 70);
     ui->tableView->setColumnWidth(3, 70);
     ui->tableView->setColumnWidth(4, 70);
-
-    delete [] flashchip_info;
 }
 
 void Supported::on_b_show_boards_clicked()
 {
-    unsigned int boards_list_size = 0;
+    /*unsigned int boards_list_size = 0;
     fl_board_info_t *boards_list;
 
     boards_list_size = fl_supported_boards_number();
@@ -150,12 +144,12 @@ void Supported::on_b_show_boards_clicked()
     ui->tableView->setColumnWidth(1, 400);
     ui->tableView->setColumnWidth(2, 70);
 
-    delete [] boards_list;
+    delete [] boards_list;*/
 }
 
 void Supported::on_b_show_chipsets_clicked()
 {
-    unsigned int chipsets_list_size = 0;
+    /*unsigned int chipsets_list_size = 0;
     fl_chipset_info_t *chipsets_list;
 
     chipsets_list_size = fl_supported_chipsets_number();
@@ -184,7 +178,7 @@ void Supported::on_b_show_chipsets_clicked()
     ui->tableView->setColumnWidth(0, 155);
     ui->tableView->setColumnWidth(1, 350);
     ui->tableView->setColumnWidth(2, 90);
-    ui->tableView->setColumnWidth(3, 140);
+    ui->tableView->setColumnWidth(3, 140);*/
 }
 
 QString Supported::test_state_to_qstring(fl_test_state test_state)
