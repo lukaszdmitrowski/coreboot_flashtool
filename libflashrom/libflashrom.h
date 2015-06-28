@@ -28,11 +28,11 @@ int fl_init(int perform_selfcheck);
 int fl_shutdown(void);
 /** @ingroup fl-general */
 typedef enum { /* This has to match enum msglevel. */
-        FL_MSG_ERROR	= 0,
-        FL_MSG_INFO	= 1,
-        FL_MSG_DEBUG	= 2,
-        FL_MSG_DEBUG2	= 3,
-        FL_MSG_SPEW	= 4,
+	FL_MSG_ERROR	= 0,
+	FL_MSG_INFO	= 1,
+	FL_MSG_DEBUG	= 2,
+	FL_MSG_DEBUG2	= 3,
+	FL_MSG_SPEW	= 4,
 } fl_log_level_t;
 /** @ingroup fl-general */
 typedef int(fl_log_callback_t)(fl_log_level_t, const char *format, va_list);
@@ -57,26 +57,39 @@ typedef struct {
                 fl_test_state erase;
                 fl_test_state write;
         } tested;
-} fl_flashchip_info_t;
+} fl_flashchip_info;
+
+typedef struct {
+        const char *vendor;
+        const char *name;
+        fl_test_state working;
+} fl_board_info;
+
+typedef struct {
+        const char *vendor;
+        const char *chipset;
+        fl_test_state status;
+} fl_chipset_info;
 
 const char** fl_supported_programmers(void);
-fl_flashchip_info_t *fl_supported_flash_chips(void);
-int fl_support_info_free(void *p);
+const char* fl_version(void);
+fl_flashchip_info *fl_supported_flash_chips(void);
+fl_board_info *fl_supported_boards(void);
+fl_chipset_info *fl_supported_chipsets(void);
+int fl_supported_info_free(void *p);
 
 int fl_programmer_init(const char *prog_name, const char *prog_params);
 int fl_programmer_shutdown(void);
 
 struct flashctx;
-struct romentry_t;
 typedef struct flashctx fl_flashctx_t;
 int fl_flash_probe(fl_flashctx_t **, const char *chip_name);
 size_t fl_flash_getsize(const fl_flashctx_t *);
 int fl_flash_erase(fl_flashctx_t *);
 void fl_flash_release(fl_flashctx_t *);
-int fl_load_layout(const fl_flashctx_t *const flashctx, const char* layout_file, char* region_names);
 
-int fl_image_read(fl_flashctx_t *, void *buffer, size_t buffer_len, romentry_t **structure);
-int fl_image_write(fl_flashctx_t *, void *buffer, size_t buffer_len, romentry_t **structure);
-int fl_image_verify(fl_flashctx_t *, void *buffer, size_t buffer_len, romentry_t **structure);
+int fl_image_read(fl_flashctx_t *, void *buffer, size_t buffer_len);
+int fl_image_write(fl_flashctx_t *, void *buffer, size_t buffer_len);
+int fl_image_verify(fl_flashctx_t *, void *buffer, size_t buffer_len);
 
 #endif				/* !__LIBFLASHROM_H__ */

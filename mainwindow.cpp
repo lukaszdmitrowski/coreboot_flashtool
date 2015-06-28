@@ -195,10 +195,11 @@ void MainWindow::fill_cb_programmers()
 
         programmers = fl_supported_programmers();
 
-        while(*programmers){
-                ui->cb_sel_progr->addItem(*programmers);
-                ++programmers;
+        for (int i = 0; programmers[i]; ++i){
+                ui->cb_sel_progr->addItem(programmers[i]);
         }
+
+        fl_supported_info_free(programmers);
 }
 
 void MainWindow::fill_cb_arch()

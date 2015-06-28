@@ -20,7 +20,7 @@ Supported::~Supported()
 
 void Supported::on_b_show_chips_clicked()
 {
-    fl_flashchip_info_t *flashchip_info = 0;
+    fl_flashchip_info *flashchip_info = 0;
 
     flashchip_info = fl_supported_flash_chips();
 
@@ -92,24 +92,22 @@ void Supported::on_b_show_chips_clicked()
     ui->tableView->setColumnWidth(2, 70);
     ui->tableView->setColumnWidth(3, 70);
     ui->tableView->setColumnWidth(4, 70);
+
+    fl_supported_info_free(flashchip_info);
 }
 
 void Supported::on_b_show_boards_clicked()
 {
-    /*unsigned int boards_list_size = 0;
-    fl_board_info_t *boards_list;
+    fl_board_info *boards_list;
 
-    boards_list_size = fl_supported_boards_number();
-    boards_list = new fl_board_info_t[boards_list_size];
-    memset(boards_list, 0, sizeof(boards_list) * boards_list_size);
-    fl_supported_boards(boards_list);
+    boards_list = fl_supported_boards();
 
     model->clear();
     model->setHorizontalHeaderItem(0, new QStandardItem(QString("Vendor")));
     model->setHorizontalHeaderItem(1, new QStandardItem(QString("Board")));
     model->setHorizontalHeaderItem(2, new QStandardItem(QString("Status")));
 
-    for (unsigned int i = 0; i < boards_list_size - 1; ++i) {
+    for (unsigned int i = 0; boards_list[i].vendor; ++i) {
         QList<QStandardItem*> board_row;
         QString status;
 
@@ -144,18 +142,14 @@ void Supported::on_b_show_boards_clicked()
     ui->tableView->setColumnWidth(1, 400);
     ui->tableView->setColumnWidth(2, 70);
 
-    delete [] boards_list;*/
+    fl_supported_info_free(boards_list);
 }
 
 void Supported::on_b_show_chipsets_clicked()
 {
-    /*unsigned int chipsets_list_size = 0;
-    fl_chipset_info_t *chipsets_list;
+    fl_chipset_info *chipsets_list;
 
-    chipsets_list_size = fl_supported_chipsets_number();
-    chipsets_list = new fl_chipset_info_t[chipsets_list_size];
-    memset(chipsets_list, 0, sizeof(chipsets_list) * chipsets_list_size);
-    fl_supported_chipsets(chipsets_list);
+    chipsets_list = fl_supported_chipsets();
 
     model->clear();
     model->setHorizontalHeaderItem(0, new QStandardItem(QString("Vendor")));
@@ -163,7 +157,7 @@ void Supported::on_b_show_chipsets_clicked()
     model->setHorizontalHeaderItem(2, new QStandardItem(QString("PCI IDs")));
     model->setHorizontalHeaderItem(3, new QStandardItem(QString("Status")));
 
-    for (unsigned int i = 0; i < chipsets_list_size - 1; ++i) {
+    for (unsigned int i = 0; chipsets_list[i].vendor; ++i) {
         QList<QStandardItem*> chipset_row;
 
         chipset_row.append(new QStandardItem(QString(chipsets_list[i].vendor)));
@@ -178,7 +172,9 @@ void Supported::on_b_show_chipsets_clicked()
     ui->tableView->setColumnWidth(0, 155);
     ui->tableView->setColumnWidth(1, 350);
     ui->tableView->setColumnWidth(2, 90);
-    ui->tableView->setColumnWidth(3, 140);*/
+    ui->tableView->setColumnWidth(3, 140);
+
+    fl_supported_info_free(chipsets_list);
 }
 
 QString Supported::test_state_to_qstring(fl_test_state test_state)
