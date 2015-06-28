@@ -1,15 +1,15 @@
 <RCC>
-    <qresource prefix="/Icons">
-        <file>icons/coreboot.png</file>
-        <file>icons/add.png</file>
-        <file>icons/exit.png</file>
+    <qresource prefix="/icons">
         <file>icons/flash.png</file>
-        <file>icons/open.png</file>
-        <file>icons/remove.png</file>
-        <file>icons/extract.png</file>
+        <file>icons/extract.svg</file>
         <file>icons/about.png</file>
-        <file>icons/supported.png</file>
+        <file>icons/add.png</file>
+        <file>icons/coreboot.png</file>
         <file>icons/create.png</file>
+        <file>icons/exit.png</file>
+        <file>icons/open.png</file>
         <file>icons/options.png</file>
+        <file>icons/remove.png</file>
+        <file>icons/supported.png</file>
     </qresource>
 </RCC>

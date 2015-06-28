@@ -26,7 +26,7 @@
    <string>Coreboot Flash Tool</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset>
     <normaloff>:/Icons/icons/coreboot.png</normaloff>:/Icons/icons/coreboot.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -67,7 +67,7 @@
     <widget class="QWidget" name="tab_flash">
      <attribute name="icon">
       <iconset resource="resources.qrc">
-       <normaloff>:/Icons/icons/flash.png</normaloff>:/Icons/icons/flash.png</iconset>
+       <normaloff>:/icons/icons/flash.png</normaloff>:/icons/icons/flash.png</iconset>
      </attribute>
      <attribute name="title">
       <string>Flash</string>
@@ -209,7 +209,7 @@
     <widget class="QWidget" name="tab_2">
      <attribute name="icon">
       <iconset resource="resources.qrc">
-       <normaloff>:/Icons/icons/options.png</normaloff>:/Icons/icons/options.png</iconset>
+       <normaloff>:/icons/icons/options.png</normaloff>:/icons/icons/options.png</iconset>
      </attribute>
      <attribute name="title">
       <string>ROM options</string>
@@ -231,7 +231,7 @@
       </property>
       <property name="icon">
        <iconset resource="resources.qrc">
-        <normaloff>:/Icons/icons/add.png</normaloff>:/Icons/icons/add.png</iconset>
+        <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
       </property>
      </widget>
      <widget class="QPushButton" name="b_remove_comp">
@@ -248,7 +248,7 @@
       </property>
       <property name="icon">
        <iconset resource="resources.qrc">
-        <normaloff>:/Icons/icons/remove.png</normaloff>:/Icons/icons/remove.png</iconset>
+        <normaloff>:/icons/icons/remove.png</normaloff>:/icons/icons/remove.png</iconset>
       </property>
      </widget>
      <widget class="QTextEdit" name="log_rom_opt">
@@ -333,14 +333,14 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset resource="resources.qrc">
-        <normaloff>:/Icons/icons/add.png</normaloff>:/Icons/icons/add.png</iconset>
+        <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_extract">
      <attribute name="icon">
       <iconset resource="resources.qrc">
-       <normaloff>:/Icons/icons/extract.png</normaloff>:/Icons/icons/extract.png</iconset>
+       <normaloff>:/icons/icons/extract.svg</normaloff>:/icons/icons/extract.svg</iconset>
      </attribute>
      <attribute name="title">
       <string>Extract</string>
@@ -478,7 +478,7 @@ p, li { white-space: pre-wrap; }
     <widget class="QWidget" name="tab">
      <attribute name="icon">
       <iconset resource="resources.qrc">
-       <normaloff>:/Icons/icons/create.png</normaloff>:/Icons/icons/create.png</iconset>
+       <normaloff>:/icons/icons/create.png</normaloff>:/icons/icons/create.png</iconset>
      </attribute>
      <attribute name="title">
       <string>Create ROM</string>
@@ -701,7 +701,7 @@ p, li { white-space: pre-wrap; }
   <action name="act_sel_payload">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/open.png</normaloff>:/Icons/icons/open.png</iconset>
+     <normaloff>:/icons/icons/open.png</normaloff>:/icons/icons/open.png</iconset>
    </property>
    <property name="text">
     <string>Select ROM</string>
@@ -710,7 +710,7 @@ p, li { white-space: pre-wrap; }
   <action name="act_extract">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/extract.png</normaloff>:/Icons/icons/extract.png</iconset>
+     <normaloff>:/icons/icons/extract.svg</normaloff>:/icons/icons/extract.svg</iconset>
    </property>
    <property name="text">
     <string>Extract</string>
@@ -719,7 +719,7 @@ p, li { white-space: pre-wrap; }
   <action name="act_about">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/about.png</normaloff>:/Icons/icons/about.png</iconset>
+     <normaloff>:/icons/icons/about.png</normaloff>:/icons/icons/about.png</iconset>
    </property>
    <property name="text">
     <string>About</string>
@@ -728,7 +728,7 @@ p, li { white-space: pre-wrap; }
   <action name="act_supported_list">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/supported.png</normaloff>:/Icons/icons/supported.png</iconset>
+     <normaloff>:/icons/icons/supported.png</normaloff>:/icons/icons/supported.png</iconset>
    </property>
    <property name="text">
     <string>Supported hardware</string>

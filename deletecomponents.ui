@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Delete component</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/icons/remove.png</normaloff>:/icons/icons/remove.png</iconset>
   </property>
   <widget class="QLineEdit" name="edit_name">
    <property name="geometry">
@@ -50,7 +54,7 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/remove.png</normaloff>:/Icons/icons/remove.png</iconset>
+     <normaloff>:/icons/icons/remove.png</normaloff>:/icons/icons/remove.png</iconset>
    </property>
   </widget>
  </widget>

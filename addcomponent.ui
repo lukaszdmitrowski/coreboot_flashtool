@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add component</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
   </property>
   <widget class="QLabel" name="l_component">
    <property name="geometry">
@@ -66,7 +70,7 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/icons/add.png</normaloff>:/Icons/icons/add.png</iconset>
+     <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
    </property>
   </widget>
   <widget class="QLabel" name="l_component_name">

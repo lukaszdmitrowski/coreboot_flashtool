@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>155</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/Icons/icons/about.png</normaloff>:/Icons/icons/about.png</iconset>
+    <normaloff>:/icons/icons/about.png</normaloff>:/icons/icons/about.png</iconset>
   </property>
   <widget class="QLabel" name="l_coreboot">
    <property name="geometry">
@@ -73,7 +73,7 @@
    <property name="geometry">
     <rect>
      <x>280</x>
-     <y>250</y>
+     <y>110</y>
      <width>104</width>
      <height>29</height>
     </rect>
