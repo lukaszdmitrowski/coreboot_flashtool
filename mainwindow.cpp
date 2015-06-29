@@ -154,9 +154,7 @@ void MainWindow::on_b_create_rom_clicked()
 
         start_cbfs(param_count, cbfs_params);
 
-        //qDebug() << "param_count: " << param_count;
         for (int i = 0; i < param_count; ++i) {
-                //qDebug() << "cbfs_param: " << cbfs_params[i];
                 delete [] cbfs_params[i];
         }
         delete [] cbfs_params;

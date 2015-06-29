@@ -14,23 +14,25 @@ class Supported;
 
 class Supported : public QDialog
 {
-    Q_OBJECT
+        Q_OBJECT
 
 public:
-    explicit Supported(QWidget *parent = 0);
-    ~Supported();
+        explicit Supported(QWidget *parent = 0);
+        ~Supported();
 
 private slots:
-    void on_b_show_chips_clicked();
-
-    void on_b_show_boards_clicked();
-
-    void on_b_show_chipsets_clicked();
+        void show_flash_chips();
+        void show_boards();
+        void show_chipsets();
+        void on_cb_sel_hardware_currentIndexChanged(int index);
 
 private:
-    Ui::Supported *ui;
-    QStandardItemModel *model;
-    QString test_state_to_qstring(fl_test_state test_state);
+        QString test_state_to_qstring(fl_test_state test_state);
+        Ui::Supported *ui;
+        QStandardItemModel *model;
+        fl_flashchip_info *flashchip_info;
+        fl_board_info *boards_list;
+        fl_chipset_info *chipsets_list;
 };
 
 #endif // SUPPORTED_H
