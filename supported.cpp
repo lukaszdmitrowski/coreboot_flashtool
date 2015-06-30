@@ -11,6 +11,8 @@ Supported::Supported(QWidget *parent) :
 {
         ui->setupUi(this);
         model = new QStandardItemModel(this);
+        sortFilterProxy = new QSortFilterProxyModel(this);
+        sortFilterProxy->setSourceModel(model);
         flashchip_info = fl_supported_flash_chips();
         boards_list = fl_supported_boards();
         chipsets_list = fl_supported_chipsets();
@@ -29,6 +31,8 @@ Supported::~Supported()
 
 void Supported::show_flash_chips()
 {
+        QString last_vendor;
+
         model->clear();
         model->setHorizontalHeaderItem(0, new QStandardItem(QString("Vendor")));
         model->setHorizontalHeaderItem(1, new QStandardItem(QString("Name")));
@@ -38,7 +42,6 @@ void Supported::show_flash_chips()
 
         for (unsigned int i = 0; flashchip_info[i].name; ++i) {
                 QList<QStandardItem*> flashchip_row;
-                QString last_vendor;
                 QString tested;
                 QString known_broken;
 
@@ -192,6 +195,7 @@ QString Supported::test_state_to_qstring(fl_test_state test_state)
 
 void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
 {
+        ui->cb_sel_vendor->clear();
         switch (index) {
         case 0:
                 show_flash_chips();
@@ -202,5 +206,15 @@ void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
         case 2:
                 show_chipsets();
                 break;
+    }
+}
+
+void Supported::on_cb_sel_vendor_currentIndexChanged(int index)
+{
+    switch(index) {
+    case 0:
+            sortFilterProxy->setFilterWildcard("AMD");
+            sortFilterProxy->setFilterKeyColumn(-1);
+            break;
     }
 }
