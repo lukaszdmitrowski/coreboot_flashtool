@@ -13,14 +13,13 @@ Supported::Supported(QWidget *parent) :
         model = new QStandardItemModel(this);
         sortFilterModel= new MultiSortFilterModel(this);
         sortFilterModel->setSourceModel(model);
-        sortFilterModel->setDynamicSortFilter(true);
 
         QList<qint32> filter_columns;
         filter_columns.append(0);
         filter_columns.append(1);
         filter_columns.append(2);
-        //filter_columns.append(3);
-        //filter_columns.append(4);
+        filter_columns.append(3);
+        filter_columns.append(4);
         sortFilterModel->setFilterKeyColumns(filter_columns);
         flashchip_info = fl_supported_flash_chips();
         boards_list = fl_supported_boards();
@@ -52,7 +51,7 @@ void Supported::show_flash_chips()
         ui->cb_sel_vendor->addItem(QString());
         ui->cb_sel_size->addItem(QString());
 
-        for (unsigned int i = 0; i < 100/*flashchip_info[i].name*/; ++i) {
+        for (unsigned int i = 0; flashchip_info[i].name; ++i) {
                 QList<QStandardItem*> flashchip_row;
                 QString tested;
                 QString known_broken;
@@ -97,6 +96,7 @@ void Supported::show_flash_chips()
                 else
                         known_broken.append(" ");
 
+                /* FIX IT */
                 if (last_vendor.compare(flashchip_info[i].vendor)) {
                         last_vendor = flashchip_info[i].vendor;
                         ui->cb_sel_vendor->addItem(last_vendor);
@@ -212,7 +212,9 @@ QString Supported::test_state_to_qstring(fl_test_state test_state)
 
 void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
 {
-        //ui->cb_sel_vendor->clear();
+        ui->cb_sel_vendor->clear();
+        ui->cb_sel_size->clear();
+
         switch (index) {
         case 0:
                 show_flash_chips();
@@ -228,28 +230,21 @@ void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
 
 void Supported::on_cb_sel_vendor_currentIndexChanged(int index)
 {
-        qDebug() << "vendor changed";
-        if (index != 0) {
-                sortFilterModel->setFilter(0, ui->cb_sel_vendor->currentText());
-                sortFilterModel->setSourceModel(model);
-                ui->tableView->setModel(sortFilterModel);
-        }
+        sortFilterModel->setFilter(0, ui->cb_sel_vendor->currentText());
+        sortFilterModel->setSourceModel(model);
+        ui->tableView->setModel(sortFilterModel);
 }
 
 void Supported::on_edit_name_textChanged(const QString &arg1)
 {
+        sortFilterModel->setFilter(1, arg1);
         sortFilterModel->setSourceModel(model);
-        //ui->tableView->setModel(sortFilterModel);
-        //sortFilterModel->setFilter(1, arg1);
+        ui->tableView->setModel(sortFilterModel);
 }
 
 void Supported::on_cb_sel_size_currentIndexChanged(int index)
 {
-        qDebug() << "size changed";
-        if (index != 0) {
-                qDebug() << "size: " << ui->cb_sel_size->currentText();
-                //sortFilterModel->setFilter(2, "dupa");
-                //sortFilterModel->setSourceModel(model);
-                //ui->tableView->setModel(sortFilterModel);
-        }
+        sortFilterModel->setFilter(4, ui->cb_sel_size->currentText());
+        sortFilterModel->setSourceModel(model);
+        ui->tableView->setModel(sortFilterModel);
 }

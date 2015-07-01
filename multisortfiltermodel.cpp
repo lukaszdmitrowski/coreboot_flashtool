@@ -20,7 +20,7 @@ void MultiSortFilterModel::setFilter(qint32 column, const QString &pattern)
         if (!columnPatterns.contains(column))
                 return;
 
-m_columnPatterns[column] = pattern;
+        columnPatterns[column] = pattern;
 }
 
 bool MultiSortFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
@@ -28,17 +28,18 @@ bool MultiSortFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
         if (columnPatterns.isEmpty())
                 return true;
 
-        bool ret = false;
+        bool ret = true;
 
         for (QMap<qint32, QString>::const_iterator iter = columnPatterns.constBegin();
              iter != columnPatterns.constEnd();
              ++iter)
         {
-                qDebug() << "iter.value: " << iter.value();
                 if (iter.value().isEmpty()) {
-                        qDebug() << "empty iter.value()";
-                        return true;
+                        //Debug() << "empty iter.value()";
+                        continue;
                 }
+
+                //qDebug() << "iter.value: " << iter.value();
                 QModelIndex index = sourceModel()->index(sourceRow, iter.key(), sourceParent);
                 //qDebug() << "index.data: " << index.data().toString();
                 ret = index.data().toString().contains(iter.value());
