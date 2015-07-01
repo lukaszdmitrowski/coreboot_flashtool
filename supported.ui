@@ -36,9 +36,9 @@
   <widget class="QComboBox" name="cb_sel_hardware">
    <property name="geometry">
     <rect>
-     <x>340</x>
+     <x>90</x>
      <y>10</y>
-     <width>141</width>
+     <width>151</width>
      <height>31</height>
     </rect>
    </property>
@@ -95,7 +95,7 @@
   <widget class="QComboBox" name="cb_sel_size">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>580</x>
      <y>70</y>
      <width>85</width>
      <height>27</height>
@@ -110,6 +110,19 @@
      <width>151</width>
      <height>27</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>67</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Type: </string>
    </property>
   </widget>
  </widget>

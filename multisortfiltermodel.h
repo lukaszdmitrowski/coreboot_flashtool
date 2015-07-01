@@ -10,7 +10,7 @@ class MultiSortFilterModel : public QSortFilterProxyModel
 public:
         explicit MultiSortFilterModel(QObject *parent = 0);
         void setFilterKeyColumns(const QList<qint32> &filterColumns);
-        void addFilterFixedString(qint32 column, const QString &pattern);
+        void setFilter(qint32 column, const QString &pattern);
 
 protected:
         bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;

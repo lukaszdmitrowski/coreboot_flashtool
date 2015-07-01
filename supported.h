@@ -3,7 +3,8 @@
 
 #include <QDialog>
 #include <QStandardItemModel>
-#include <QSortFilterProxyModel>
+
+#include "multisortfiltermodel.h"
 
 extern "C" {
 #include "libflashrom.h"
@@ -31,11 +32,13 @@ private slots:
 
         void on_edit_name_textChanged(const QString &arg1);
 
+        void on_cb_sel_size_currentIndexChanged(int index);
+
 private:
         QString test_state_to_qstring(fl_test_state test_state);
         Ui::Supported *ui;
         QStandardItemModel *model;
-        QSortFilterProxyModel *sortFilterProxy;
+        MultiSortFilterModel *sortFilterModel;
         fl_flashchip_info *flashchip_info;
         fl_board_info *boards_list;
         fl_chipset_info *chipsets_list;
