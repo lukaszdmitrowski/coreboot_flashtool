@@ -29,6 +29,8 @@ private slots:
 
         void on_cb_sel_vendor_currentIndexChanged(int index);
 
+        void on_edit_name_textChanged(const QString &arg1);
+
 private:
         QString test_state_to_qstring(fl_test_state test_state);
         Ui::Supported *ui;

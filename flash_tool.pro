@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     about.cpp \
     addpayload.cpp \
     addcomponent.cpp \
-    deletecomponents.cpp
+    deletecomponents.cpp \
+    multisortfiltermodel.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     about.h \
     addpayload.h \
     addcomponent.h \
-    deletecomponents.h
+    deletecomponents.h \
+    multisortfiltermodel.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
