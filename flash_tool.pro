@@ -42,27 +42,21 @@ INCLUDEPATH += libflashrom \
                 libbiosext \
                 libcbfstool
 
-LIBS    += -L/home/lukasz/coreboot_flashtool/libflashrom\
+LIBS    += -Llibflashrom\
         -lflashrom
 
-LIBS    += -L/home/lukasz/coreboot_flashtool/libbiosext\
+LIBS    += -Llibbiosext\
         -lbiosext
 
-LIBS    += -L/home/lukasz/coreboot_flashtool/libcbfstool\
+LIBS    += -Llibcbfstool\
         -lcbfstool
 
 LIBS    += -lftdi \
-        -lusb
+        -lusb \
+        -lpci
 
-win32 {
-
-} else {
-    # Only add libpci on non-Windows, not supported/available yet on Windows.
-    LIBS += -lpci
-
-    # Enable all programmers which the flashrom command-line tool enables.
-    #QMAKE_CXXFLAGS += -D'CONFIG_INTERNAL=1' -D'CONFIG_SERPROG=1' -D'CONFIG_RAYER_SPI=1' -D'CONFIG_BITBANG_SPI=1' -D'CONFIG_NIC3COM=1' -D'CONFIG_GFXNVIDIA=1' -D'CONFIG_SATASII=1' -D'CONFIG_FT2232_SPI=1' -D'CONFIG_DUMMY=1' -D'CONFIG_DRKAISER=1' -D'CONFIG_NICREALTEK=1' -D'CONFIG_NICINTEL=1' -D'CONFIG_NICINTEL_SPI=1' -D'CONFIG_OGP_SPI=1' -D'CONFIG_BUSPIRATE_SPI=1' -D'CONFIG_SATAMV=1' -D'NEED_PCI=1' -D'HAVE_UTSNAME=1'
-}
+# Enable all programmers which the flashrom command-line tool enables.
+#QMAKE_CXXFLAGS += -D'CONFIG_INTERNAL=1' -D'CONFIG_SERPROG=1' -D'CONFIG_RAYER_SPI=1' -D'CONFIG_BITBANG_SPI=1' -D'CONFIG_NIC3COM=1' -D'CONFIG_GFXNVIDIA=1' -D'CONFIG_SATASII=1' -D'CONFIG_FT2232_SPI=1' -D'CONFIG_DUMMY=1' -D'CONFIG_DRKAISER=1' -D'CONFIG_NICREALTEK=1' -D'CONFIG_NICINTEL=1' -D'CONFIG_NICINTEL_SPI=1' -D'CONFIG_OGP_SPI=1' -D'CONFIG_BUSPIRATE_SPI=1' -D'CONFIG_SATAMV=1' -D'NEED_PCI=1' -D'HAVE_UTSNAME=1'
 
 RESOURCES += \
     resources.qrc

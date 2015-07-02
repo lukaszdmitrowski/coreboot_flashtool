@@ -27,8 +27,6 @@ Supported::Supported(QWidget *parent) :
         ui->cb_sel_hardware->addItem("Chips");
         ui->cb_sel_hardware->addItem("Boards");
         ui->cb_sel_hardware->addItem("Chipsets");
-        //ui->cb_sel_vendor->addItem(QString());
-        //ui->cb_sel_custom->addItem(QString());
 }
 
 Supported::~Supported()
@@ -98,7 +96,7 @@ void Supported::show_flash_chips()
                 if (!vendor_list.contains(flashchip_info[i].vendor))
                         vendor_list.append(flashchip_info[i].vendor);
 
-                if (size_list.isEmpty()) {
+                if (custom_list.isEmpty()) {
                         if (!size_list_numbers.contains(flashchip_info[i].total_size))
                                 size_list_numbers.append(flashchip_info[i].total_size);
                 }
@@ -115,11 +113,12 @@ void Supported::show_flash_chips()
         qSort(size_list_numbers);
 
         foreach (qint16 num, size_list_numbers)
-                size_list.append(QString::number(num));
+                custom_list.append(QString::number(num));
 
         ui->cb_sel_vendor->addItems(vendor_list);
-        ui->cb_sel_custom->addItems(size_list);
-        //ui->l_custom->setText("Size");
+        ui->cb_sel_custom->addItems(custom_list);
+        ui->l_custom->setText("Size");
+
         ui->tableView->setModel(sortFilterModel);
         ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
         ui->tableView->setColumnWidth(0, 155);
@@ -140,30 +139,12 @@ void Supported::show_boards()
                 QList<QStandardItem*> board_row;
                 QString status;
 
-                switch (boards_list[i].working) {
-                case FL_TESTED_OK:
-                        status.append("OK");
-                        break;
-                case FL_TESTED_NT:
-                        status.append("NT");
-                        break;
-                case FL_TESTED_DEP:
-                        status.append("DEP");
-                        break;
-                case FL_TESTED_NA:
-                        status.append("NA");
-                        break;
-                case FL_TESTED_BAD:
-                default:
-                        status.append("BAD");
-                        break;
-                }
-
+                status = test_state_to_qstring(boards_list[i].working);
                 if (!vendor_list.contains(boards_list[i].vendor))
                         vendor_list.append(boards_list[i].vendor);
 
-                /*if (!size_list_numbers.contains(flashchip_info[i].total_size))
-                                size_list_numbers.append(flashchip_info[i].total_size);*/
+                if (!custom_list.contains(status))
+                                custom_list.append(status);
 
                 board_row.append(new QStandardItem(QString(boards_list[i].vendor)));
                 board_row.append(new QStandardItem(QString(boards_list[i].name)));
@@ -172,6 +153,7 @@ void Supported::show_boards()
         }
 
         ui->cb_sel_vendor->addItems(vendor_list);
+        ui->cb_sel_custom->addItems(custom_list);
         ui->l_custom->setText("Status");
 
         ui->tableView->setModel(model);
@@ -227,6 +209,7 @@ QString Supported::test_state_to_qstring(fl_test_state test_state)
 void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
 {
         vendor_list.clear();
+        custom_list.clear();
         ui->cb_sel_vendor->clear();
         ui->cb_sel_custom->clear();
         ui->cb_sel_vendor->addItem(QString());

@@ -25,6 +25,7 @@ int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
         QString text;
 
         text.vsprintf(format, vl);
+        qDebug() << text;
         w->ui->log_flash->append(text);
 
         return 1;
@@ -89,8 +90,14 @@ void MainWindow::on_b_sel_payload_clicked()
         open_select_rom_window();
 }
 
+void MainWindow::on_b_probe_clicked()
+{
+        fl_flash_probe(&flash_context, NULL);
+}
+
 void MainWindow::on_b_read_clicked()
 {
+        //fl_image_read()
 }
 
 void MainWindow::on_b_sel_bios_rom_clicked()
@@ -306,3 +313,5 @@ QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
 }
+
+

@@ -41,7 +41,7 @@ private:
         fl_board_info *boards_list;
         fl_chipset_info *chipsets_list;
         QStringList vendor_list;
-        QStringList size_list;
+        QStringList custom_list;
 };
 
 #endif // SUPPORTED_H

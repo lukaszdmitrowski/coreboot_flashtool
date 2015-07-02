@@ -45,6 +45,8 @@ private slots:
 
     void on_b_remove_comp_clicked();
 
+    void on_b_probe_clicked();
+
 private:
     void fill_cb_programmers();
     void fill_cb_arch();
@@ -56,6 +58,7 @@ private:
     QString flash_rom_path;
     QString bios_rom_path;
     QString bootblock_path;
+    fl_flashctx_t *flash_context;
 };
 
 extern MainWindow *w;

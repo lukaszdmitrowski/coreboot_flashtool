@@ -62,7 +62,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_flash">
      <attribute name="icon">
@@ -205,6 +205,30 @@
        <string>Select</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="b_probe">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>50</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Probe</string>
+      </property>
+     </widget>
+     <zorder>cb_sel_progr</zorder>
+     <zorder>l_programmer</zorder>
+     <zorder>b_erase</zorder>
+     <zorder>b_flash</zorder>
+     <zorder>log_flash</zorder>
+     <zorder>b_verify</zorder>
+     <zorder>l_payload</zorder>
+     <zorder>l_payload_name</zorder>
+     <zorder>b_sel_payload</zorder>
+     <zorder>b_read</zorder>
+     <zorder>b_probe</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="icon">
