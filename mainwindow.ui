@@ -26,8 +26,8 @@
    <string>Coreboot Flash Tool</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/Icons/icons/coreboot.png</normaloff>:/Icons/icons/coreboot.png</iconset>
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/icons/coreboot.png</normaloff>:/icons/icons/coreboot.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="l_prog_name">

@@ -40,9 +40,14 @@ bool MultiSortFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
                 }
 
                 //qDebug() << "iter.value: " << iter.value();
+                QRegExp re("\\d*");
                 QModelIndex index = sourceModel()->index(sourceRow, iter.key(), sourceParent);
                 //qDebug() << "index.data: " << index.data().toString();
-                ret = index.data().toString().contains(iter.value());
+                if (re.exactMatch(index.data().toString())) {
+                        ret = index.data().toString() == iter.value();
+                } else {
+                        ret = index.data().toString().contains(iter.value());
+                }
 
                 if(!ret)
                         return ret;

@@ -27,6 +27,8 @@ Supported::Supported(QWidget *parent) :
         ui->cb_sel_hardware->addItem("Chips");
         ui->cb_sel_hardware->addItem("Boards");
         ui->cb_sel_hardware->addItem("Chipsets");
+        //ui->cb_sel_vendor->addItem(QString());
+        //ui->cb_sel_custom->addItem(QString());
 }
 
 Supported::~Supported()
@@ -39,8 +41,7 @@ Supported::~Supported()
 
 void Supported::show_flash_chips()
 {
-        QString last_vendor;
-        qint16 last_size = 0;
+        QList<qint16> size_list_numbers;
 
         model->clear();
         model->setHorizontalHeaderItem(0, new QStandardItem(QString("Vendor")));
@@ -48,8 +49,6 @@ void Supported::show_flash_chips()
         model->setHorizontalHeaderItem(2, new QStandardItem(QString("Test OK")));
         model->setHorizontalHeaderItem(3, new QStandardItem(QString("Broken")));
         model->setHorizontalHeaderItem(4, new QStandardItem(QString("Size [kB]")));
-        ui->cb_sel_vendor->addItem(QString());
-        ui->cb_sel_size->addItem(QString());
 
         for (unsigned int i = 0; flashchip_info[i].name; ++i) {
                 QList<QStandardItem*> flashchip_row;
@@ -96,15 +95,12 @@ void Supported::show_flash_chips()
                 else
                         known_broken.append(" ");
 
-                /* FIX IT */
-                if (last_vendor.compare(flashchip_info[i].vendor)) {
-                        last_vendor = flashchip_info[i].vendor;
-                        ui->cb_sel_vendor->addItem(last_vendor);
-                }
+                if (!vendor_list.contains(flashchip_info[i].vendor))
+                        vendor_list.append(flashchip_info[i].vendor);
 
-                if (last_size < flashchip_info[i].total_size) {
-                        last_size = flashchip_info[i].total_size;
-                        ui->cb_sel_size->addItem(QString::number(last_size));
+                if (size_list.isEmpty()) {
+                        if (!size_list_numbers.contains(flashchip_info[i].total_size))
+                                size_list_numbers.append(flashchip_info[i].total_size);
                 }
 
                 flashchip_row.append(new QStandardItem(QString(flashchip_info[i].vendor)));
@@ -115,6 +111,15 @@ void Supported::show_flash_chips()
                 model->appendRow(flashchip_row);
         }
 
+        vendor_list.sort();
+        qSort(size_list_numbers);
+
+        foreach (qint16 num, size_list_numbers)
+                size_list.append(QString::number(num));
+
+        ui->cb_sel_vendor->addItems(vendor_list);
+        ui->cb_sel_custom->addItems(size_list);
+        //ui->l_custom->setText("Size");
         ui->tableView->setModel(sortFilterModel);
         ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
         ui->tableView->setColumnWidth(0, 155);
@@ -154,11 +159,20 @@ void Supported::show_boards()
                         break;
                 }
 
+                if (!vendor_list.contains(boards_list[i].vendor))
+                        vendor_list.append(boards_list[i].vendor);
+
+                /*if (!size_list_numbers.contains(flashchip_info[i].total_size))
+                                size_list_numbers.append(flashchip_info[i].total_size);*/
+
                 board_row.append(new QStandardItem(QString(boards_list[i].vendor)));
                 board_row.append(new QStandardItem(QString(boards_list[i].name)));
                 board_row.append(new QStandardItem(status));
                 model->appendRow(board_row);
         }
+
+        ui->cb_sel_vendor->addItems(vendor_list);
+        ui->l_custom->setText("Status");
 
         ui->tableView->setModel(model);
         ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
@@ -212,8 +226,11 @@ QString Supported::test_state_to_qstring(fl_test_state test_state)
 
 void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
 {
+        vendor_list.clear();
         ui->cb_sel_vendor->clear();
-        ui->cb_sel_size->clear();
+        ui->cb_sel_custom->clear();
+        ui->cb_sel_vendor->addItem(QString());
+        ui->cb_sel_custom->addItem(QString());
 
         switch (index) {
         case 0:
@@ -242,9 +259,13 @@ void Supported::on_edit_name_textChanged(const QString &arg1)
         ui->tableView->setModel(sortFilterModel);
 }
 
-void Supported::on_cb_sel_size_currentIndexChanged(int index)
+void Supported::on_cb_sel_custom_currentIndexChanged(int index)
 {
-        sortFilterModel->setFilter(4, ui->cb_sel_size->currentText());
+        if (ui->cb_sel_hardware->currentText() == "Chips")
+                sortFilterModel->setFilter(4, ui->cb_sel_custom->currentText());
+        if (ui->cb_sel_hardware->currentText() == "Boards")
+                sortFilterModel->setFilter(2, ui->cb_sel_custom->currentText());
+
         sortFilterModel->setSourceModel(model);
         ui->tableView->setModel(sortFilterModel);
 }

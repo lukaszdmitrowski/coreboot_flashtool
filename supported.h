@@ -26,13 +26,11 @@ private slots:
         void show_flash_chips();
         void show_boards();
         void show_chipsets();
+
         void on_cb_sel_hardware_currentIndexChanged(int index);
-
         void on_cb_sel_vendor_currentIndexChanged(int index);
-
         void on_edit_name_textChanged(const QString &arg1);
-
-        void on_cb_sel_size_currentIndexChanged(int index);
+        void on_cb_sel_custom_currentIndexChanged(int index);
 
 private:
         QString test_state_to_qstring(fl_test_state test_state);
@@ -42,6 +40,8 @@ private:
         fl_flashchip_info *flashchip_info;
         fl_board_info *boards_list;
         fl_chipset_info *chipsets_list;
+        QStringList vendor_list;
+        QStringList size_list;
 };
 
 #endif // SUPPORTED_H
