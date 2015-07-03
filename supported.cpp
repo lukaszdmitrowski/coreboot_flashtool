@@ -173,13 +173,25 @@ void Supported::show_chipsets()
 
         for (unsigned int i = 0; chipsets_list[i].vendor; ++i) {
                 QList<QStandardItem*> chipset_row;
+                QString status;
+
+                status = test_state_to_qstring(boards_list[i].working);
+                if (!vendor_list.contains(chipsets_list[i].vendor))
+                        vendor_list.append(chipsets_list[i].vendor);
+
+                if (!custom_list.contains(status))
+                                custom_list.append(status);
 
                 chipset_row.append(new QStandardItem(QString(chipsets_list[i].vendor)));
                 chipset_row.append(new QStandardItem(QString(chipsets_list[i].chipset)));
                 chipset_row.append(new QStandardItem(QString("xxxx::xxxx")));
-                chipset_row.append(new QStandardItem(test_state_to_qstring(chipsets_list[i].status)));
+                chipset_row.append(new QStandardItem(status));
                 model->appendRow(chipset_row);
         }
+
+        ui->cb_sel_vendor->addItems(vendor_list);
+        ui->cb_sel_custom->addItems(custom_list);
+        ui->l_custom->setText("Status");
 
         ui->tableView->setModel(model);
         ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
@@ -248,6 +260,8 @@ void Supported::on_cb_sel_custom_currentIndexChanged(int index)
                 sortFilterModel->setFilter(4, ui->cb_sel_custom->currentText());
         if (ui->cb_sel_hardware->currentText() == "Boards")
                 sortFilterModel->setFilter(2, ui->cb_sel_custom->currentText());
+        if (ui->cb_sel_hardware->currentText() == "Chipsets")
+                sortFilterModel->setFilter(3, ui->cb_sel_custom->currentText());
 
         sortFilterModel->setSourceModel(model);
         ui->tableView->setModel(sortFilterModel);

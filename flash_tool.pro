@@ -42,13 +42,13 @@ INCLUDEPATH += libflashrom \
                 libbiosext \
                 libcbfstool
 
-LIBS    += -Llibflashrom\
+LIBS    += -L"$$_PRO_FILE_PWD_/libflashrom"\
         -lflashrom
 
-LIBS    += -Llibbiosext\
+LIBS    += -L"$$_PRO_FILE_PWD_/libbiosext"\
         -lbiosext
 
-LIBS    += -Llibcbfstool\
+LIBS    += -L"$$_PRO_FILE_PWD_/libcbfstool"\
         -lcbfstool
 
 LIBS    += -lftdi \
