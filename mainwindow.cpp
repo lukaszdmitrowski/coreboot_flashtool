@@ -25,7 +25,7 @@ int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
         QString text;
 
         text.vsprintf(format, vl);
-        qDebug() << text;
+        //qDebug() << text;
         w->ui->log_flash->append(text);
 
         return 1;
@@ -69,9 +69,9 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->log_rom_opt->setReadOnly(true);
         ui->log_extract->setReadOnly(true);
         ui->log_create_rom->setReadOnly(true);
-
         ui->tabWidget->setCurrentIndex(0);
 
+        flash_context = NULL;
         my_log_callback = &libflashrom_log;
         fl_init(0);
         fill_cb_arch();
@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+        fl_flash_release(flash_context);
         fl_shutdown();
         delete ui;
 }
@@ -92,12 +93,13 @@ void MainWindow::on_b_sel_payload_clicked()
 
 void MainWindow::on_b_probe_clicked()
 {
-        fl_flash_probe(&flash_context, NULL);
+        qDebug() << "fl_flash_probe: " << fl_flash_probe(&flash_context, NULL);
 }
 
 void MainWindow::on_b_read_clicked()
 {
-        //fl_image_read()
+        //if (flash_context)
+                //fl_image_read()
 }
 
 void MainWindow::on_b_sel_bios_rom_clicked()
@@ -130,8 +132,9 @@ void MainWindow::on_b_create_rom_clicked()
         char **cbfs_params;
         /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
         int param_count = 7;
-
         QString params[11];
+
+        ui->log_create_rom->clear();
         params[0] = "flash_tool";
         params[1] = ui->edit_cbfs_name->text();
         params[2] = "create";
@@ -190,6 +193,7 @@ void MainWindow::on_b_remove_comp_clicked()
 
 void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
 {
+        ui->log_flash->clear();
         fl_shutdown();
         fl_programmer_init(programmer.toStdString().c_str(), "");
 }
@@ -280,8 +284,9 @@ void MainWindow::print_rom()
         char **cbfs_params;
         /* PROGNAME(1) + NAME(1) + COMMAND(1) */
         int param_count = 3;
-
         QString params[3];
+
+        ui->log_rom_opt->clear();
         params[0] = "./flash_tool";
         params[1] = flash_rom_path;
         params[2] = "print";

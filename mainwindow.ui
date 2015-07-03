@@ -62,7 +62,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab_flash">
      <attribute name="icon">
@@ -146,7 +146,7 @@
       <property name="font">
        <font>
         <family>Sans</family>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="cursorWidth">
