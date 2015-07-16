@@ -50,7 +50,6 @@ private slots:
     void on_act_supported_list_triggered();
     void on_act_about_triggered();
     void on_tabWidget_currentChanged(int index);
-    void on_cb_sel_progr_activated(const QString &programmer);
 
     void on_b_sel_bios_rom_clicked();
     void on_b_sel_bios_out_clicked();
@@ -61,6 +60,7 @@ private slots:
     void on_b_add_component_clicked();
     void on_b_remove_comp_clicked();
     void on_b_probe_clicked();
+    void on_b_init_prog_clicked();
 
 private:
     void fill_cb_programmers();
