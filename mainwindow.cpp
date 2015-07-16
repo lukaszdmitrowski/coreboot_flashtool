@@ -120,8 +120,9 @@ void MainWindow::on_b_probe_clicked()
 
 void MainWindow::on_b_read_clicked()
 {
-        //if (flash_context)
-                //fl_image_read()
+        char buffer[819200];
+        if (flash_context)
+                qDebug() << "fl_image_read: " << fl_image_read(flash_context, buffer, 819200);
 }
 
 void MainWindow::on_b_sel_bios_rom_clicked()
