@@ -45,26 +45,21 @@ public:
 
 private slots:
     void on_b_sel_payload_clicked();
-    void on_cb_sel_progr_currentIndexChanged(const QString &arg1);
     void on_b_read_clicked();
     void on_act_sel_payload_triggered();
     void on_act_supported_list_triggered();
     void on_act_about_triggered();
+    void on_tabWidget_currentChanged(int index);
+    void on_cb_sel_progr_activated(const QString &programmer);
+
     void on_b_sel_bios_rom_clicked();
     void on_b_sel_bios_out_clicked();
-
     void on_b_extract_clicked();
     void on_b_create_rom_clicked();
     void on_b_sel_boot_block_clicked();
-
     void on_b_add_payload_clicked();
-
-    void on_tabWidget_currentChanged(int index);
-
     void on_b_add_component_clicked();
-
     void on_b_remove_comp_clicked();
-
     void on_b_probe_clicked();
 
 private:

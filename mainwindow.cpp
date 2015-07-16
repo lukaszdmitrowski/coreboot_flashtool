@@ -211,11 +211,13 @@ void MainWindow::on_b_remove_comp_clicked()
         delete_component_window.exec();
 }
 
-void MainWindow::on_cb_sel_progr_currentIndexChanged(const QString &programmer)
+void MainWindow::on_cb_sel_progr_activated(const QString &programmer)
 {
-        ui->log_flash->clear();
-        fl_shutdown();
-        fl_programmer_init(programmer.toStdString().c_str(), "");
+        if (!(programmer == "select")) {
+                ui->log_flash->clear();
+                fl_shutdown();
+                fl_programmer_init(programmer.toStdString().c_str(), "");
+        }
 }
 
 void MainWindow::fill_cb_programmers()
@@ -224,6 +226,7 @@ void MainWindow::fill_cb_programmers()
 
         programmers = fl_supported_programmers();
 
+        ui->cb_sel_progr->addItem("select");
         for (int i = 0; programmers[i]; ++i){
                 ui->cb_sel_progr->addItem(programmers[i]);
         }
@@ -338,5 +341,3 @@ QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
 }
-
-
