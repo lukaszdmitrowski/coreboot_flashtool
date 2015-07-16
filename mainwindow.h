@@ -65,6 +65,7 @@ private slots:
 private:
     void fill_cb_programmers();
     void fill_cb_arch();
+    void fill_cb_payload();
     void open_select_rom_window();
     void open_select_bios_rom_window();
     void open_select_bios_out_window();

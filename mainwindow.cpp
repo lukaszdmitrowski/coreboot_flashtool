@@ -96,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent) :
         fl_init(0);
         fill_cb_arch();
         fill_cb_programmers();
+        fill_cb_payload();
         fl_set_log_callback(my_log_callback);
 }
 
@@ -241,6 +242,18 @@ void MainWindow::fill_cb_arch()
         ui->cb_sel_arch->addItem("mips");
         ui->cb_sel_arch->addItem("arm");
         ui->cb_sel_arch->addItem("arm64");
+}
+
+void MainWindow::fill_cb_payload()
+{
+        ui->cb_auto_sel_payload->addItem("SeaBIOS");
+        ui->cb_auto_sel_payload->addItem("GRUB 2");
+        ui->cb_auto_sel_payload->addItem("GRUB legacy");
+        ui->cb_auto_sel_payload->addItem("FILO");
+        ui->cb_auto_sel_payload->addItem("Etherboot");
+        ui->cb_auto_sel_payload->addItem("Open Firmware");
+        ui->cb_auto_sel_payload->addItem("OpenBIOS");
+        ui->cb_auto_sel_payload->addItem("Tiano Core");
 }
 
 void MainWindow::open_select_rom_window()

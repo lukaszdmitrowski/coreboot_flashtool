@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>689</width>
-    <height>482</height>
+    <height>493</height>
    </rect>
   </property>
   <property name="font">
@@ -64,6 +64,66 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
+    <widget class="QWidget" name="tab_auto">
+     <attribute name="title">
+      <string>Auto</string>
+     </attribute>
+     <widget class="QLabel" name="l_auto_payload">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>28</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Payload:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cb_auto_sel_payload">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>20</y>
+        <width>221</width>
+        <height>29</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="b_auto_flash">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>120</y>
+        <width>104</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Flash</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="log_auto">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>621</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Sans</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="cursorWidth">
+       <number>0</number>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab_flash">
      <attribute name="icon">
       <iconset resource="resources.qrc">
