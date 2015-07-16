@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     addpayload.cpp \
     addcomponent.cpp \
     deletecomponents.cpp \
-    multisortfiltermodel.cpp
+    multisortfiltermodel.cpp \
+    datagatherer.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     addpayload.h \
     addcomponent.h \
     deletecomponents.h \
-    multisortfiltermodel.h
+    multisortfiltermodel.h \
+    datagatherer.h
 
 FORMS    += mainwindow.ui \
     supported.ui \

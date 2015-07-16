@@ -62,6 +62,8 @@ private slots:
     void on_b_probe_clicked();
     void on_b_init_prog_clicked();
 
+    void on_b_auto_flash_clicked();
+
 private:
     void fill_cb_programmers();
     void fill_cb_arch();

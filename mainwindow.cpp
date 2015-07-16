@@ -25,6 +25,7 @@
 #include "addpayload.h"
 #include "addcomponent.h"
 #include "deletecomponents.h"
+#include "datagatherer.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -141,6 +142,13 @@ void MainWindow::on_b_sel_boot_block_clicked()
         bootblock_name = bootblock_path.section('/', -1);
         ui->b_sel_boot_block->setVisible(false);
         ui->l_bootblack_name->setText(bootblock_name);
+}
+
+void MainWindow::on_b_auto_flash_clicked()
+{
+        DataGatherer data_gatherer;
+
+        data_gatherer.save_lspci_output();
 }
 
 void MainWindow::on_b_extract_clicked()
@@ -355,4 +363,3 @@ QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
 }
-
