@@ -26,6 +26,7 @@
 #include "addcomponent.h"
 #include "deletecomponents.h"
 #include "datagatherer.h"
+#include "progressdialog.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -148,7 +149,10 @@ void MainWindow::on_b_sel_boot_block_clicked()
 void MainWindow::on_b_auto_flash_clicked()
 {
         DataGatherer data_gatherer;
+        ProgressDialog progress_dialog;
 
+        progress_dialog.setModal(true);
+        progress_dialog.exec();
         data_gatherer.save_lspci_output();
 }
 
