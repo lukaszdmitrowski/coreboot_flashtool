@@ -115,15 +115,20 @@ void MainWindow::on_b_sel_payload_clicked()
 }
 
 void MainWindow::on_b_probe_clicked()
-{
-        qDebug() << "fl_flash_probe: " << fl_flash_probe(&flash_context, NULL);
+{       
+        if (fl_flash_probe(&flash_context, NULL) == 3) {
+                int chip_count = 0;
+                const char **chip_names = fl_multiple_flash_probe(&chip_count);
+                qDebug() << "chip_count: " << chip_count;
+        }
 }
 
 void MainWindow::on_b_read_clicked()
 {
         char buffer[819200];
-        if (flash_context)
-                qDebug() << "fl_image_read: " << fl_image_read(flash_context, buffer, 819200);
+        if (flash_context) {
+               fl_image_read(flash_context, buffer, 819200);
+        }
 }
 
 void MainWindow::on_b_sel_bios_rom_clicked()
