@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     deletecomponents.cpp \
     multisortfiltermodel.cpp \
     datagatherer.cpp \
-    progressdialog.cpp
+    progressdialog.cpp \
+    choosechip.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     deletecomponents.h \
     multisortfiltermodel.h \
     datagatherer.h \
-    progressdialog.h
+    progressdialog.h \
+    choosechip.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
@@ -41,7 +43,8 @@ FORMS    += mainwindow.ui \
     addpayload.ui \
     addcomponent.ui \
     deletecomponents.ui \
-    progressdialog.ui
+    progressdialog.ui \
+    choosechip.ui
 
 INCLUDEPATH += libflashrom \
                 libbiosext \

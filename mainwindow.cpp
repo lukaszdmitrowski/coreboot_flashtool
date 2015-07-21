@@ -27,6 +27,7 @@
 #include "deletecomponents.h"
 #include "datagatherer.h"
 #include "progressdialog.h"
+#include "choosechip.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -117,9 +118,16 @@ void MainWindow::on_b_sel_payload_clicked()
 void MainWindow::on_b_probe_clicked()
 {       
         if (fl_flash_probe(&flash_context, NULL) == 3) {
+                ChooseChip choose_chip_dialog;
+                const char **chip_names = NULL;
                 int chip_count = 0;
-                const char **chip_names = fl_multiple_flash_probe(&chip_count);
+                int i = 0;
+
+                chip_names = fl_multiple_flash_probe(&chip_count);
                 qDebug() << "chip_count: " << chip_count;
+                for (; i < chip_count; ++i) {
+                        choose_chip_dialog.add_chip(chip_names[i]);
+                }
         }
 }
 
