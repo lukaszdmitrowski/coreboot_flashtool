@@ -16,6 +16,9 @@ public:
         ~ChooseChip();
         void add_chip(QString chip_name);
 
+private slots:
+        void on_b_chip_ok_clicked();
+
 private:
         Ui::ChooseChip *ui;
 };

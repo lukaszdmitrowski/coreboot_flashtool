@@ -42,6 +42,7 @@ public:
     Ui::MainWindow *ui;
     QTextEdit *cbfs_log_out;
     QString get_flash_rom_path();
+    fl_flashctx_t** get_flash_context_ptr();
 
 private slots:
     void on_b_sel_payload_clicked();
@@ -63,6 +64,12 @@ private slots:
     void on_b_init_prog_clicked();
 
     void on_b_auto_flash_clicked();
+
+    void on_b_verify_clicked();
+
+    void on_b_erase_clicked();
+
+    void on_b_flash_clicked();
 
 private:
     void fill_cb_programmers();

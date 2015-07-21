@@ -116,7 +116,8 @@ void MainWindow::on_b_sel_payload_clicked()
 }
 
 void MainWindow::on_b_probe_clicked()
-{       
+{
+        ui->log_flash->clear();
         if (fl_flash_probe(&flash_context, NULL) == 3) {
                 ChooseChip choose_chip_dialog;
                 const char **chip_names = NULL;
@@ -124,19 +125,48 @@ void MainWindow::on_b_probe_clicked()
                 int i = 0;
 
                 chip_names = fl_multiple_flash_probe(&chip_count);
-                qDebug() << "chip_count: " << chip_count;
                 for (; i < chip_count; ++i) {
                         choose_chip_dialog.add_chip(chip_names[i]);
                 }
+
+                choose_chip_dialog.setModal(true);
+                choose_chip_dialog.exec();
         }
 }
 
 void MainWindow::on_b_read_clicked()
 {
-        char buffer[819200];
+        ui->log_flash->clear();
+        char buffer[2097152];
         if (flash_context) {
-               fl_image_read(flash_context, buffer, 819200);
+               fl_image_read(flash_context, buffer, 2097152);
         }
+}
+
+void MainWindow::on_b_verify_clicked()
+{
+        ui->log_flash->clear();
+        char buffer[2097152];
+        memset(buffer, 0, 2097152);
+        if (flash_context) {
+                fl_image_verify(flash_context, buffer, 2097152);
+        }
+}
+
+void MainWindow::on_b_erase_clicked()
+    {
+        ui->log_flash->clear();
+        fl_flash_erase(flash_context);
+}
+
+void MainWindow::on_b_flash_clicked()
+{
+    ui->log_flash->clear();
+    char buffer[2097152];
+    memset(buffer, 0, 2097152);
+    if (flash_context) {
+           fl_image_write(flash_context, buffer, 2097152);
+    }
 }
 
 void MainWindow::on_b_sel_bios_rom_clicked()
@@ -380,4 +410,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
+}
+
+fl_flashctx_t** MainWindow::get_flash_context_ptr()
+{
+    return &flash_context;
 }
