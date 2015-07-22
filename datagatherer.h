@@ -13,7 +13,7 @@ public:
         DataGatherer();
         void probe_chip();
         void save_lspci_output();
-        void read_bios_rom();
+        void save_bios_rom();
         void extract_rom();
         void extract_vga_bios();
 

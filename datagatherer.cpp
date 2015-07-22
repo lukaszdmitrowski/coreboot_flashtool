@@ -2,6 +2,8 @@
 #include "choosechip.h"
 
 #include <QDebug>
+#include <QFile>
+#include <QTextStream>
 
 extern "C" {
 #include "libcbfstool.h"
@@ -30,17 +32,27 @@ void DataGatherer::probe_chip()
         }
 }
 
-void DataGatherer::read_bios_rom()
+void DataGatherer::save_bios_rom()
 {
+        QFile file("bios_dump.rom");
+        QTextStream out(&file);
         int chip_size = fl_flash_getsize(flash_context);
         unsigned char *buf = NULL;
+        QByteArray qbyte_buf;
 
         buf = new unsigned char[chip_size];
         if (buf) {
-                //fl_image_read(&flash_context, )
-        } else
-        {
+                fl_image_read(&flash_context, buf, chip_size);
+        } else {
                 qDebug() << "Out of memory!";
+        }
+
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                qDebug() << "Can't open file!";
+        } else {
+                qbyte_buf.fromRawData(buf, chip_size);
+                out.write(data);
+                file.close();
         }
 
         delete buf;
