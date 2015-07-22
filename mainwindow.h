@@ -42,34 +42,41 @@ public:
     Ui::MainWindow *ui;
     QTextEdit *cbfs_log_out;
     QString get_flash_rom_path();
-    fl_flashctx_t** get_flash_context_ptr();
 
 private slots:
-    void on_b_sel_payload_clicked();
-    void on_b_read_clicked();
+    /* Toolbar */
     void on_act_sel_payload_triggered();
     void on_act_supported_list_triggered();
     void on_act_about_triggered();
-    void on_tabWidget_currentChanged(int index);
 
+    /* Auto tab */
+    void on_b_auto_flash_clicked();
+
+    /* Flash tab */
+    void on_b_sel_payload_clicked();
+    void on_b_read_clicked();
+    void on_b_probe_clicked();
+    void on_b_init_prog_clicked();
+    void on_b_verify_clicked();
+    void on_b_erase_clicked();
+    void on_b_flash_clicked();
+
+    /* Extract tab */
     void on_b_sel_bios_rom_clicked();
     void on_b_sel_bios_out_clicked();
     void on_b_extract_clicked();
+
+    /* Create rom tab */
     void on_b_create_rom_clicked();
     void on_b_sel_boot_block_clicked();
+
+    /* Rom options tab */
     void on_b_add_payload_clicked();
     void on_b_add_component_clicked();
     void on_b_remove_comp_clicked();
-    void on_b_probe_clicked();
-    void on_b_init_prog_clicked();
 
-    void on_b_auto_flash_clicked();
-
-    void on_b_verify_clicked();
-
-    void on_b_erase_clicked();
-
-    void on_b_flash_clicked();
+    /* Other */
+    void on_tabWidget_currentChanged(int index);
 
 private:
     void fill_cb_programmers();

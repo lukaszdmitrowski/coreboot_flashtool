@@ -36,7 +36,6 @@
 #include <QDebug>
 
 extern "C" {
-#include "libflashrom.h"
 #include "libbiosext.h"
 #include "libcbfstool.h"
 }
@@ -130,6 +129,7 @@ void MainWindow::on_b_probe_clicked()
                 }
 
                 choose_chip_dialog.setModal(true);
+                choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
                 choose_chip_dialog.exec();
         }
 }
@@ -196,7 +196,9 @@ void MainWindow::on_b_auto_flash_clicked()
 
         progress_dialog.setModal(true);
         progress_dialog.exec();
+        data_gatherer.probe_chip();
         data_gatherer.save_lspci_output();
+        data_gatherer.extract_vga_bios();
 }
 
 void MainWindow::on_b_extract_clicked()
@@ -410,9 +412,4 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
-}
-
-fl_flashctx_t** MainWindow::get_flash_context_ptr()
-{
-    return &flash_context;
 }
