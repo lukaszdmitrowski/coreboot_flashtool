@@ -62,7 +62,7 @@ int libbiosext_log(const char *const format, ...)
 
         va_start(args, format);
         text.vsprintf(format, args);
-        w->ui->log_extract->insertPlainText(text);
+        w->active_log_out->insertPlainText(text);
         va_end(args);
 
         return ret;
@@ -76,7 +76,7 @@ int libcbfstool_log(const char *const format, ...)
 
         va_start(args, format);
         text.vsprintf(format, args);
-        w->cbfs_log_out->insertPlainText(text);
+        w->active_log_out->insertPlainText(text);
         va_end(args);
 
         return ret;
@@ -465,11 +465,23 @@ void MainWindow::print_rom()
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    if (index == 3) {
-            cbfs_log_out = ui->log_create_rom;
-    } else {
-            cbfs_log_out = ui->log_rom_opt;
-    }
+        switch (index) {
+        case 0:
+                active_log_out = ui->log_auto;
+                break;
+        case 1:
+                active_log_out = ui->log_flash;
+                break;
+        case 2:
+                active_log_out = ui->log_rom_opt;
+                break;
+        case 3:
+                active_log_out = ui->log_extract;
+                break;
+        case 4:
+                active_log_out = ui->log_create_rom;
+                break;
+        }
 }
 
 QString MainWindow::get_flash_rom_path()

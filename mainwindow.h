@@ -40,7 +40,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
-    QTextEdit *cbfs_log_out;
+    QTextEdit *active_log_out;
     QString get_flash_rom_path();
 
 private slots:

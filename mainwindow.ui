@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>689</width>
-    <height>493</height>
+    <height>472</height>
    </rect>
   </property>
   <property name="font">
@@ -47,9 +47,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>30</y>
+      <y>90</y>
       <width>651</width>
-      <height>391</height>
+      <height>311</height>
      </rect>
     </property>
     <property name="font">
@@ -71,8 +71,8 @@
      <widget class="QLabel" name="l_auto_payload">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>28</y>
+        <x>10</x>
+        <y>40</y>
         <width>91</width>
         <height>21</height>
        </rect>
@@ -84,31 +84,18 @@
      <widget class="QComboBox" name="cb_auto_sel_payload">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>20</y>
+        <x>100</x>
+        <y>30</y>
         <width>221</width>
         <height>29</height>
        </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="b_auto_flash">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>120</y>
-        <width>104</width>
-        <height>29</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Flash</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="log_auto">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>100</y>
         <width>621</width>
         <height>161</height>
        </rect>
@@ -132,34 +119,11 @@
      <attribute name="title">
       <string>Flash</string>
      </attribute>
-     <widget class="QComboBox" name="cb_sel_progr">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>60</y>
-        <width>311</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_programmer">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>101</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Programmer:</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="b_read">
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>140</y>
+        <y>60</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -172,7 +136,7 @@
       <property name="geometry">
        <rect>
         <x>370</x>
-        <y>140</y>
+        <y>60</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -185,7 +149,7 @@
       <property name="geometry">
        <rect>
         <x>490</x>
-        <y>140</y>
+        <y>60</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -198,8 +162,8 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
-        <width>621</width>
+        <y>100</y>
+        <width>631</width>
         <height>161</height>
        </rect>
       </property>
@@ -217,7 +181,7 @@
       <property name="geometry">
        <rect>
         <x>250</x>
-        <y>140</y>
+        <y>60</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -269,7 +233,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>140</y>
+        <y>60</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -278,44 +242,6 @@
        <string>Probe</string>
       </property>
      </widget>
-     <widget class="QLabel" name="l_prog_param">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>100</y>
-        <width>101</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Parameter:</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="edit_prog_param">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>90</y>
-        <width>311</width>
-        <height>29</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="b_init_prog">
-      <property name="geometry">
-       <rect>
-        <x>450</x>
-        <y>60</y>
-        <width>99</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Initialize</string>
-      </property>
-     </widget>
-     <zorder>cb_sel_progr</zorder>
-     <zorder>l_programmer</zorder>
      <zorder>b_erase</zorder>
      <zorder>b_flash</zorder>
      <zorder>log_flash</zorder>
@@ -325,9 +251,6 @@
      <zorder>b_sel_payload</zorder>
      <zorder>b_read</zorder>
      <zorder>b_probe</zorder>
-     <zorder>l_prog_param</zorder>
-     <zorder>edit_prog_param</zorder>
-     <zorder>b_init_prog</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="icon">
@@ -340,9 +263,9 @@
      <widget class="QPushButton" name="b_add_payload">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>60</y>
-        <width>121</width>
+        <x>350</x>
+        <y>30</y>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
@@ -360,7 +283,7 @@
      <widget class="QPushButton" name="b_remove_comp">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>430</x>
         <y>60</y>
         <width>111</width>
         <height>31</height>
@@ -378,7 +301,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>100</y>
         <width>631</width>
         <height>161</height>
        </rect>
@@ -403,8 +326,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="l_opt_rom_info">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>150</y>
+        <x>10</x>
+        <y>70</y>
         <width>91</width>
         <height>21</height>
        </rect>
@@ -442,9 +365,9 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="b_add_component">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>60</y>
-        <width>131</width>
+        <x>490</x>
+        <y>30</y>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -524,7 +447,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>540</x>
-        <y>140</y>
+        <y>60</y>
         <width>99</width>
         <height>31</height>
        </rect>
@@ -537,7 +460,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>100</y>
         <width>631</width>
         <height>161</height>
        </rect>
@@ -704,9 +627,9 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="b_create_rom">
       <property name="geometry">
        <rect>
-        <x>530</x>
-        <y>140</y>
-        <width>99</width>
+        <x>518</x>
+        <y>120</y>
+        <width>111</width>
         <height>27</height>
        </rect>
       </property>
@@ -718,9 +641,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>150</y>
         <width>621</width>
-        <height>161</height>
+        <height>121</height>
        </rect>
       </property>
       <property name="font">
@@ -800,6 +723,65 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QComboBox" name="cb_sel_progr">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>20</y>
+      <width>311</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="l_programmer">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Programmer:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="l_prog_param">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>50</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Parameter:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edit_prog_param">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>50</y>
+      <width>311</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b_init_prog">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>30</y>
+      <width>99</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Initialize</string>
+    </property>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
