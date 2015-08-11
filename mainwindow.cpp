@@ -28,6 +28,7 @@
 #include "datagatherer.h"
 #include "progressdialog.h"
 #include "choosechip.h"
+#include "hashlibpp.h"
 #include <cstdarg>
 
 #include <QFileDialog>
