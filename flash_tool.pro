@@ -48,7 +48,8 @@ FORMS    += mainwindow.ui \
 
 INCLUDEPATH += libflashrom \
                 libbiosext \
-                libcbfstool
+                libcbfstool \
+                hashlibpp
 
 LIBS    += -L"$$_PRO_FILE_PWD_/libflashrom"\
         -lflashrom

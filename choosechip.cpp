@@ -27,4 +27,5 @@ void ChooseChip::set_flash_ctx_ptr(fl_flashctx_t **ctx_ptr)
 void ChooseChip::on_b_chip_ok_clicked()
 {
         fl_flash_probe(flash_context_ptr, ui->chip_list->currentItem()->text().toStdString().c_str());
+        close();
 }
