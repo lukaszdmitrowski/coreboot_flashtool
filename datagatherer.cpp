@@ -3,10 +3,11 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QTextStream>
+#include <QDataStream>
 
 extern "C" {
 #include "libcbfstool.h"
+#include "libbiosext.h"
 }
 
 DataGatherer::DataGatherer()
@@ -35,14 +36,14 @@ void DataGatherer::probe_chip()
 void DataGatherer::save_bios_rom()
 {
         QFile file("bios_dump.rom");
-        QTextStream out(&file);
+        QDataStream out(&file);
         int chip_size = fl_flash_getsize(flash_context);
         unsigned char *buf = NULL;
-        QByteArray qbyte_buf;
+        //QByteArray qbyte_buf;
 
         buf = new unsigned char[chip_size];
         if (buf) {
-                fl_image_read(&flash_context, buf, chip_size);
+                fl_image_read(flash_context, buf, chip_size);
         } else {
                 qDebug() << "Out of memory!";
         }
@@ -50,17 +51,17 @@ void DataGatherer::save_bios_rom()
         if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
                 qDebug() << "Can't open file!";
         } else {
-                qbyte_buf.fromRawData(buf, chip_size);
-                out.write(data);
+                //qbyte_buf.fromRawData(reinterpret_cast<char*>(buf), chip_size);
+                out << buf;
                 file.close();
         }
 
         delete buf;
 }
 
-void DataGatherer::extract_rom()
+void DataGatherer::extract_rom(QString bios_rom_path)
 {
-
+        start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 
 void DataGatherer::save_lspci_output()

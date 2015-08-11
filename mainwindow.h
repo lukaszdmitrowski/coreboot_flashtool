@@ -85,7 +85,6 @@ private:
     void open_select_rom_window();
     void open_select_bios_rom_window();
     void open_select_bios_out_window();
-    int extract_bios();
     void print_rom();
     QString flash_rom_path;
     QString bios_rom_path;

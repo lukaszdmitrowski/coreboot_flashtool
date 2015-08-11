@@ -193,17 +193,84 @@ void MainWindow::on_b_auto_flash_clicked()
 {
         DataGatherer data_gatherer;
         ProgressDialog progress_dialog;
+        unsigned int rom_size = 0;
 
         progress_dialog.setModal(true);
         progress_dialog.exec();
+
+        /* Probe for a chip */
         data_gatherer.probe_chip();
+
+        /* Save lspci -nn output*/
         data_gatherer.save_lspci_output();
-        data_gatherer.extract_vga_bios();
+
+        /* Make backup of current bios */
+        data_gatherer.save_bios_rom();
+
+        /* CHECK LOGIC */
+
+        /* COUNT ROM SIZE IN KILOBYTES - NECESSARY MODULES + PAYLOAD*/
+        rom_size = fl_flash_getsize(flash_context);
+
+        /* Create rom */
+        char **cbfs_params;
+        /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
+        int param_count = 7;
+        QString params[11];
+
+        ui->log_create_rom->clear();
+        params[0] = "flash_tool";
+        params[1] = "auto_rom.rom";
+        params[2] = "create";
+        params[3] = "-m";
+        params[4] =  "x86";
+        params[5] = "-s";
+        params[6] = QString(rom_size).toStdString().c_str() + 'K';
+
+        /* HOW TO DETERMINE BOOTBLOCK OFFSET?
+         * params[7] = "-b ";
+         * params[8] =
+         */
+
+        /* HOW TO DETERMINE CBFS OFFSET?
+         * params[9] = "-o ";
+         * params[10] =
+         */
+
+        cbfs_params = new char*[param_count];
+        for (int i = 0; i < param_count; ++i) {
+                cbfs_params[i] = new char[params[i].length()];
+                strcpy(cbfs_params[i], params[i].toStdString().c_str());
+        }
+
+        start_cbfs(param_count, cbfs_params);
+
+        for (int i = 0; i < param_count; ++i) {
+                delete [] cbfs_params[i];
+        }
+        delete [] cbfs_params;
+
+        /* ADD COMPONENTS */
+
+        /* Read rom file to array */
+        QFile file("auto_rom.rom");
+        QByteArray blob;
+        //char rom_buffer[rom_size];
+
+        if (!file.open(QIODevice::ReadOnly)) {
+                qDebug() << "Can't open file!";
+        } else {
+                blob = file.readAll();
+        }
+
+        /* WRITE IMAGE TO CHIP */
+        fl_image_write(flash_context, blob.data(), rom_size);
 }
 
 void MainWindow::on_b_extract_clicked()
 {
-        extract_bios();
+        DataGatherer data_gatherer;
+        data_gatherer.extract_rom(bios_rom_path.toStdString().c_str());
 }
 
 void MainWindow::on_b_create_rom_clicked()
@@ -367,11 +434,6 @@ void MainWindow::on_act_about_triggered()
         About about_window;
         about_window.setModal(true);
         about_window.exec();
-}
-
-int MainWindow::extract_bios()
-{
-        return start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 
 void MainWindow::print_rom()

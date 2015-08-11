@@ -1,6 +1,7 @@
 #ifndef DATAGATHERER_H
 #define DATAGATHERER_H
 
+#include <QString>
 #include "stdio.h"
 
 extern "C" {
@@ -14,7 +15,7 @@ public:
         void probe_chip();
         void save_lspci_output();
         void save_bios_rom();
-        void extract_rom();
+        void extract_rom(QString bios_rom_path);
         void extract_vga_bios();
 
 private:
