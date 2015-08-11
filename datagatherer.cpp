@@ -3,7 +3,6 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QDataStream>
 
 extern "C" {
 #include "libcbfstool.h"
@@ -35,25 +34,28 @@ void DataGatherer::probe_chip()
 
 void DataGatherer::save_bios_rom()
 {
-        QFile file("bios_dump.rom");
-        QDataStream out(&file);
-        int chip_size = fl_flash_getsize(flash_context);
+        FILE *dump_file;
         unsigned char *buf = NULL;
-        //QByteArray qbyte_buf;
+        unsigned long chip_size = fl_flash_getsize(flash_context);
+        unsigned long written_bytes = 0;
 
         buf = new unsigned char[chip_size];
+        memset(buf, 0, chip_size);
         if (buf) {
                 fl_image_read(flash_context, buf, chip_size);
         } else {
                 qDebug() << "Out of memory!";
         }
 
-        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        if (!(dump_file = fopen("bios_dump.rom", "wb"))) {
                 qDebug() << "Can't open file!";
         } else {
-                //qbyte_buf.fromRawData(reinterpret_cast<char*>(buf), chip_size);
-                out << buf;
-                file.close();
+                written_bytes = fwrite(buf, 1, chip_size, dump_file);
+                fclose(dump_file);
+        }
+
+        if (written_bytes < chip_size) {
+            qDebug() << "File not fully written!";
         }
 
         delete buf;
