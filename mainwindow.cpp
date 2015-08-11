@@ -48,8 +48,7 @@ int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
         QString text;
 
         text.vsprintf(format, vl);
-        //qDebug() << text;
-        w->ui->log_flash->append(text);
+        w->active_log_out->append(text);
 
         return 1;
 }
@@ -343,7 +342,7 @@ void MainWindow::on_b_init_prog_clicked()
         QString programmer = ui->cb_sel_progr->currentText();
 
         if (!(programmer == "select")) {
-                ui->log_flash->clear();
+                w->active_log_out->clear();
                 fl_shutdown();
                 fl_programmer_init(programmer.toStdString().c_str(), ui->edit_prog_param->text().toStdString().c_str());
         }
@@ -444,7 +443,7 @@ void MainWindow::print_rom()
         int param_count = 3;
         QString params[3];
 
-        ui->log_rom_opt->clear();
+        w->active_log_out->clear();
         params[0] = "./flash_tool";
         params[1] = flash_rom_path;
         params[2] = "print";
