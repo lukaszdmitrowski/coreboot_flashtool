@@ -47,7 +47,7 @@ void DataGatherer::save_bios_rom()
                 qDebug() << "Out of memory!";
         }
 
-        if (!(dump_file = fopen("bios_dump.rom", "wb"))) {
+        if (!(dump_file = fopen("hardware_data/bios_dump.rom", "wb"))) {
                 qDebug() << "Can't open file!";
         } else {
                 written_bytes = fwrite(buf, 1, chip_size, dump_file);
@@ -71,7 +71,7 @@ void DataGatherer::save_lspci_output()
         char buffer[2048];
         FILE *pipe, *file;
 
-        file = fopen("./lspci_output.txt", "w");
+        file = fopen("hardware_data/lspci_output.txt", "w");
         if (!file) {
                 qDebug() << "Can't open file!";
         }

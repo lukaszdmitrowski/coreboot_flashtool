@@ -35,6 +35,7 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QDebug>
+#include <QtXml>
 
 extern "C" {
 #include "libbiosext.h"
@@ -194,22 +195,51 @@ void MainWindow::on_b_auto_flash_clicked()
         DataGatherer data_gatherer;
         ProgressDialog progress_dialog;
         unsigned int rom_size = 0;
+        QDomDocument xmlBOM;
+        QFile hardware_info("hardware_info.xml");
 
         //progress_dialog.setModal(true);
         //progress_dialog.exec();
 
         /* Probe for a chip */
-        data_gatherer.probe_chip();
+        //data_gatherer.probe_chip();
 
         /* Save lspci -nn output*/
-        data_gatherer.save_lspci_output();
+        //data_gatherer.save_lspci_output();
 
         /* Make backup of current bios */
-        data_gatherer.save_bios_rom();
+        //data_gatherer.save_bios_rom();
 
-        /* CHECK LOGIC */
+        //data_gatherer.extract_rom("hardware_data/bios_dump.rom");
 
-        /* COUNT ROM SIZE IN KILOBYTES - NECESSARY MODULES + PAYLOAD*/
+        if (!hardware_info.open(QIODevice::ReadOnly ))
+        {
+            qDebug() << "Error while loading file";
+        }
+
+        xmlBOM.setContent(&hardware_info);
+        hardware_info.close();
+        
+        QDomElement root = xmlBOM.documentElement();
+        QDomElement chipset = root.firstChild().toElement();
+
+        while (!chipset.isNull()) {
+                if (chipset.tagName() == "chipset") {
+                        QDomElement chipset_child = chipset.firstChild().toElement();
+                        if (chipset_child.tagName() == "name") {
+                                qDebug() << "name: " << chipset_child.firstChild().toText().data();
+                        }
+
+                        QDomNode vgabios_node = chipset_child.nextSibling();
+                        for (int i = 0; !vgabios_node.isNull(); ++i) {
+                                QString md5 = vgabios_node.firstChild().toText().data();
+                                qDebug() << "md5: " << md5;
+                                vgabios_node = vgabios_node.nextSibling();
+                        }
+                }
+                chipset = chipset.nextSiblingElement();
+        }
+
         //rom_size = fl_flash_getsize(flash_context);
 
         /* Create rom */
