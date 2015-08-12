@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui testlib
+QT       += core gui testlib xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     multisortfiltermodel.cpp \
     datagatherer.cpp \
     progressdialog.cpp \
-    choosechip.cpp
+    choosechip.cpp \
+    hashlibpp/hl_md5wrapper.cpp \
+    hashlibpp/hl_md5.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -35,7 +37,12 @@ HEADERS  += mainwindow.h \
     multisortfiltermodel.h \
     datagatherer.h \
     progressdialog.h \
-    choosechip.h
+    choosechip.h \
+    hashlibpp/hashlibpp.h \
+    hashlibpp/hl_md5wrapper.h \
+    hashlibpp/hl_md5.h \
+    hashlibpp/hl_hashwrapper.h \
+    hashlibpp/hl_exception.h
 
 FORMS    += mainwindow.ui \
     supported.ui \

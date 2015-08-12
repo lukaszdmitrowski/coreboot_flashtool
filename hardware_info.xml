@@ -2,13 +2,13 @@
 	<chipset>
 		<name>MX25L1605</name>
 		<vgabios id="1">88c32ce95f7521c213c7325d41c15e0a</vgabios>
-		<vgabios id="2">TEST1</vgabios>
-		<vgabios id="3">TEST2</vgabios>
+		<vgabios id="2">d41d8cd98f00b204e9800998ecf8427e</vgabios>
+		<vgabios id="3">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
 	</chipset> 
 	<chipset>
-		<name>TEST3</name>
-		<vgabios id="1">TEST4</vgabios>
-		<vgabios id="2">TEST5</vgabios>
-		<vgabios id="3">TEST6</vgabios>
+		<name>TESTCHIP</name>
+		<vgabios id="1">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
+		<vgabios id="2">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
+		<vgabios id="3">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
 	</chipset> 
 </chipsets>

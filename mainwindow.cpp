@@ -28,7 +28,7 @@
 #include "datagatherer.h"
 #include "progressdialog.h"
 #include "choosechip.h"
-#include "hashlibpp.h"
+#include <hashlibpp.h>
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -210,7 +210,7 @@ void MainWindow::on_b_auto_flash_clicked()
         /* Make backup of current bios */
         //data_gatherer.save_bios_rom();
 
-        //data_gatherer.extract_rom("hardware_data/bios_dump.rom");
+        //data_gatherer.extract_rom("bios_dump/bios_dump.rom");
 
         if (!hardware_info.open(QIODevice::ReadOnly ))
         {
@@ -219,26 +219,39 @@ void MainWindow::on_b_auto_flash_clicked()
 
         xmlBOM.setContent(&hardware_info);
         hardware_info.close();
-        
+
         QDomElement root = xmlBOM.documentElement();
         QDomElement chipset = root.firstChild().toElement();
+        hashwrapper *md5_wrapper = new md5wrapper();;
+        QDirIterator file_iterator("bios_dump");
+        while (file_iterator.hasNext()) {
+                if (file_iterator.next().contains("oprom_")) {
+                        QString vgabios_hash = QString(md5_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
 
-        while (!chipset.isNull()) {
-                if (chipset.tagName() == "chipset") {
-                        QDomElement chipset_child = chipset.firstChild().toElement();
-                        if (chipset_child.tagName() == "name") {
-                                qDebug() << "name: " << chipset_child.firstChild().toText().data();
-                        }
+                        while (!chipset.isNull()) {
+                                if (chipset.tagName() == "chipset") {
+                                        QDomElement chipset_child = chipset.firstChild().toElement();
+                                        /*if (chipset_child.tagName() == "name") {
+                                                qDebug() << "name: " << chipset_child.firstChild().toText().data();
+                                        }*/
 
-                        QDomNode vgabios_node = chipset_child.nextSibling();
-                        for (int i = 0; !vgabios_node.isNull(); ++i) {
-                                QString md5 = vgabios_node.firstChild().toText().data();
-                                qDebug() << "md5: " << md5;
-                                vgabios_node = vgabios_node.nextSibling();
+                                        QDomNode vgabios_node = chipset_child.nextSibling();
+                                        for (int i = 0; !vgabios_node.isNull(); ++i) {
+                                                QString md5 = vgabios_node.firstChild().toText().data();
+                                                //qDebug() << "md5: " << md5;
+                                                //qDebug() << "vgabios_hash: " << vgabios_hash;
+
+                                                if (md5 == vgabios_hash)
+                                                        qDebug() << "VGABIOS OK";
+
+                                                vgabios_node = vgabios_node.nextSibling();
+                                        }
+                                }
+                                chipset = chipset.nextSiblingElement();
                         }
                 }
-                chipset = chipset.nextSiblingElement();
         }
+        delete md5_wrapper;
 
         //rom_size = fl_flash_getsize(flash_context);
 
