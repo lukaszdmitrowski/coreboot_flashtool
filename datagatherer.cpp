@@ -67,6 +67,12 @@ void DataGatherer::save_bios_rom()
         delete buf;
 }
 
+void DataGatherer::save_bios_rom_from_iomem()
+{
+        system("cat /proc/iomem | grep \'Video ROM\' | (read m; m=${m/ :*}; s=${m/-*}; e=${m/*-}; \
+                dd if=/dev/mem of=vgabios.bin bs=1c skip=$[0x$s] count=$[$[0x$e]-$[0x$s]+1]) > bios_dump/vgabios_from_mem.bin");
+}
+
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
         set_output_directory("bios_dump/");
@@ -93,8 +99,4 @@ void DataGatherer::save_lspci_output()
         //system("lspci -nn > lspci_output.txt");
 }
 
-void DataGatherer::extract_vga_bios()
-{
-
-}
 

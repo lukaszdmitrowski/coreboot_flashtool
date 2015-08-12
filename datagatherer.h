@@ -15,8 +15,8 @@ public:
         int probe_chip();
         void save_lspci_output();
         void save_bios_rom();
+        void save_bios_rom_from_iomem();
         void extract_rom(QString bios_rom_path);
-        void extract_vga_bios();
 
 private:
         fl_flashctx_t *flash_context;
