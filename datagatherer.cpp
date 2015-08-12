@@ -13,9 +13,12 @@ DataGatherer::DataGatherer()
 {
 }
 
-void DataGatherer::probe_chip()
+int DataGatherer::probe_chip()
 {
-        if (fl_flash_probe(&flash_context, NULL) == 3) {
+        int ret_val = 1;
+
+        ret_val = fl_flash_probe(&flash_context, NULL);
+        if (ret_val == 3) {
                 ChooseChip choose_chip_dialog;
                 const char **chip_names = NULL;
                 int chip_count = 0;
@@ -29,7 +32,10 @@ void DataGatherer::probe_chip()
                 choose_chip_dialog.setModal(true);
                 choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
                 choose_chip_dialog.exec();
+                ret_val = 0;
         }
+
+        return ret_val;
 }
 
 void DataGatherer::save_bios_rom()
@@ -47,7 +53,7 @@ void DataGatherer::save_bios_rom()
                 qDebug() << "Out of memory!";
         }
 
-        if (!(dump_file = fopen("hardware_data/bios_dump.rom", "wb"))) {
+        if (!(dump_file = fopen("bios_dump/bios_dump.rom", "wb"))) {
                 qDebug() << "Can't open file!";
         } else {
                 written_bytes = fwrite(buf, 1, chip_size, dump_file);
@@ -63,6 +69,7 @@ void DataGatherer::save_bios_rom()
 
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
+        set_output_directory("bios_dump/");
         start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 

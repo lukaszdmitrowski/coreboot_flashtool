@@ -88,6 +88,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
         ui->setupUi(this);
 
+        if (!QDir("hardware_data").exists())
+            QDir().mkdir("hardware_data");
+        if (!QDir("bios_dump").exists())
+            QDir().mkdir("bios_dump");
+
+        ui->log_auto->setReadOnly(true);
         ui->log_flash->setReadOnly(true);
         ui->log_rom_opt->setReadOnly(true);
         ui->log_extract->setReadOnly(true);
@@ -202,112 +208,110 @@ void MainWindow::on_b_auto_flash_clicked()
         //progress_dialog.exec();
 
         /* Probe for a chip */
-        //data_gatherer.probe_chip();
+        if (!data_gatherer.probe_chip()) {
+                /* Save lspci -nn output*/
+                data_gatherer.save_lspci_output();
 
-        /* Save lspci -nn output*/
-        //data_gatherer.save_lspci_output();
+                /* Make backup of current bios */
+                data_gatherer.save_bios_rom();
 
-        /* Make backup of current bios */
-        //data_gatherer.save_bios_rom();
+                /* Extract rom components */
+                data_gatherer.extract_rom("bios_dump/bios_dump.rom");
 
-        //data_gatherer.extract_rom("bios_dump/bios_dump.rom");
+                if (!hardware_info.open(QIODevice::ReadOnly ))
+                {
+                    qDebug() << "Error while loading file";
+                }
 
-        if (!hardware_info.open(QIODevice::ReadOnly ))
-        {
-            qDebug() << "Error while loading file";
-        }
+                xmlBOM.setContent(&hardware_info);
+                hardware_info.close();
 
-        xmlBOM.setContent(&hardware_info);
-        hardware_info.close();
+                QDomElement root = xmlBOM.documentElement();
+                hashwrapper *md5_wrapper = new md5wrapper();;
+                QDirIterator file_iterator("bios_dump");
+                while (file_iterator.hasNext()) {
+                        if (file_iterator.next().contains("oprom_")) {
+                                QString vgabios_hash = QString(md5_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
+                                QDomElement chipset = root.firstChild().toElement();
 
-        QDomElement root = xmlBOM.documentElement();
-        QDomElement chipset = root.firstChild().toElement();
-        hashwrapper *md5_wrapper = new md5wrapper();;
-        QDirIterator file_iterator("bios_dump");
-        while (file_iterator.hasNext()) {
-                if (file_iterator.next().contains("oprom_")) {
-                        QString vgabios_hash = QString(md5_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
+                                while (!chipset.isNull()) {
+                                        if (chipset.tagName() == "chipset") {
+                                                QDomElement chipset_child = chipset.firstChild().toElement();
+                                                QDomNode vgabios_node = chipset_child.nextSibling();
 
-                        while (!chipset.isNull()) {
-                                if (chipset.tagName() == "chipset") {
-                                        QDomElement chipset_child = chipset.firstChild().toElement();
-                                        /*if (chipset_child.tagName() == "name") {
-                                                qDebug() << "name: " << chipset_child.firstChild().toText().data();
-                                        }*/
+                                                for (int i = 0; !vgabios_node.isNull(); ++i) {
+                                                        QString md5 = vgabios_node.firstChild().toText().data();
+                                                        //qDebug() << "md5: " << md5;
+                                                        //qDebug() << "vgabios_hash: " << vgabios_hash;
 
-                                        QDomNode vgabios_node = chipset_child.nextSibling();
-                                        for (int i = 0; !vgabios_node.isNull(); ++i) {
-                                                QString md5 = vgabios_node.firstChild().toText().data();
-                                                //qDebug() << "md5: " << md5;
-                                                //qDebug() << "vgabios_hash: " << vgabios_hash;
+                                                        if (md5 == vgabios_hash)
+                                                                qDebug() << "VGABIOS OK";
 
-                                                if (md5 == vgabios_hash)
-                                                        qDebug() << "VGABIOS OK";
-
-                                                vgabios_node = vgabios_node.nextSibling();
+                                                        vgabios_node = vgabios_node.nextSibling();
+                                                }
                                         }
+                                        chipset = chipset.nextSiblingElement();
                                 }
-                                chipset = chipset.nextSiblingElement();
                         }
                 }
+                delete md5_wrapper;
+
+                rom_size = fl_flash_getsize(flash_context);
+
+                /* Create rom */
+                //char **cbfs_params;
+                /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
+                /*int param_count = 7;
+                QString params[11];
+
+                ui->log_create_rom->clear();
+                params[0] = "flash_tool";
+                params[1] = "auto_rom.rom";
+                params[2] = "create";
+                params[3] = "-m";
+                params[4] =  "x86";
+                params[5] = "-s";
+                params[6] = QString(rom_size).toStdString().c_str() + 'K';*/
+
+                /* HOW TO DETERMINE BOOTBLOCK OFFSET?
+                 * params[7] = "-b ";
+                 * params[8] =
+                 */
+
+                /* HOW TO DETERMINE CBFS OFFSET?
+                 * params[9] = "-o ";
+                 * params[10] =
+                 */
+
+                /*cbfs_params = new char*[param_count];
+                for (int i = 0; i < param_count; ++i) {
+                        cbfs_params[i] = new char[params[i].length()];
+                        strcpy(cbfs_params[i], params[i].toStdString().c_str());
+                }*/
+
+                //start_cbfs(param_count, cbfs_params);
+
+                /*for (int i = 0; i < param_count; ++i) {
+                        delete [] cbfs_params[i];
+                }
+                delete [] cbfs_params;*/
+
+                /* ADD COMPONENTS */
+
+                /* Read rom file to array */
+                /*QFile file("auto_rom.rom");
+                QByteArray blob;
+                //char rom_buffer[rom_size];
+
+                if (!file.open(QIODevice::ReadOnly)) {
+                        qDebug() << "Can't open file!";
+                } else {
+                        blob = file.readAll();
+                }*/
+
+                /* WRITE IMAGE TO CHIP */
+                //fl_image_write(flash_context, blob.data(), rom_size);
         }
-        delete md5_wrapper;
-
-        //rom_size = fl_flash_getsize(flash_context);
-
-        /* Create rom */
-        //char **cbfs_params;
-        /* PROGNAME(1) + NAME(1) + COMMAND(1) + ARCH(2) + SIZE(2) */
-        /*int param_count = 7;
-        QString params[11];
-
-        ui->log_create_rom->clear();
-        params[0] = "flash_tool";
-        params[1] = "auto_rom.rom";
-        params[2] = "create";
-        params[3] = "-m";
-        params[4] =  "x86";
-        params[5] = "-s";
-        params[6] = QString(rom_size).toStdString().c_str() + 'K';*/
-
-        /* HOW TO DETERMINE BOOTBLOCK OFFSET?
-         * params[7] = "-b ";
-         * params[8] =
-         */
-
-        /* HOW TO DETERMINE CBFS OFFSET?
-         * params[9] = "-o ";
-         * params[10] =
-         */
-
-        /*cbfs_params = new char*[param_count];
-        for (int i = 0; i < param_count; ++i) {
-                cbfs_params[i] = new char[params[i].length()];
-                strcpy(cbfs_params[i], params[i].toStdString().c_str());
-        }*/
-
-        //start_cbfs(param_count, cbfs_params);
-
-        /*for (int i = 0; i < param_count; ++i) {
-                delete [] cbfs_params[i];
-        }
-        delete [] cbfs_params;*/
-
-        /* ADD COMPONENTS */
-
-        /* Read rom file to array */
-        /*QFile file("auto_rom.rom");
-        QByteArray blob;
-        //char rom_buffer[rom_size];
-
-        if (!file.open(QIODevice::ReadOnly)) {
-                qDebug() << "Can't open file!";
-        } else {
-                blob = file.readAll();
-        }*/
-
-        /* WRITE IMAGE TO CHIP */
-        //fl_image_write(flash_context, blob.data(), rom_size);
 }
 
 void MainWindow::on_b_extract_clicked()

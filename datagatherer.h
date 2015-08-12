@@ -12,7 +12,7 @@ class DataGatherer
 {
 public:
         DataGatherer();
-        void probe_chip();
+        int probe_chip();
         void save_lspci_output();
         void save_bios_rom();
         void extract_rom(QString bios_rom_path);
