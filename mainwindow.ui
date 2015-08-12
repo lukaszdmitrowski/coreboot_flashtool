@@ -72,7 +72,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>40</y>
+        <y>20</y>
         <width>91</width>
         <height>21</height>
        </rect>
@@ -84,8 +84,8 @@
      <widget class="QComboBox" name="cb_auto_sel_payload">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>40</y>
+        <x>100</x>
+        <y>10</y>
         <width>221</width>
         <height>29</height>
        </rect>
@@ -113,14 +113,27 @@
      <widget class="QPushButton" name="b_auto_flash">
       <property name="geometry">
        <rect>
-        <x>420</x>
-        <y>40</y>
-        <width>101</width>
+        <x>490</x>
+        <y>10</y>
+        <width>131</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
        <string>Flash</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="b_auto_build">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>10</y>
+        <width>131</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Build image</string>
       </property>
      </widget>
     </widget>

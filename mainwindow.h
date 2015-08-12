@@ -50,6 +50,7 @@ private slots:
     void on_act_about_triggered();
 
     /* Auto tab */
+    void on_b_auto_build_clicked();
     void on_b_auto_flash_clicked();
 
     /* Flash tab */

@@ -14,6 +14,7 @@ public:
         DataGatherer();
         int probe_chip();
         void save_lspci_output();
+        void save_edid_data();
         void save_bios_rom();
         void save_bios_rom_from_iomem();
         void extract_rom(QString bios_rom_path);

@@ -28,7 +28,7 @@
 #include "datagatherer.h"
 #include "progressdialog.h"
 #include "choosechip.h"
-#include <hashlibpp.h>
+#include "hashlibpp/hashlibpp.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -194,6 +194,21 @@ void MainWindow::on_b_sel_boot_block_clicked()
         bootblock_name = bootblock_path.section('/', -1);
         ui->b_sel_boot_block->setVisible(false);
         ui->l_bootblack_name->setText(bootblock_name);
+}
+
+void MainWindow::on_b_auto_build_clicked()
+{
+        DataGatherer data_gatherer;
+        QFile hardware_info("hardware_info.xml");
+
+        /* Save lspci -nn output*/
+        data_gatherer.save_lspci_output();
+
+        /* Dump VGABIOS from iomem */
+        data_gatherer.save_bios_rom_from_iomem();
+
+        /* Save EDID data */
+        data_gatherer.save_edid_data();
 }
 
 void MainWindow::on_b_auto_flash_clicked()

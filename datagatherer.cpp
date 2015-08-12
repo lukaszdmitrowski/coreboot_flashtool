@@ -99,4 +99,9 @@ void DataGatherer::save_lspci_output()
         //system("lspci -nn > lspci_output.txt");
 }
 
+void DataGatherer::save_edid_data()
+{
+        system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output");
+}
+
 
