@@ -51,9 +51,9 @@ Supported::Supported(QWidget *parent) :
 
 Supported::~Supported()
 {
-        fl_supported_info_free(flashchip_info);
-        fl_supported_info_free(boards_list);
-        fl_supported_info_free(chipsets_list);
+        fl_data_free(flashchip_info);
+        fl_data_free(boards_list);
+        fl_data_free(chipsets_list);
         delete ui;
 }
 
@@ -257,7 +257,7 @@ void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
         case 2:
                 show_chipsets();
                 break;
-    }
+        }
 }
 
 void Supported::on_cb_sel_vendor_currentIndexChanged(int index)

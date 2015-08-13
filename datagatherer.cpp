@@ -32,6 +32,7 @@ int DataGatherer::probe_chip()
                 choose_chip_dialog.setModal(true);
                 choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
                 choose_chip_dialog.exec();
+                fl_data_free(chip_names);
                 ret_val = 0;
         }
 

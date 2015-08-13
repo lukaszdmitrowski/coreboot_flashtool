@@ -138,6 +138,7 @@ void MainWindow::on_b_probe_clicked()
                 choose_chip_dialog.setModal(true);
                 choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
                 choose_chip_dialog.exec();
+                fl_data_free(chip_names);
         }
 }
 
@@ -420,7 +421,7 @@ void MainWindow::fill_cb_programmers()
                 ui->cb_sel_progr->addItem(programmers[i]);
         }
 
-        fl_supported_info_free(programmers);
+        fl_data_free(programmers);
 }
 
 void MainWindow::fill_cb_arch()
