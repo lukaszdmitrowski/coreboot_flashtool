@@ -71,7 +71,7 @@ void DataGatherer::save_bios_rom()
 void DataGatherer::save_bios_rom_from_iomem()
 {
         system("cat /proc/iomem | grep \'Video ROM\' | (read m; m=${m/ :*}; s=${m/-*}; e=${m/*-}; \
-                dd if=/dev/mem of=vgabios.bin bs=1c skip=$[0x$s] count=$[$[0x$e]-$[0x$s]+1]) > bios_dump/vgabios_from_mem.bin");
+                dd if=/dev/mem of=vgabios.bin bs=1c skip=$[0x$s] count=$[$[0x$e]-$[0x$s]+1]) > hardware_data/vgabios_from_mem.bin");
 }
 
 void DataGatherer::extract_rom(QString bios_rom_path)
@@ -103,6 +103,11 @@ void DataGatherer::save_lspci_output()
 void DataGatherer::save_edid_data()
 {
         system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output");
+}
+
+void DataGatherer::crate_hardware_data_archive()
+{
+        system("tar -cvf hardware_data.tar hardware_data");
 }
 
 
