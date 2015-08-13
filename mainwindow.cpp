@@ -238,7 +238,12 @@ void MainWindow::on_b_auto_flash_clicked()
                 /* Extract rom components */
                 data_gatherer.extract_rom("hardware_data/factory_bios.bin");
 
-                if (!hardware_info.open(QIODevice::ReadOnly ))
+
+
+
+
+
+                if (!hardware_info.open(QIODevice::ReadOnly))
                 {
                     qDebug() << "Error while loading file";
                 }

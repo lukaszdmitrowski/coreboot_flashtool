@@ -18,6 +18,9 @@ public:
         void save_bios_rom_factory();
         void save_bios_rom_from_iomem();
         void extract_rom(QString bios_rom_path);
+
+        QString get_graphic_card_model();
+
         void create_hardware_data_archive();
         void unpack_hardware_data_archive(QString filename);
 

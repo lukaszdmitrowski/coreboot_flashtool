@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QTextStream>
 
 extern "C" {
 #include "libcbfstool.h"
@@ -37,6 +38,31 @@ int DataGatherer::probe_chip()
         }
 
         return ret_val;
+}
+
+void DataGatherer::save_lspci_output()
+{
+        char buffer[2048];
+        FILE *pipe, *file;
+
+        file = fopen("hardware_data/lspci_output.txt", "w");
+        if (!file) {
+                qDebug() << "Can't open file!";
+        }
+        if ((pipe = popen("lspci -nn", "r")) != NULL) {
+                while (!feof(pipe)) {
+                    if (fgets(buffer, 2048, pipe) != NULL)
+                            fprintf(file, "%s", buffer);
+                }
+                pclose(pipe);
+        }
+        fclose(file);
+        //system("lspci -nn > lspci_output.txt");
+}
+
+void DataGatherer::save_edid_data()
+{
+        system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output");
 }
 
 void DataGatherer::save_bios_rom_factory()
@@ -80,29 +106,27 @@ void DataGatherer::extract_rom(QString bios_rom_path)
         start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 
-void DataGatherer::save_lspci_output()
+QString DataGatherer::get_graphic_card_model()
 {
-        char buffer[2048];
-        FILE *pipe, *file;
+        QString graphic_card_model;
+        QFile lspci_output_file("hardware_data/lspci_output.txt");
 
-        file = fopen("hardware_data/lspci_output.txt", "w");
-        if (!file) {
-                qDebug() << "Can't open file!";
-        }
-        if ((pipe = popen("lspci -nn", "r")) != NULL) {
-                while (!feof(pipe)) {
-                    if (fgets(buffer, 2048, pipe) != NULL)
-                            fprintf(file, "%s", buffer);
+        if (!lspci_output_file.open(QIODevice::ReadOnly)) {
+                qDebug() << "Error while loading file";
+        } else {
+                QTextStream in(&file);
+
+                while (!in.atEnd()) {
+                        QString line = in.readLine();
+                        if (line.contains("VGA")) {
+                                graphic_card_model = QString(line, 7, line.length());
+                                qDebug() << graphic_card_model;
+                        }
                 }
-                pclose(pipe);
         }
-        fclose(file);
-        //system("lspci -nn > lspci_output.txt");
-}
 
-void DataGatherer::save_edid_data()
-{
-        system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output");
+        file.close();
+        return graphic_card_model;
 }
 
 void DataGatherer::create_hardware_data_archive()

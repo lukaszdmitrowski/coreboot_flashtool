@@ -42,6 +42,7 @@ public:
     Ui::MainWindow *ui;
     QTextEdit *active_log_out;
     QString get_flash_rom_path();
+    QString chip_name;
 
 private slots:
     /* Toolbar */
