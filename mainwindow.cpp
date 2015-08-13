@@ -197,10 +197,9 @@ void MainWindow::on_b_sel_boot_block_clicked()
         ui->l_bootblack_name->setText(bootblock_name);
 }
 
-void MainWindow::on_b_auto_build_clicked()
+void MainWindow::on_b_auto_get_hw_data_clicked()
 {
         DataGatherer data_gatherer;
-        QFile hardware_info("hardware_info.xml");
 
         /* Save lspci -nn output*/
         data_gatherer.save_lspci_output();
@@ -210,6 +209,9 @@ void MainWindow::on_b_auto_build_clicked()
 
         /* Save EDID data */
         data_gatherer.save_edid_data();
+
+        /* Create archive from gathered data */
+        data_gatherer.create_hardware_data_archive();
 }
 
 void MainWindow::on_b_auto_flash_clicked()
@@ -219,20 +221,22 @@ void MainWindow::on_b_auto_flash_clicked()
         unsigned int rom_size = 0;
         QDomDocument xmlBOM;
         QFile hardware_info("hardware_info.xml");
+        QString hardware_data_path;
+
+        hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.*)");
+        data_gatherer.unpack_hardware_data_archive(hardware_data_path);
 
         //progress_dialog.setModal(true);
         //progress_dialog.exec();
 
         /* Probe for a chip */
         if (!data_gatherer.probe_chip()) {
-                /* Save lspci -nn output*/
-                data_gatherer.save_lspci_output();
 
                 /* Make backup of current bios */
-                data_gatherer.save_bios_rom();
+                data_gatherer.save_bios_rom_factory();
 
                 /* Extract rom components */
-                data_gatherer.extract_rom("bios_dump/bios_dump.rom");
+                data_gatherer.extract_rom("hardware_data/factory_bios.bin");
 
                 if (!hardware_info.open(QIODevice::ReadOnly ))
                 {

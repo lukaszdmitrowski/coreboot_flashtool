@@ -39,7 +39,7 @@ int DataGatherer::probe_chip()
         return ret_val;
 }
 
-void DataGatherer::save_bios_rom()
+void DataGatherer::save_bios_rom_factory()
 {
         FILE *dump_file;
         unsigned char *buf = NULL;
@@ -54,7 +54,7 @@ void DataGatherer::save_bios_rom()
                 qDebug() << "Out of memory!";
         }
 
-        if (!(dump_file = fopen("bios_dump/bios_dump.rom", "wb"))) {
+        if (!(dump_file = fopen("hardware_data/factory_bios.bin", "wb"))) {
                 qDebug() << "Can't open file!";
         } else {
                 written_bytes = fwrite(buf, 1, chip_size, dump_file);
@@ -76,7 +76,7 @@ void DataGatherer::save_bios_rom_from_iomem()
 
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
-        set_output_directory("bios_dump/");
+        set_output_directory("hardware_data/factory_bios_components/");
         start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 
@@ -105,9 +105,15 @@ void DataGatherer::save_edid_data()
         system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output");
 }
 
-void DataGatherer::crate_hardware_data_archive()
+void DataGatherer::create_hardware_data_archive()
 {
-        system("tar -cvf hardware_data.tar hardware_data");
+        system("tar -cf hardware_data.tar hardware_data");
+}
+
+void DataGatherer::unpack_hardware_data_archive(QString filename)
+{
+        QString untar_command = "tar -xf " + filename + " -C hardware_data/";
+        system(untar_command.toStdString().c_str());
 }
 
 

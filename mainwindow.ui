@@ -123,7 +123,7 @@
        <string>Build image and flash</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="b_auto_build">
+     <widget class="QPushButton" name="b_auto_get_hw_data">
       <property name="geometry">
        <rect>
         <x>20</x>
