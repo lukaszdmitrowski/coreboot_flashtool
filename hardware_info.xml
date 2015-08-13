@@ -1,14 +1,16 @@
-<chipsets>
+<configurations>
+	<config>
+		<motherboard>1951FDG</motherboard>
+		<chipset>MX25L1605</chipset>
+		<gpu></gpu>
+		<display_panel></display_panel>
+		<vgabios>88c32ce95f7521c213c7325d41c15e0a</vgabios>
+	</config> 
 	<chipset>
-		<name>MX25L1605</name>
-		<vgabios id="1">88c32ce95f7521c213c7325d41c15e0a</vgabios>
-		<vgabios id="2">d41d8cd98f00b204e9800998ecf8427e</vgabios>
-		<vgabios id="3">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
+		<name>K53SD</name>
+		<chipset>MX25L1605</chipset>
+		<gpu>NVIDIA Corporation GF119M [GeForce 610M] [10de:1058] (rev a1)</gpu>
+		<display_panel>B156XW02 V6 </display_panel>
+		<vgabios>641075a18725e847d093dc975bbf93ff9e1afc7869519329d7dfbd09140deb75</vgabios>
 	</chipset> 
-	<chipset>
-		<name>TESTCHIP</name>
-		<vgabios id="1">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
-		<vgabios id="2">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
-		<vgabios id="3">6eeda1189fb2ad6c1da92a25084d72cf</vgabios>
-	</chipset> 
-</chipsets>
+</configurations>

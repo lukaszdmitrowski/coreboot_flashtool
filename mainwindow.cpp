@@ -204,11 +204,14 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
         /* Save lspci -nn output*/
         data_gatherer.save_lspci_output();
 
-        /* Dump VGABIOS from iomem */
-        data_gatherer.save_bios_rom_from_iomem();
-
         /* Save EDID data */
         data_gatherer.save_edid_data();
+
+        /* Save dmidecode output */
+        data_gatherer.save_dmidecode_output();
+
+        /* Dump VGABIOS from iomem */
+        data_gatherer.save_bios_rom_from_iomem();
 
         /* Create archive from gathered data */
         data_gatherer.create_hardware_data_archive();
@@ -222,24 +225,32 @@ void MainWindow::on_b_auto_flash_clicked()
         QDomDocument xmlBOM;
         QFile hardware_info("hardware_info.xml");
         QString hardware_data_path;
-
-        hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.*)");
-        data_gatherer.unpack_hardware_data_archive(hardware_data_path);
+        bool is_config_ok = false;
 
         //progress_dialog.setModal(true);
         //progress_dialog.exec();
 
+        hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.tar)");
+        data_gatherer.unpack_hardware_data_archive(hardware_data_path);
+
+        QString motherboard = data_gatherer.get_motherboard_model();
+        QString display_panel = data_gatherer.get_display_panel_model();
+        QString graphic_card = data_gatherer.get_graphic_card_model();
+        QString chip_name = "MX25L1605";
+
+        qDebug() << "motherboard: " << motherboard;
+        qDebug() << "chip_name: " << chip_name;
+        qDebug() << "graphic_card: " << graphic_card;
+        qDebug() << "display_panel: " << display_panel;
+
         /* Probe for a chip */
-        if (!data_gatherer.probe_chip()) {
+        //if (!data_gatherer.probe_chip()) {
 
                 /* Make backup of current bios */
-                data_gatherer.save_bios_rom_factory();
+                //data_gatherer.save_bios_rom_factory();
 
                 /* Extract rom components */
-                data_gatherer.extract_rom("hardware_data/factory_bios.bin");
-
-                QString display_panel = data_gatherer.get_display_panel_model();
-                QString graphic_card = data_gatherer.get_graphic_card_model();
+                //data_gatherer.extract_rom("hardware_data/factory_bios.bin");
 
                 if (!hardware_info.open(QIODevice::ReadOnly))
                 {
@@ -250,11 +261,50 @@ void MainWindow::on_b_auto_flash_clicked()
                 hardware_info.close();
 
                 QDomElement root = xmlBOM.documentElement();
-                hashwrapper *md5_wrapper = new md5wrapper();;
-                QDirIterator file_iterator("bios_dump");
+                hashwrapper *sha_wrapper = new sha256wrapper();
+
+                QDomElement config = root.firstChild().toElement();
+
+                while ((!config.isNull()) && (!is_config_ok)) {
+                        QDomNode conf_child = config.firstChild();
+                        bool board_ok = (motherboard == conf_child.firstChild().toText().data());
+                        conf_child = conf_child.nextSibling();
+                        bool chipset_ok = (chip_name == conf_child.firstChild().toText().data());
+                        conf_child = conf_child.nextSibling();
+                        bool gpu_ok = (graphic_card == conf_child.firstChild().toText().data());
+                        conf_child = conf_child.nextSibling();
+                        bool panel_ok = (display_panel == conf_child.firstChild().toText().data());
+                        conf_child = conf_child.nextSibling();
+
+                        /*qDebug() << board_ok;
+                        qDebug() << chipset_ok;
+                        qDebug() << gpu_ok;
+                        qDebug() << panel_ok;*/
+
+                        if (board_ok && chipset_ok && gpu_ok && panel_ok) {
+                                QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
+                                QString vgabios_xml_hash = conf_child.firstChild().toText().data();
+
+                                //qDebug() << vgabios_hash;
+                                //qDebug() << vgabios_xml_hash;
+
+                                if (vgabios_hash == vgabios_xml_hash)
+                                        is_config_ok = true;
+                        }
+
+                        config = config.nextSibling().toElement();
+                }
+
+                delete sha_wrapper;
+
+                if (is_config_ok) {
+                        qDebug() << "Config OK!";
+                }
+
+                /*QDirIterator file_iterator("bios_dump");
                 while (file_iterator.hasNext()) {
                         if (file_iterator.next().contains("oprom_")) {
-                                QString vgabios_hash = QString(md5_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
+                                QString vgabios_hash = QString(sha_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
                                 QDomElement chipset = root.firstChild().toElement();
 
                                 while (!chipset.isNull()) {
@@ -263,11 +313,11 @@ void MainWindow::on_b_auto_flash_clicked()
                                                 QDomNode vgabios_node = chipset_child.nextSibling();
 
                                                 for (int i = 0; !vgabios_node.isNull(); ++i) {
-                                                        QString md5 = vgabios_node.firstChild().toText().data();
+                                                        QString vgabios_xml_hash = vgabios_node.firstChild().toText().data();
                                                         //qDebug() << "md5: " << md5;
                                                         //qDebug() << "vgabios_hash: " << vgabios_hash;
 
-                                                        if (md5 == vgabios_hash)
+                                                        if (vgabios_xml_hash == vgabios_hash)
                                                                 qDebug() << "VGABIOS OK";
 
                                                         vgabios_node = vgabios_node.nextSibling();
@@ -276,10 +326,10 @@ void MainWindow::on_b_auto_flash_clicked()
                                         chipset = chipset.nextSiblingElement();
                                 }
                         }
-                }
-                delete md5_wrapper;
+                }*/
 
-                rom_size = fl_flash_getsize(flash_context);
+
+                //rom_size = fl_flash_getsize(flash_context);
 
                 /* Create rom */
                 //char **cbfs_params;
@@ -334,7 +384,7 @@ void MainWindow::on_b_auto_flash_clicked()
 
                 /* WRITE IMAGE TO CHIP */
                 //fl_image_write(flash_context, blob.data(), rom_size);
-        }
+        //}
 }
 
 void MainWindow::on_b_extract_clicked()

@@ -22,6 +22,7 @@ public:
 
         QString get_graphic_card_model();
         QString get_display_panel_model();
+        QString get_motherboard_model();
 
         void create_hardware_data_archive();
         void unpack_hardware_data_archive(QString filename);

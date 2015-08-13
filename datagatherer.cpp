@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QDir>
 #include <QTextStream>
 
 extern "C" {
@@ -67,7 +68,7 @@ void DataGatherer::save_edid_data()
 
 void DataGatherer::save_dmidecode_output()
 {
-        system("sudo dmidecode > hardware_data/dmidecode_output.txt");
+        system("sudo dmidecode -t 2 > hardware_data/dmidecode_output.txt");
 }
 
 void DataGatherer::save_bios_rom_factory()
@@ -101,12 +102,13 @@ void DataGatherer::save_bios_rom_factory()
 
 void DataGatherer::save_bios_rom_from_iomem()
 {
-        system("cat /proc/iomem | grep \'Video ROM\' | (read m; m=${m/ :*}; s=${m/-*}; e=${m/*-}; "
-               "dd if=/dev/mem of=vgabios.bin bs=1c skip=$[0x$s] count=$[$[0x$e]-$[0x$s]+1]) > hardware_data/vgabios_from_mem.bin");
+        system("./extract_vga_bios.sh");
 }
 
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
+        if (!QDir("hardware_data/factory_bios_components").exists())
+            QDir().mkdir("hardware_data/factory_bios_components");
         set_output_directory("hardware_data/factory_bios_components/");
         start_bios_extract(bios_rom_path.toStdString().c_str());
 }
@@ -124,7 +126,7 @@ QString DataGatherer::get_graphic_card_model()
                 while (!in.atEnd()) {
                         QString line = in.readLine();
                         if (line.contains("VGA")) {
-                                graphic_card_model = line.right(line.length() - 7);
+                                graphic_card_model = line.right(line.length() - 42);
                                 qDebug() << graphic_card_model;
                         }
                 }
@@ -147,7 +149,7 @@ QString DataGatherer::get_display_panel_model()
                 while (!in.atEnd()) {
                         QString line = in.readLine();
                         if (line.contains("ASCII string:")) {
-                                display_panel_model = line.remove("ASCII string: ");
+                                display_panel_model = line.right(12);
                                 qDebug() << display_panel_model;
                         }
                 }
@@ -155,6 +157,29 @@ QString DataGatherer::get_display_panel_model()
 
         edid_output_file.close();
         return display_panel_model;
+}
+
+QString DataGatherer::get_motherboard_model()
+{
+        QString motherboard_model;
+        QFile dmidecode_output_file("hardware_data/dmidecode_output.txt");
+
+        if (!dmidecode_output_file.open(QIODevice::ReadOnly)) {
+                qDebug() << "Error while loading file";
+        } else {
+                QTextStream in(&dmidecode_output_file);
+
+                while (!in.atEnd()) {
+                        QString line = in.readLine();
+                        if (line.contains("Product Name:")) {
+                                motherboard_model = line.right(line.length() - 15);
+                                qDebug() << motherboard_model;
+                        }
+                }
+        }
+
+        dmidecode_output_file.close();
+        return motherboard_model;
 }
 
 
@@ -166,7 +191,7 @@ void DataGatherer::create_hardware_data_archive()
 
 void DataGatherer::unpack_hardware_data_archive(QString filename)
 {
-        QString untar_command = "tar -xf " + filename + " -C hardware_data/";
+        QString untar_command = "tar -xf " + filename;
         system(untar_command.toStdString().c_str());
 }
 
