@@ -62,7 +62,12 @@ void DataGatherer::save_lspci_output()
 
 void DataGatherer::save_edid_data()
 {
-        system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output");
+        system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output.txt");
+}
+
+void DataGatherer::save_dmidecode_output()
+{
+        system("sudo dmidecode > hardware_data/dmidecode_output.txt");
 }
 
 void DataGatherer::save_bios_rom_factory()
@@ -96,8 +101,8 @@ void DataGatherer::save_bios_rom_factory()
 
 void DataGatherer::save_bios_rom_from_iomem()
 {
-        system("cat /proc/iomem | grep \'Video ROM\' | (read m; m=${m/ :*}; s=${m/-*}; e=${m/*-}; \
-                dd if=/dev/mem of=vgabios.bin bs=1c skip=$[0x$s] count=$[$[0x$e]-$[0x$s]+1]) > hardware_data/vgabios_from_mem.bin");
+        system("cat /proc/iomem | grep \'Video ROM\' | (read m; m=${m/ :*}; s=${m/-*}; e=${m/*-}; "
+               "dd if=/dev/mem of=vgabios.bin bs=1c skip=$[0x$s] count=$[$[0x$e]-$[0x$s]+1]) > hardware_data/vgabios_from_mem.bin");
 }
 
 void DataGatherer::extract_rom(QString bios_rom_path)
@@ -114,20 +119,45 @@ QString DataGatherer::get_graphic_card_model()
         if (!lspci_output_file.open(QIODevice::ReadOnly)) {
                 qDebug() << "Error while loading file";
         } else {
-                QTextStream in(&file);
+                QTextStream in(&lspci_output_file);
 
                 while (!in.atEnd()) {
                         QString line = in.readLine();
                         if (line.contains("VGA")) {
-                                graphic_card_model = QString(line, 7, line.length());
+                                graphic_card_model = line.right(line.length() - 7);
                                 qDebug() << graphic_card_model;
                         }
                 }
         }
 
-        file.close();
+        lspci_output_file.close();
         return graphic_card_model;
 }
+
+QString DataGatherer::get_display_panel_model()
+{
+        QString display_panel_model;
+        QFile edid_output_file("hardware_data/edid-decode_output.txt");
+
+        if (!edid_output_file.open(QIODevice::ReadOnly)) {
+                qDebug() << "Error while loading file";
+        } else {
+                QTextStream in(&edid_output_file);
+
+                while (!in.atEnd()) {
+                        QString line = in.readLine();
+                        if (line.contains("ASCII string:")) {
+                                display_panel_model = line.remove("ASCII string: ");
+                                qDebug() << display_panel_model;
+                        }
+                }
+        }
+
+        edid_output_file.close();
+        return display_panel_model;
+}
+
+
 
 void DataGatherer::create_hardware_data_archive()
 {

@@ -238,10 +238,8 @@ void MainWindow::on_b_auto_flash_clicked()
                 /* Extract rom components */
                 data_gatherer.extract_rom("hardware_data/factory_bios.bin");
 
-
-
-
-
+                QString display_panel = data_gatherer.get_display_panel_model();
+                QString graphic_card = data_gatherer.get_graphic_card_model();
 
                 if (!hardware_info.open(QIODevice::ReadOnly))
                 {
