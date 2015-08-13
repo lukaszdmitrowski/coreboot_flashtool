@@ -24,8 +24,8 @@ SOURCES += main.cpp\
     datagatherer.cpp \
     progressdialog.cpp \
     choosechip.cpp \
-    hashlibpp/hl_md5wrapper.cpp \
-    hashlibpp/hl_md5.cpp
+    hashlibpp/hl_sha256wrapper.cpp \
+    hashlibpp/hl_sha256.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -39,10 +39,10 @@ HEADERS  += mainwindow.h \
     progressdialog.h \
     choosechip.h \
     hashlibpp/hashlibpp.h \
-    hashlibpp/hl_md5wrapper.h \
-    hashlibpp/hl_md5.h \
     hashlibpp/hl_hashwrapper.h \
-    hashlibpp/hl_exception.h
+    hashlibpp/hl_exception.h \
+    hashlibpp/hl_sha256.h \
+    hashlibpp/hl_sha256wrapper.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
