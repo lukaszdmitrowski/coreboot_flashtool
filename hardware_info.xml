@@ -2,9 +2,10 @@
 	<config>
 		<motherboard>1951FDG</motherboard>
 		<chipset>MX25L1605</chipset>
-		<gpu></gpu>
-		<display_panel></display_panel>
-		<vgabios>88c32ce95f7521c213c7325d41c15e0a</vgabios>
+		<gpu>Intel Corporation Mobile 945GM/GMS, 943/940GML Express Integrated Graphics Controller [8086:27a2] (rev 03)</gpu>
+		<display_panel>LTN141XA-L01</display_panel>
+		<need_vgabios>factory</need_vgabios>
+		<vgabios_hash>82b4f9ba4c01c1b33a71f77835dcbd2770011e3761fc2426afe8052afd94ca33</vgabios_hash>
 	</config> 
 	<chipset>
 		<name>K53SD</name>

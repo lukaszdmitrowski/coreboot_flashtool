@@ -107,9 +107,6 @@ void DataGatherer::save_bios_rom_from_iomem()
 
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
-        if (!QDir("hardware_data/factory_bios_components").exists())
-            QDir().mkdir("hardware_data/factory_bios_components");
-        set_output_directory("hardware_data/factory_bios_components/");
         start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 

@@ -143,26 +143,58 @@ void MainWindow::on_b_probe_clicked()
 }
 
 void MainWindow::on_b_read_clicked()
-{
-        ui->log_flash->clear();
-        char buffer[2097152];
+{     
+        QString save_dir;
+        unsigned int rom_size = 0;
+        char *buffer = NULL;
+
         if (flash_context) {
-               fl_image_read(flash_context, buffer, 2097152);
+                save_dir = QFileDialog::getExistingDirectory(this,
+                                                             tr("Select output dir"),
+                                                             ".",
+                                                             QFileDialog::ShowDirsOnly
+                                                             | QFileDialog::DontResolveSymlinks);
+
+                rom_size = fl_flash_getsize(flash_context);
+                buffer = new char[rom_size];
+
+                if (!buffer) {
+                        qDebug() << "Out of memory!";
+                } else {
+                        ui->log_flash->clear();
+                        fl_image_read(flash_context, buffer, rom_size);
+                        delete [] buffer;
+                }
         }
 }
 
 void MainWindow::on_b_verify_clicked()
 {
-        ui->log_flash->clear();
-        char buffer[2097152];
-        memset(buffer, 0, 2097152);
+        QString verify_dir;
+        unsigned int rom_size = 0;
+
         if (flash_context) {
-                fl_image_verify(flash_context, buffer, 2097152);
+                verify_dir = QFileDialog::getExistingDirectory(this,
+                                                             tr("Select output dir"),
+                                                             ".",
+                                                             QFileDialog::ShowDirsOnly
+                                                             | QFileDialog::DontResolveSymlinks);
+                ui->log_flash->clear();
+                rom_size = fl_flash_getsize(flash_context);
+                QFile file(verify_dir);
+                QByteArray blob;
+
+                if (!file.open(QIODevice::ReadOnly)) {
+                        qDebug() << "Can't open file!";
+                } else {
+                        blob = file.readAll();
+                        fl_image_verify(flash_context, blob.data(), rom_size);
+                }
         }
 }
 
 void MainWindow::on_b_erase_clicked()
-    {
+{
         ui->log_flash->clear();
         fl_flash_erase(flash_context);
 }
@@ -249,6 +281,9 @@ void MainWindow::on_b_auto_flash_clicked()
                 data_gatherer.save_bios_rom_factory();
 
                 /* Extract rom components */
+                if (!QDir("hardware_data/factory_bios_components").exists())
+                    QDir().mkdir("hardware_data/factory_bios_components");
+                set_output_directory("hardware_data/factory_bios_components/");
                 data_gatherer.extract_rom("hardware_data/factory_bios.bin");
 
                 if (!hardware_info.open(QIODevice::ReadOnly))
@@ -274,37 +309,57 @@ void MainWindow::on_b_auto_flash_clicked()
                         conf_child = conf_child.nextSibling();
                         bool panel_ok = (display_panel == conf_child.firstChild().toText().data());
                         conf_child = conf_child.nextSibling();
+                        QString need_vgabios = conf_child.firstChild().toText().data();
 
                         qDebug() << board_ok;
                         qDebug() << chipset_ok;
                         qDebug() << gpu_ok;
                         qDebug() << panel_ok;
 
-                        if (board_ok && chipset_ok && gpu_ok && panel_ok) {
-                                QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
-                                QString vgabios_xml_hash = conf_child.firstChild().toText().data();
+                        if (need_vgabios == "factory") {
+                                if (board_ok && chipset_ok && gpu_ok && panel_ok) {
+                                        QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/factory_bios.bin.bin").c_str());
+                                        QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
-                                qDebug() << vgabios_hash;
-                                qDebug() << vgabios_xml_hash;
+                                        qDebug() << vgabios_hash;
+                                        qDebug() << vgabios_xml_hash;
 
-                                if (vgabios_hash == vgabios_xml_hash)
-                                        is_config_ok = true;
+                                        if (vgabios_hash == vgabios_xml_hash)
+                                                is_config_ok = true;
+                                }
+                        } else if (need_vgabios == "memory") {
+                                if (board_ok && chipset_ok && gpu_ok && panel_ok) {
+                                        QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
+                                        QString vgabios_xml_hash = conf_child.firstChild().toText().data();
+
+                                        qDebug() << vgabios_hash;
+                                        qDebug() << vgabios_xml_hash;
+
+                                        if (vgabios_hash == vgabios_xml_hash)
+                                                is_config_ok = true;
+                                }
                         }
 
                         config = config.nextSibling().toElement();
                 }
-
                 delete sha_wrapper;
 
                 if (is_config_ok) {
+                        QString working_config = config.lastChild().firstChild().toText().data();
+                        QString copy_config_cmd = "cp coreboot_configs/" + working_config + " coreboot/.config";
+
+                        system(copy_config_cmd.toStdString().c_str());
                         system("cd coreboot");
                         system("make");
+                } else {
+                        qDebug() << "No configuration for your system! Please send hardware_data.tar to"
+                                    "lukasz.dmitrowski@gmail.com";
                 }
 
-                //rom_size = fl_flash_getsize(flash_context);
+                rom_size = fl_flash_getsize(flash_context);
 
                 /* Read rom file to array */
-                /*QFile file("auto_rom.rom");
+                /*QFile file("automatic_build_rom.rom");
                 QByteArray blob;
                 //char rom_buffer[rom_size];
 
@@ -425,12 +480,6 @@ void MainWindow::fill_cb_payload()
 {
         ui->cb_auto_sel_payload->addItem("SeaBIOS");
         ui->cb_auto_sel_payload->addItem("GRUB 2");
-        ui->cb_auto_sel_payload->addItem("GRUB legacy");
-        ui->cb_auto_sel_payload->addItem("FILO");
-        ui->cb_auto_sel_payload->addItem("Etherboot");
-        ui->cb_auto_sel_payload->addItem("Open Firmware");
-        ui->cb_auto_sel_payload->addItem("OpenBIOS");
-        ui->cb_auto_sel_payload->addItem("Tiano Core");
 }
 
 void MainWindow::open_select_rom_window()
@@ -539,3 +588,6 @@ QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
 }
+
+
+
