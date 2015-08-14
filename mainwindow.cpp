@@ -150,7 +150,7 @@ void MainWindow::on_b_read_clicked()
 
         if (flash_context) {
                 save_dir = QFileDialog::getExistingDirectory(this,
-                                                             tr("Select output dir"),
+                                                             tr("Select output directory"),
                                                              ".",
                                                              QFileDialog::ShowDirsOnly
                                                              | QFileDialog::DontResolveSymlinks);
@@ -175,7 +175,7 @@ void MainWindow::on_b_verify_clicked()
 
         if (flash_context) {
                 verify_dir = QFileDialog::getExistingDirectory(this,
-                                                             tr("Select output dir"),
+                                                             tr("Select ROM to verify"),
                                                              ".",
                                                              QFileDialog::ShowDirsOnly
                                                              | QFileDialog::DontResolveSymlinks);
@@ -201,12 +201,27 @@ void MainWindow::on_b_erase_clicked()
 
 void MainWindow::on_b_flash_clicked()
 {
-    ui->log_flash->clear();
-    char buffer[2097152];
-    memset(buffer, 0, 2097152);
-    if (flash_context) {
-           fl_image_write(flash_context, buffer, 2097152);
-    }
+        QString rom_dir;
+        unsigned int rom_size = 0;
+
+        if (flash_context) {
+                rom_dir = QFileDialog::getExistingDirectory(this,
+                                                             tr("Select ROM to flash"),
+                                                             ".",
+                                                             QFileDialog::ShowDirsOnly
+                                                             | QFileDialog::DontResolveSymlinks);
+                ui->log_flash->clear();
+                rom_size = fl_flash_getsize(flash_context);
+                QFile file(rom_dir);
+                QByteArray blob;
+
+                if (!file.open(QIODevice::ReadOnly)) {
+                        qDebug() << "Can't open file!";
+                } else {
+                        blob = file.readAll();
+                        fl_image_write(flash_context, blob.data(), rom_size);
+                }
+        }
 }
 
 void MainWindow::on_b_sel_bios_rom_clicked()
