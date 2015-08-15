@@ -20,8 +20,8 @@ int DataGatherer::probe_chip()
 {
         int ret_val = 1;
 
-        if (w->is_programmer_initialized()) {
-                if (!w->is_chip_found()) {
+        if (w->programmer_initialized) {
+                if (!w->chip_found) {
                         ret_val = fl_flash_probe(&flash_context, NULL);
                         if (ret_val == 3) {
                                 ChooseChip choose_chip_dialog;
@@ -83,8 +83,8 @@ void DataGatherer::save_dmidecode_output()
 
 void DataGatherer::save_bios_rom_factory()
 {
-        if (w->is_programmer_initialized()) {
-                if (!w->is_chip_found()) {
+        if (w->programmer_initialized) {
+                if (w->chip_found) {
                         FILE *dump_file;
                         unsigned char *buf = NULL;
                         unsigned long chip_size = fl_flash_getsize(flash_context);
@@ -111,7 +111,7 @@ void DataGatherer::save_bios_rom_factory()
 
                         delete buf;
                 } else {
-                        qDebug() << "Already probed for a chip - " + w->chip_name;
+                        qDebug() << "Already probed for a chip - "+ w->chip_name;
                 }
 
         } else {

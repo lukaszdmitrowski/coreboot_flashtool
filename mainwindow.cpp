@@ -627,13 +627,3 @@ QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
 }
-
-bool MainWindow::is_programmer_initialized()
-{
-        return is_programmer_initialized();
-}
-
-bool MainWindow::is_chip_found()
-{
-        return is_chip_found();
-}
