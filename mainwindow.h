@@ -24,10 +24,6 @@
 #include <QMainWindow>
 #include <QTextEdit>
 
-extern "C" {
-#include "libflashrom.h"
-}
-
 namespace Ui {
 class MainWindow;
 }
@@ -97,7 +93,7 @@ private:
     QString flash_rom_path;
     QString bios_rom_path;
     QString bootblock_path;
-    fl_flashctx_t *flash_context;
+    //fl_flashctx_t *flash_context;
 };
 
 extern MainWindow *w;

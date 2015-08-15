@@ -28,6 +28,7 @@
 #include "progressdialog.h"
 #include "choosechip.h"
 #include "hashlibpp/hashlibpp.h"
+#include "flashrom.h"
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -85,8 +86,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     programmer_initialized(false),
-    chip_found(false),
-    flash_context(NULL)
+    chip_found(false)
+    //flash_context(NULL)
 {
         ui->setupUi(this);
 
@@ -112,8 +113,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-        fl_flash_release(flash_context);
-        fl_shutdown();
+        //fl_flash_release(flash_context);
+        //fl_shutdown();
         delete ui;
 }
 
@@ -124,29 +125,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_b_probe_clicked()
 {
-        DataGatherer data_gatherer;
-        data_gatherer.probe_chip();
-        /*int ret_val = -1;
-
-        ui->log_flash->clear();
-        ret_val = fl_flash_probe(&flash_context, NULL);
-
-        if (ret_val == 3) {
-                ChooseChip choose_chip_dialog;
-                const char **chip_names = NULL;
-                int chip_count = 0;
-                int i = 0;
-
-                chip_names = fl_multiple_flash_probe(&chip_count);
-                for (; i < chip_count; ++i) {
-                        choose_chip_dialog.add_chip(chip_names[i]);
-                }
-
-                choose_chip_dialog.setModal(true);
-                choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
-                choose_chip_dialog.exec();
-                fl_data_free(chip_names);
-        }*/
+        Flashrom flashrom;
+        flashrom.probe_chip();
 }
 
 void MainWindow::on_b_read_clicked()
@@ -164,57 +144,69 @@ void MainWindow::on_b_read_clicked()
 
 void MainWindow::on_b_verify_clicked()
 {
+        Flashrom flashrom;
         QString verify_dir;
         unsigned int rom_size = 0;
+        int verify_result = -1;
 
-        if (flash_context) {
-                verify_dir = QFileDialog::getExistingDirectory(this,
-                                                             tr("Select ROM to verify"),
-                                                             ".",
-                                                             QFileDialog::ShowDirsOnly
-                                                             | QFileDialog::DontResolveSymlinks);
-                ui->log_flash->clear();
-                rom_size = fl_flash_getsize(flash_context);
-                QFile file(verify_dir);
-                QByteArray blob;
+        verify_dir = QFileDialog::getExistingDirectory(this,
+                                                       tr("Select ROM to verify"),
+                                                       ".",
+                                                       QFileDialog::ShowDirsOnly
+                                                       | QFileDialog::DontResolveSymlinks);
+        ui->log_flash->clear();
+        rom_size = flashrom.get_chip_size();
+        QFile file(verify_dir);
+        QByteArray blob;
 
-                if (!file.open(QIODevice::ReadOnly)) {
-                        qDebug() << "Can't open file!";
+        if (!file.open(QIODevice::ReadOnly)) {
+                qDebug() << "Can't open file!";
+        } else {
+                blob = file.readAll();
+                verify_result = flashrom.verify_chip(blob.data(), rom_size);
+
+                if (verify_result == 2)
+                        verify_result = flashrom.verify_chip(blob.data(), rom_size);
+
+                if (verify_result == 0) {
+                        qDebug() << "Chip verified";
                 } else {
-                        blob = file.readAll();
-                        fl_image_verify(flash_context, blob.data(), rom_size);
+                        qDebug() << "Chip not verified";
                 }
         }
 }
 
 void MainWindow::on_b_erase_clicked()
 {
+        Flashrom flashrom;
         ui->log_flash->clear();
-        fl_flash_erase(flash_context);
+        if (flashrom.erase_chip() == 2)
+                flashrom.erase_chip();
 }
 
 void MainWindow::on_b_flash_clicked()
 {
+        Flashrom flashrom;
         QString rom_dir;
         unsigned int rom_size = 0;
 
-        if (flash_context) {
-                rom_dir = QFileDialog::getExistingDirectory(this,
-                                                             tr("Select ROM to flash"),
-                                                             ".",
-                                                             QFileDialog::ShowDirsOnly
-                                                             | QFileDialog::DontResolveSymlinks);
-                ui->log_flash->clear();
-                rom_size = fl_flash_getsize(flash_context);
-                QFile file(rom_dir);
-                QByteArray blob;
+        rom_dir = QFileDialog::getExistingDirectory(this,
+                                                    tr("Select ROM to flash"),
+                                                    ".",
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
 
-                if (!file.open(QIODevice::ReadOnly)) {
-                        qDebug() << "Can't open file!";
-                } else {
-                        blob = file.readAll();
-                        fl_image_write(flash_context, blob.data(), rom_size);
-                }
+        ui->log_flash->clear();
+        rom_size = flashrom.get_chip_size();
+        QFile file(rom_dir);
+        QByteArray blob;
+
+        if (!file.open(QIODevice::ReadOnly)) {
+                qDebug() << "Can't open file!";
+        } else {
+                blob = file.readAll();
+                if (flashrom.write_chip(blob.data(), rom_size) == 2)
+                        flashrom.write_chip(blob.data(), rom_size);
         }
 }
 

@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     progressdialog.cpp \
     choosechip.cpp \
     hashlibpp/hl_sha256wrapper.cpp \
-    hashlibpp/hl_sha256.cpp
+    hashlibpp/hl_sha256.cpp \
+    flashrom.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
     hashlibpp/hl_hashwrapper.h \
     hashlibpp/hl_exception.h \
     hashlibpp/hl_sha256.h \
-    hashlibpp/hl_sha256wrapper.h
+    hashlibpp/hl_sha256wrapper.h \
+    flashrom.h
 
 FORMS    += mainwindow.ui \
     supported.ui \

@@ -1,6 +1,7 @@
 #include "datagatherer.h"
 #include "choosechip.h"
 #include "mainwindow.h"
+#include "flashrom.h"
 
 #include <QDebug>
 #include <QFile>
@@ -14,46 +15,6 @@ extern "C" {
 
 DataGatherer::DataGatherer()
 {
-}
-
-int DataGatherer::probe_chip()
-{
-        int ret_val = 1;
-
-        if (w->programmer_initialized) {
-                if (!w->chip_found) {
-                        ret_val = fl_flash_probe(&flash_context, NULL);
-
-                        if (ret_val == 0)
-                                w->chip_found = true;
-
-                        if (ret_val == 3) {
-                                ChooseChip choose_chip_dialog;
-                                const char **chip_names = NULL;
-                                int chip_count = 0;
-                                int i = 0;
-
-                                chip_names = fl_multiple_flash_probe(&chip_count);
-                                for (; i < chip_count; ++i) {
-                                        choose_chip_dialog.add_chip(chip_names[i]);
-                                }
-
-                                choose_chip_dialog.setModal(true);
-                                choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
-                                choose_chip_dialog.exec();
-                                fl_data_free(chip_names);
-                                w->chip_found = true;
-                                ret_val = 0;
-                        }
-                } else {
-                        qDebug() << "Already probed for a chip - " + w->chip_name;
-                }
-
-        } else {
-                qDebug() << "Please initialize programmer!";
-        }
-
-        return ret_val;
 }
 
 void DataGatherer::save_lspci_output()
@@ -88,40 +49,34 @@ void DataGatherer::save_dmidecode_output()
 
 void DataGatherer::save_bios_rom_factory(QString save_path)
 {
-        if (w->programmer_initialized) {
-                if (w->chip_found) {
-                        FILE *dump_file;
-                        unsigned char *buf = NULL;
-                        unsigned long chip_size = fl_flash_getsize(flash_context);
-                        unsigned long written_bytes = 0;
+        FILE *dump_file;
+        Flashrom flashrom;
+        unsigned char *buf = NULL;
+        unsigned long chip_size = flashrom.get_chip_size();
+        unsigned long written_bytes = 0;
 
-                        buf = new unsigned char[chip_size];
-                        memset(buf, 0, chip_size);
-                        if (buf) {
-                                fl_image_read(flash_context, buf, chip_size);
-                        } else {
-                                qDebug() << "Out of memory!";
-                        }
+        buf = new unsigned char[chip_size];
+        memset(buf, 0, chip_size);
 
-                        if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
-                                qDebug() << "Can't open file!";
-                        } else {
-                                written_bytes = fwrite(buf, 1, chip_size, dump_file);
-                                fclose(dump_file);
-                        }
-
-                        if (written_bytes < chip_size) {
-                            qDebug() << "File not fully written!";
-                        }
-
-                        delete buf;
-                } else {
-                        probe_chip();
-                        save_bios_rom_factory(save_path);
-                }
+        if (buf) {
+                if (flashrom.read_chip(buf, chip_size) == 2)
+                        flashrom.read_chip(buf, chip_size);
         } else {
-                qDebug() << "Please initialize programmer!";
+                qDebug() << "Out of memory!";
+                return;
         }
+
+        if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
+                qDebug() << "Can't open file!";
+        } else {
+                written_bytes = fwrite(buf, 1, chip_size, dump_file);
+                fclose(dump_file);
+        }
+
+        if (written_bytes < chip_size)
+                qDebug() << "File not fully written!";
+
+        delete buf;
 }
 
 void DataGatherer::save_bios_rom_from_iomem()
