@@ -38,6 +38,7 @@ int DataGatherer::probe_chip()
                                 choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
                                 choose_chip_dialog.exec();
                                 fl_data_free(chip_names);
+                                w->chip_found = true;
                                 ret_val = 0;
                         }
                 } else {
@@ -111,9 +112,9 @@ void DataGatherer::save_bios_rom_factory()
 
                         delete buf;
                 } else {
-                        qDebug() << "Already probed for a chip - "+ w->chip_name;
+                        probe_chip();
+                        save_bios_rom_factory();
                 }
-
         } else {
                 qDebug() << "Please initialize programmer!";
         }
