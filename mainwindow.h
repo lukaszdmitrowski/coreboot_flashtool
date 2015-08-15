@@ -42,6 +42,8 @@ public:
     Ui::MainWindow *ui;
     QTextEdit *active_log_out;
     QString get_flash_rom_path();
+    bool is_programmer_initialized();
+    bool is_chip_found();
     QString chip_name;
 
 private slots:
@@ -96,7 +98,8 @@ private:
     QString bios_rom_path;
     QString bootblock_path;
     fl_flashctx_t *flash_context;
-    bool is_programmer_initialized;
+    bool programmer_initialized;
+    bool chip_found;
 };
 
 extern MainWindow *w;

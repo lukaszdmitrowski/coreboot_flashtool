@@ -84,7 +84,8 @@ int libcbfstool_log(const char *const format, ...)
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    is_programmer_initialized(false),
+    programmer_initialized(false),
+    chip_found(false),
     flash_context(NULL)
 {
         ui->setupUi(this);
@@ -388,12 +389,8 @@ void MainWindow::on_b_auto_build_img_clicked()
 
 void MainWindow::on_b_auto_get_bios_clicked()
 {
-        if (is_programmer_initialized) {
-                DataGatherer data_gatherer;
-                data_gatherer.save_bios_rom_factory();
-        } else {
-                qDebug() << "Please initialize programmer!";
-        }
+        DataGatherer data_gatherer;
+        data_gatherer.save_bios_rom_factory();
 }
 
 void MainWindow::on_b_auto_flash_clicked()
@@ -493,7 +490,7 @@ void MainWindow::on_b_init_prog_clicked()
                 w->active_log_out->clear();
                 fl_shutdown();
                 if (!fl_programmer_init(programmer.toStdString().c_str(), ui->edit_prog_param->text().toStdString().c_str()))
-                        is_programmer_initialized = true;
+                        programmer_initialized = true;
         }
 }
 
@@ -629,4 +626,14 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
+}
+
+bool MainWindow::is_programmer_initialized()
+{
+        return is_programmer_initialized();
+}
+
+bool MainWindow::is_chip_found()
+{
+        return is_chip_found();
 }
