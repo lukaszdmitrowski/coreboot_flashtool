@@ -23,6 +23,10 @@ int DataGatherer::probe_chip()
         if (w->programmer_initialized) {
                 if (!w->chip_found) {
                         ret_val = fl_flash_probe(&flash_context, NULL);
+
+                        if (ret_val == 0)
+                                w->chip_found = true;
+
                         if (ret_val == 3) {
                                 ChooseChip choose_chip_dialog;
                                 const char **chip_names = NULL;
