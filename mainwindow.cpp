@@ -293,7 +293,7 @@ void MainWindow::on_b_auto_build_img_clicked()
 
         if (!hardware_info.open(QIODevice::ReadOnly))
         {
-                qDebug() << "Error while loading file";
+                qDebug() << "Error while loading file: " + hardware_info.fileName();
         }
 
         xmlBOM.setContent(&hardware_info);
@@ -330,20 +330,29 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                 QDir().mkdir("hardware_data/factory_bios_components");
                                         set_output_directory("hardware_data/factory_bios_components/");
                                         data_gatherer.extract_rom("hardware_data/factory_bios.bin");
-                                        QDirIterator file_iterator("hardware_data/factory_bios.bin");
+                                        conf_child = conf_child.nextSibling();
+                                        QDirIterator file_iterator("hardware_data/factory_bios_components");
                                         QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
-                                        while (file_iterator.hasNext()) {
+                                        while (file_iterator.hasNext()) {                 
                                                 if (file_iterator.next().contains("oprom_")) {
                                                         QString vgabios_hash = QString(sha_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
 
-                                                        qDebug() << vgabios_hash;
-                                                        qDebug() << vgabios_xml_hash;
+                                                        //qDebug() << vgabios_hash;
+                                                        //qDebug() << vgabios_xml_hash;
 
                                                         if (vgabios_hash == vgabios_xml_hash) {
+                                                                //QFile vgabios_file(file_iterator.filePath());
+                                                                QString rename_command = "cp " + file_iterator.filePath() +
+                                                                                         " hardware_data/factory_bios_components/factory_vgabios.bin";
+                                                                system(rename_command.toStdString().c_str());
                                                                 is_config_ok = true;
-                                                                QFile vgabios_file(file_iterator.filePath());
-                                                                vgabios_file.rename("factory_vgabios.bin");
+                                                                /*if (!vgabios_file.open(QIODevice::WriteOnly )) {
+                                                                        qDebug() << "Error while loading file: " + vgabios_file.fileName();
+                                                                } else {
+                                                                    vgabios_file.rename("factory_bios.bin");
+                                                                    vgabios_file.close();
+                                                                }*/
                                                         }
                                                 }
                                         }
@@ -361,7 +370,9 @@ void MainWindow::on_b_auto_build_img_clicked()
                                         is_config_ok = true;
                         }
                 }
-                config = config.nextSibling().toElement();
+
+                if (!is_config_ok)
+                    config = config.nextSibling().toElement();
         }
         delete sha_wrapper;
 
@@ -372,18 +383,21 @@ void MainWindow::on_b_auto_build_img_clicked()
 
                 qDebug() << "copy_config_cmd: " << copy_config_cmd;
 
+                system("rm coreboot/build/coreboot.rom");
                 system(copy_config_cmd.toStdString().c_str());
-                system("cd coreboot");
-                system("make");
+                system("make -C coreboot");
 
-                QFile coreboot_rom("coreboot/build/coreboot.rom") ;
+                QFile coreboot_rom_file("coreboot/build/coreboot.rom");
 
-                /* Wait until rom is ready */
-                while(!coreboot_rom.exists());
-                system("cp coreboot/build/coreboot.rom ../");
+                if (coreboot_rom_file.exists()) {
+                    system("cp coreboot/build/coreboot.rom ../");
+                } else {
+                    qDebug() << "coreboot image compilation failed!";
+                }
+
         } else {
                 qDebug() << "No configuration for your system! Please send hardware_data.tar to"
-                                    "lukasz.dmitrowski@gmail.com";
+                                    " lukasz.dmitrowski@gmail.com";
         }
 }
 

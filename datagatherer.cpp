@@ -131,6 +131,7 @@ void DataGatherer::save_bios_rom_from_iomem()
 
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
+    qDebug() << "extract rom";
         start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 
@@ -148,7 +149,7 @@ QString DataGatherer::get_graphic_card_model()
                         QString line = in.readLine();
                         if (line.contains("VGA")) {
                                 graphic_card_model = line.right(line.length() - 42);
-                                qDebug() << graphic_card_model;
+                                //qDebug() << graphic_card_model;
                         }
                 }
         }
@@ -171,7 +172,7 @@ QString DataGatherer::get_display_panel_model()
                         QString line = in.readLine();
                         if (line.contains("ASCII string:")) {
                                 display_panel_model = line.right(12);
-                                qDebug() << display_panel_model;
+                                //qDebug() << display_panel_model;
                         }
                 }
         }
@@ -194,7 +195,7 @@ QString DataGatherer::get_motherboard_model()
                         QString line = in.readLine();
                         if (line.contains("Product Name:")) {
                                 motherboard_model = line.right(line.length() - 15);
-                                qDebug() << motherboard_model;
+                                //qDebug() << motherboard_model;
                         }
                 }
         }
