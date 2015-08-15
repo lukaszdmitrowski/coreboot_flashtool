@@ -45,20 +45,23 @@ public:
     QString chip_name;
 
 private slots:
+    /* Main window */
+    void on_b_init_prog_clicked();
+
     /* Toolbar */
-    void on_act_sel_payload_triggered();
+    //void on_act_sel_payload_triggered();
     void on_act_supported_list_triggered();
     void on_act_about_triggered();
 
     /* Auto tab */
     void on_b_auto_get_hw_data_clicked();
+    void on_b_auto_build_img_clicked();
     void on_b_auto_flash_clicked();
 
     /* Flash tab */
-    void on_b_sel_payload_clicked();
+    //void on_b_sel_payload_clicked();
     void on_b_read_clicked();
     void on_b_probe_clicked();
-    void on_b_init_prog_clicked();
     void on_b_verify_clicked();
     void on_b_erase_clicked();
     void on_b_flash_clicked();
@@ -73,7 +76,7 @@ private slots:
     void on_b_sel_boot_block_clicked();
 
     /* Rom options tab */
-    void on_b_add_payload_clicked();
+    //void on_b_add_payload_clicked();
     void on_b_add_component_clicked();
     void on_b_remove_comp_clicked();
 
@@ -84,7 +87,7 @@ private:
     void fill_cb_programmers();
     void fill_cb_arch();
     void fill_cb_payload();
-    void open_select_rom_window();
+    //void open_select_rom_window();
     void open_select_bios_rom_window();
     void open_select_bios_out_window();
     void print_rom();

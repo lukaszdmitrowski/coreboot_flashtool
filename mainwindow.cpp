@@ -22,7 +22,6 @@
 #include "ui_mainwindow.h"
 #include "supported.h"
 #include "about.h"
-#include "addpayload.h"
 #include "addcomponent.h"
 #include "deletecomponents.h"
 #include "datagatherer.h"
@@ -116,10 +115,10 @@ MainWindow::~MainWindow()
         delete ui;
 }
 
-void MainWindow::on_b_sel_payload_clicked()
+/*void MainWindow::on_b_sel_payload_clicked()
 {
         open_select_rom_window();
-}
+}*/
 
 void MainWindow::on_b_probe_clicked()
 {
@@ -264,7 +263,7 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
         data_gatherer.create_hardware_data_archive();
 }
 
-void MainWindow::on_b_auto_flash_clicked()
+void MainWindow::on_b_auto_build_img_clicked()
 {
         DataGatherer data_gatherer;
         ProgressDialog progress_dialog;
@@ -370,23 +369,26 @@ void MainWindow::on_b_auto_flash_clicked()
                         qDebug() << "No configuration for your system! Please send hardware_data.tar to"
                                     "lukasz.dmitrowski@gmail.com";
                 }
-
-                rom_size = fl_flash_getsize(flash_context);
-
-                /* Read rom file to array */
-                /*QFile file("automatic_build_rom.rom");
-                QByteArray blob;
-                //char rom_buffer[rom_size];
-
-                if (!file.open(QIODevice::ReadOnly)) {
-                        qDebug() << "Can't open file!";
-                } else {
-                        blob = file.readAll();
-                }*/
-
-                /* WRITE IMAGE TO CHIP */
-                //fl_image_write(flash_context, blob.data(), rom_size);
         }
+}
+
+void MainWindow::on_b_auto_flash_clicked()
+{
+        //unsigned int rom_size = fl_flash_getsize(flash_context);
+
+        /* Read rom file to array */
+        //QFile file("automatic_build_rom.rom");
+        //QByteArray blob;
+        //char rom_buffer[rom_size];
+
+        //if (!file.open(QIODevice::ReadOnly)) {
+        //        qDebug() << "Can't open file!";
+        //} else {
+        //        blob = file.readAll();
+        //}
+
+        /* WRITE IMAGE TO CHIP */
+        //fl_image_write(flash_context, blob.data(), rom_size);
 }
 
 void MainWindow::on_b_extract_clicked()
@@ -438,12 +440,12 @@ void MainWindow::on_b_create_rom_clicked()
         delete [] cbfs_params;
 }
 
-void MainWindow::on_b_add_payload_clicked()
+/*void MainWindow::on_b_add_payload_clicked()
 {
         AddPayload add_payload_window;
         add_payload_window.setModal(true);
         add_payload_window.exec();
-}
+}*/
 
 void MainWindow::on_b_add_component_clicked()
 {
@@ -497,17 +499,17 @@ void MainWindow::fill_cb_payload()
         ui->cb_auto_sel_payload->addItem("GRUB 2");
 }
 
-void MainWindow::open_select_rom_window()
+/*void MainWindow::open_select_rom_window()
 {
         QString rom_name;
 
         flash_rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
         rom_name = flash_rom_path.section('/', -1);
-        ui->b_sel_payload->setVisible(false);
-        ui->l_payload_name->setText(rom_name);
+        //ui->b_sel_payload->setVisible(false);
+        //ui->l_payload_name->setText(rom_name);
         ui->l_opt_sel_name->setText(rom_name);
         print_rom();
-}
+}*/
 
 void MainWindow::open_select_bios_rom_window()
 {
@@ -533,10 +535,10 @@ void MainWindow::open_select_bios_out_window()
 }
 
 
-void MainWindow::on_act_sel_payload_triggered()
+/*void MainWindow::on_act_sel_payload_triggered()
 {
         open_select_rom_window();
-}
+}*/
 
 void MainWindow::on_act_supported_list_triggered()
 {
@@ -603,6 +605,3 @@ QString MainWindow::get_flash_rom_path()
 {
         return flash_rom_path;
 }
-
-
-
