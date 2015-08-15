@@ -83,7 +83,9 @@ int libcbfstool_log(const char *const format, ...)
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    is_programmer_initialized(false),
+    flash_context(NULL)
 {
         ui->setupUi(this);
 
@@ -99,7 +101,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->log_create_rom->setReadOnly(true);
         active_log_out = ui->log_auto;
 
-        flash_context = NULL;
         my_log_callback = &libflashrom_log;
         fl_init(0);
         fill_cb_arch();
@@ -267,7 +268,7 @@ void MainWindow::on_b_auto_build_img_clicked()
 {
         DataGatherer data_gatherer;
         ProgressDialog progress_dialog;
-        unsigned int rom_size = 0;
+
         QDomDocument xmlBOM;
         QFile hardware_info("hardware_info.xml");
         QString hardware_data_path;
@@ -279,96 +280,101 @@ void MainWindow::on_b_auto_build_img_clicked()
         hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.tar)");
         data_gatherer.unpack_hardware_data_archive(hardware_data_path);
 
-        /* Probe for a chip */
-        if (!data_gatherer.probe_chip()) {
-                QString motherboard = data_gatherer.get_motherboard_model();
-                QString display_panel = data_gatherer.get_display_panel_model();
-                QString graphic_card = data_gatherer.get_graphic_card_model();
-                QString chip_name = w->chip_name;
 
-                qDebug() << "motherboard: " << motherboard;
-                qDebug() << "chip_name: " << chip_name;
-                qDebug() << "graphic_card: " << graphic_card;
-                qDebug() << "display_panel: " << display_panel;
+        QString motherboard = data_gatherer.get_motherboard_model();
+        QString display_panel = data_gatherer.get_display_panel_model();
+        QString graphic_card = data_gatherer.get_graphic_card_model();
+        QString chip_name = w->chip_name;
 
-                /* Make backup of current bios */
-                data_gatherer.save_bios_rom_factory();
+        qDebug() << "motherboard: " << motherboard;
+        qDebug() << "chip_name: " << chip_name;
+        qDebug() << "graphic_card: " << graphic_card;
+        qDebug() << "display_panel: " << display_panel;
 
-                /* Extract rom components */
-                if (!QDir("hardware_data/factory_bios_components").exists())
-                    QDir().mkdir("hardware_data/factory_bios_components");
-                set_output_directory("hardware_data/factory_bios_components/");
-                data_gatherer.extract_rom("hardware_data/factory_bios.bin");
+        if (!hardware_info.open(QIODevice::ReadOnly))
+        {
+                qDebug() << "Error while loading file";
+        }
 
-                if (!hardware_info.open(QIODevice::ReadOnly))
-                {
-                    qDebug() << "Error while loading file";
-                }
+        xmlBOM.setContent(&hardware_info);
+        hardware_info.close();
 
-                xmlBOM.setContent(&hardware_info);
-                hardware_info.close();
+        QDomElement root = xmlBOM.documentElement();
+        hashwrapper *sha_wrapper = new sha256wrapper();
 
-                QDomElement root = xmlBOM.documentElement();
-                hashwrapper *sha_wrapper = new sha256wrapper();
+        QDomElement config = root.firstChild().toElement();
 
-                QDomElement config = root.firstChild().toElement();
+        while ((!config.isNull()) && (!is_config_ok)) {
+                QDomNode conf_child = config.firstChild();
+                bool board_ok = (motherboard == conf_child.firstChild().toText().data());
+                conf_child = conf_child.nextSibling();
+                bool chipset_ok = (chip_name == conf_child.firstChild().toText().data());
+                conf_child = conf_child.nextSibling();
+                bool gpu_ok = (graphic_card == conf_child.firstChild().toText().data());
+                conf_child = conf_child.nextSibling();
+                bool panel_ok = (display_panel == conf_child.firstChild().toText().data());
+                conf_child = conf_child.nextSibling();
+                QString need_vgabios = conf_child.firstChild().toText().data();
 
-                while ((!config.isNull()) && (!is_config_ok)) {
-                        QDomNode conf_child = config.firstChild();
-                        bool board_ok = (motherboard == conf_child.firstChild().toText().data());
-                        conf_child = conf_child.nextSibling();
-                        bool chipset_ok = (chip_name == conf_child.firstChild().toText().data());
-                        conf_child = conf_child.nextSibling();
-                        bool gpu_ok = (graphic_card == conf_child.firstChild().toText().data());
-                        conf_child = conf_child.nextSibling();
-                        bool panel_ok = (display_panel == conf_child.firstChild().toText().data());
-                        conf_child = conf_child.nextSibling();
-                        QString need_vgabios = conf_child.firstChild().toText().data();
+                qDebug() << board_ok;
+                qDebug() << chipset_ok;
+                qDebug() << gpu_ok;
+                qDebug() << panel_ok;
 
-                        qDebug() << board_ok;
-                        qDebug() << chipset_ok;
-                        qDebug() << gpu_ok;
-                        qDebug() << panel_ok;
-
+                if (board_ok && chipset_ok && gpu_ok && panel_ok) {
                         if (need_vgabios == "factory") {
-                                if (board_ok && chipset_ok && gpu_ok && panel_ok) {
-                                        QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/factory_bios.bin.bin").c_str());
+                                if (is_programmer_initialized) {
+                                        data_gatherer.probe_chip();
+                                        data_gatherer.save_bios_rom_factory();
+
+                                        /* Extract ROM components */
+                                        if (!QDir("hardware_data/factory_bios_components").exists())
+                                                QDir().mkdir("hardware_data/factory_bios_components");
+                                        set_output_directory("hardware_data/factory_bios_components/");
+                                        data_gatherer.extract_rom("hardware_data/factory_bios.bin");
+
+                                        QDirIterator file_iterator("hardware_data/factory_bios.bin");
                                         QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
-                                        qDebug() << vgabios_hash;
-                                        qDebug() << vgabios_xml_hash;
+                                        while (file_iterator.hasNext()) {
+                                                if (file_iterator.next().contains("oprom_")) {
+                                                        QString vgabios_hash = QString(sha_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
 
-                                        if (vgabios_hash == vgabios_xml_hash)
-                                                is_config_ok = true;
+                                                        qDebug() << vgabios_hash;
+                                                        qDebug() << vgabios_xml_hash;
+
+                                                        if (vgabios_hash == vgabios_xml_hash)
+                                                                is_config_ok = true;
+                                                }
+                                        }
+                                } else {
+                                        qDebug() << "This configuration requires factory VGABIOS, please initialize programmer";
                                 }
                         } else if (need_vgabios == "memory") {
-                                if (board_ok && chipset_ok && gpu_ok && panel_ok) {
-                                        QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
-                                        QString vgabios_xml_hash = conf_child.firstChild().toText().data();
+                                QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
+                                QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
-                                        qDebug() << vgabios_hash;
-                                        qDebug() << vgabios_xml_hash;
+                                qDebug() << vgabios_hash;
+                                qDebug() << vgabios_xml_hash;
 
-                                        if (vgabios_hash == vgabios_xml_hash)
-                                                is_config_ok = true;
-                                }
+                                if (vgabios_hash == vgabios_xml_hash)
+                                        is_config_ok = true;
                         }
-
-                        config = config.nextSibling().toElement();
                 }
-                delete sha_wrapper;
+                config = config.nextSibling().toElement();
+        }
+        delete sha_wrapper;
 
-                if (is_config_ok) {
-                        QString working_config = config.lastChild().firstChild().toText().data();
-                        QString copy_config_cmd = "cp coreboot_configs/" + working_config + " coreboot/.config";
+        if (is_config_ok) {
+                QString working_config = config.lastChild().firstChild().toText().data();
+                QString copy_config_cmd = "cp coreboot_configs/" + working_config + " coreboot/.config";
 
-                        system(copy_config_cmd.toStdString().c_str());
-                        system("cd coreboot");
-                        system("make");
-                } else {
-                        qDebug() << "No configuration for your system! Please send hardware_data.tar to"
+                system(copy_config_cmd.toStdString().c_str());
+                system("cd coreboot");
+                system("make");
+        } else {
+                qDebug() << "No configuration for your system! Please send hardware_data.tar to"
                                     "lukasz.dmitrowski@gmail.com";
-                }
         }
 }
 
@@ -468,7 +474,8 @@ void MainWindow::on_b_init_prog_clicked()
         if (!(programmer == "select")) {
                 w->active_log_out->clear();
                 fl_shutdown();
-                fl_programmer_init(programmer.toStdString().c_str(), ui->edit_prog_param->text().toStdString().c_str());
+                if (!fl_programmer_init(programmer.toStdString().c_str(), ui->edit_prog_param->text().toStdString().c_str()))
+                        is_programmer_initialized = true;
         }
 }
 

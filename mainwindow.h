@@ -95,6 +95,7 @@ private:
     QString bios_rom_path;
     QString bootblock_path;
     fl_flashctx_t *flash_context;
+    bool is_programmer_initialized;
 };
 
 extern MainWindow *w;
