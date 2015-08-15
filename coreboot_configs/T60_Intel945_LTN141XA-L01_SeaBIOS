@@ -117,7 +117,7 @@ CONFIG_VGA_BIOS=y
 # CONFIG_UDELAY_IO is not set
 CONFIG_DCACHE_RAM_BASE=0xffdf8000
 CONFIG_DCACHE_RAM_SIZE=0x8000
-CONFIG_VGA_BIOS_FILE="/home/lukasz/Downloads/hardware_data/oprom_4.rom"
+CONFIG_VGA_BIOS_FILE="../hardware_data/factory_bios_components/factory_vgabios.bin"
 CONFIG_MMCONF_BASE_ADDRESS=0xf0000000
 CONFIG_UART_FOR_CONSOLE=0
 CONFIG_ID_SECTION_OFFSET=0x80

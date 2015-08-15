@@ -56,6 +56,7 @@ private slots:
     /* Auto tab */
     void on_b_auto_get_hw_data_clicked();
     void on_b_auto_build_img_clicked();
+    void on_b_auto_get_bios_clicked();
     void on_b_auto_flash_clicked();
 
     /* Flash tab */

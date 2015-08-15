@@ -280,14 +280,13 @@ void MainWindow::on_b_auto_build_img_clicked()
         hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.tar)");
         data_gatherer.unpack_hardware_data_archive(hardware_data_path);
 
-
         QString motherboard = data_gatherer.get_motherboard_model();
         QString display_panel = data_gatherer.get_display_panel_model();
         QString graphic_card = data_gatherer.get_graphic_card_model();
-        QString chip_name = w->chip_name;
+        //QString chip_name = w->chip_name;
 
         qDebug() << "motherboard: " << motherboard;
-        qDebug() << "chip_name: " << chip_name;
+        //qDebug() << "chip_name: " << chip_name;
         qDebug() << "graphic_card: " << graphic_card;
         qDebug() << "display_panel: " << display_panel;
 
@@ -308,8 +307,8 @@ void MainWindow::on_b_auto_build_img_clicked()
                 QDomNode conf_child = config.firstChild();
                 bool board_ok = (motherboard == conf_child.firstChild().toText().data());
                 conf_child = conf_child.nextSibling();
-                bool chipset_ok = (chip_name == conf_child.firstChild().toText().data());
-                conf_child = conf_child.nextSibling();
+                //bool chipset_ok = (chip_name == conf_child.firstChild().toText().data());
+                //conf_child = conf_child.nextSibling();
                 bool gpu_ok = (graphic_card == conf_child.firstChild().toText().data());
                 conf_child = conf_child.nextSibling();
                 bool panel_ok = (display_panel == conf_child.firstChild().toText().data());
@@ -317,22 +316,19 @@ void MainWindow::on_b_auto_build_img_clicked()
                 QString need_vgabios = conf_child.firstChild().toText().data();
 
                 qDebug() << board_ok;
-                qDebug() << chipset_ok;
+                //qDebug() << chipset_ok;
                 qDebug() << gpu_ok;
                 qDebug() << panel_ok;
 
-                if (board_ok && chipset_ok && gpu_ok && panel_ok) {
+                if (board_ok /*&& chipset_ok*/ && gpu_ok && panel_ok) {
                         if (need_vgabios == "factory") {
-                                if (is_programmer_initialized) {
-                                        data_gatherer.probe_chip();
-                                        data_gatherer.save_bios_rom_factory();
-
-                                        /* Extract ROM components */
+                                QFileInfo factory_bios("hardware_data/factory_bios.bin");
+                                if (factory_bios.exists()) {
+                                        /* Extract factory bios components */
                                         if (!QDir("hardware_data/factory_bios_components").exists())
                                                 QDir().mkdir("hardware_data/factory_bios_components");
                                         set_output_directory("hardware_data/factory_bios_components/");
                                         data_gatherer.extract_rom("hardware_data/factory_bios.bin");
-
                                         QDirIterator file_iterator("hardware_data/factory_bios.bin");
                                         QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
@@ -343,14 +339,17 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                         qDebug() << vgabios_hash;
                                                         qDebug() << vgabios_xml_hash;
 
-                                                        if (vgabios_hash == vgabios_xml_hash)
+                                                        if (vgabios_hash == vgabios_xml_hash) {
                                                                 is_config_ok = true;
+                                                                QFile vgabios_file(file_iterator.filePath());
+                                                                vgabios_file.rename("factory_vgabios.bin");
+                                                        }
                                                 }
                                         }
                                 } else {
-                                        qDebug() << "This configuration requires factory VGABIOS, please initialize programmer";
-                                }
-                        } else if (need_vgabios == "memory") {
+                                        qDebug() << "This configuration requires factory VGABIOS, please use 'Get factory BIOS' button";
+                        }
+                } else if (need_vgabios == "memory") {
                                 QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
                                 QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
@@ -366,15 +365,34 @@ void MainWindow::on_b_auto_build_img_clicked()
         delete sha_wrapper;
 
         if (is_config_ok) {
-                QString working_config = config.lastChild().firstChild().toText().data();
+                QString working_config = config.lastChild().firstChild().toText().data() + "_"
+                                + ui->cb_auto_sel_payload->currentText();
                 QString copy_config_cmd = "cp coreboot_configs/" + working_config + " coreboot/.config";
+
+                qDebug() << "copy_config_cmd: " << copy_config_cmd;
 
                 system(copy_config_cmd.toStdString().c_str());
                 system("cd coreboot");
                 system("make");
+
+                QFile coreboot_rom("coreboot/build/coreboot.rom") ;
+
+                /* Wait until rom is ready */
+                while(!coreboot_rom.exists());
+                system("cp coreboot/build/coreboot.rom ../");
         } else {
                 qDebug() << "No configuration for your system! Please send hardware_data.tar to"
                                     "lukasz.dmitrowski@gmail.com";
+        }
+}
+
+void MainWindow::on_b_auto_get_bios_clicked()
+{
+        if (is_programmer_initialized) {
+                DataGatherer data_gatherer;
+                data_gatherer.save_bios_rom_factory();
+        } else {
+                qDebug() << "Please initialize programmer!";
         }
 }
 
