@@ -124,8 +124,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_b_probe_clicked()
 {
+        DataGatherer data_gatherer;
+        data_gatherer.probe_chip();
+        /*int ret_val = -1;
+
         ui->log_flash->clear();
-        if (fl_flash_probe(&flash_context, NULL) == 3) {
+        ret_val = fl_flash_probe(&flash_context, NULL);
+
+        if (ret_val == 3) {
                 ChooseChip choose_chip_dialog;
                 const char **chip_names = NULL;
                 int chip_count = 0;
@@ -140,33 +146,20 @@ void MainWindow::on_b_probe_clicked()
                 choose_chip_dialog.set_flash_ctx_ptr(&flash_context);
                 choose_chip_dialog.exec();
                 fl_data_free(chip_names);
-        }
+        }*/
 }
 
 void MainWindow::on_b_read_clicked()
-{     
+{
         QString save_dir;
-        unsigned int rom_size = 0;
-        char *buffer = NULL;
+        DataGatherer data_gatherer;
 
-        if (flash_context) {
-                save_dir = QFileDialog::getExistingDirectory(this,
-                                                             tr("Select output directory"),
-                                                             ".",
-                                                             QFileDialog::ShowDirsOnly
-                                                             | QFileDialog::DontResolveSymlinks);
-
-                rom_size = fl_flash_getsize(flash_context);
-                buffer = new char[rom_size];
-
-                if (!buffer) {
-                        qDebug() << "Out of memory!";
-                } else {
-                        ui->log_flash->clear();
-                        fl_image_read(flash_context, buffer, rom_size);
-                        delete [] buffer;
-                }
-        }
+        save_dir = QFileDialog::getExistingDirectory(this,
+                                                     tr("Select output directory"),
+                                                     ".",
+                                                     QFileDialog::ShowDirsOnly
+                                                     | QFileDialog::DontResolveSymlinks);
+        data_gatherer.save_bios_rom_factory(save_dir + "factory_bios.bin");
 }
 
 void MainWindow::on_b_verify_clicked()
@@ -404,7 +397,7 @@ void MainWindow::on_b_auto_build_img_clicked()
 void MainWindow::on_b_auto_get_bios_clicked()
 {
         DataGatherer data_gatherer;
-        data_gatherer.save_bios_rom_factory();
+        data_gatherer.save_bios_rom_factory("hardware_data/factory_bios.bin");
 }
 
 void MainWindow::on_b_auto_flash_clicked()

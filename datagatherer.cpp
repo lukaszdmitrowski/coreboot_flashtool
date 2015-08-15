@@ -86,7 +86,7 @@ void DataGatherer::save_dmidecode_output()
         system("sudo dmidecode -t 2 > hardware_data/dmidecode_output.txt");
 }
 
-void DataGatherer::save_bios_rom_factory()
+void DataGatherer::save_bios_rom_factory(QString save_path)
 {
         if (w->programmer_initialized) {
                 if (w->chip_found) {
@@ -103,7 +103,7 @@ void DataGatherer::save_bios_rom_factory()
                                 qDebug() << "Out of memory!";
                         }
 
-                        if (!(dump_file = fopen("hardware_data/factory_bios.bin", "wb"))) {
+                        if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
                                 qDebug() << "Can't open file!";
                         } else {
                                 written_bytes = fwrite(buf, 1, chip_size, dump_file);
@@ -117,7 +117,7 @@ void DataGatherer::save_bios_rom_factory()
                         delete buf;
                 } else {
                         probe_chip();
-                        save_bios_rom_factory();
+                        save_bios_rom_factory(save_path);
                 }
         } else {
                 qDebug() << "Please initialize programmer!";
