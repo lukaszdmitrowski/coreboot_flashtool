@@ -22,6 +22,8 @@
 #include "ui_deletecomponents.h"
 #include "mainwindow.h"
 
+#include <QDebug>
+
 extern "C" {
 #include "libcbfstool.h"
 }
@@ -46,13 +48,17 @@ void DeleteComponents::on_b_remove_comp_clicked()
 
         QString params[7];
         params[0] = "flash_tool";
-        params[1] = w->get_flash_rom_path();
+        params[1] = w->get_cbfs_rom_path();
         params[2] = "remove";
 
         if (!ui->edit_name->text().isEmpty()) {
                 params[param_count] = "-n";
                 params[param_count + 1] = ui->edit_name->text();
                 param_count += 2;
+        }
+
+        for (int i = 0; i < 5; ++i) {
+                qDebug() << "param: " << params[i];
         }
 
         cbfs_params = new char*[param_count];
@@ -67,4 +73,5 @@ void DeleteComponents::on_b_remove_comp_clicked()
                 delete [] cbfs_params[i];
         }
         delete [] cbfs_params;
+        close();
 }

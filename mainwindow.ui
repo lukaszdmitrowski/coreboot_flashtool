@@ -62,7 +62,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_auto">
      <attribute name="title">
@@ -270,88 +270,42 @@
      <attribute name="title">
       <string>ROM options</string>
      </attribute>
-     <widget class="QPushButton" name="b_add_payload">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>50</y>
-        <width>141</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="text">
-       <string> Add payload</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resources.qrc">
-        <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
-      </property>
-     </widget>
      <widget class="QPushButton" name="b_remove_comp">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>50</y>
-        <width>111</width>
+        <x>550</x>
+        <y>10</y>
+        <width>81</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Remove</string>
+       <string/>
       </property>
       <property name="icon">
        <iconset resource="resources.qrc">
         <normaloff>:/icons/icons/remove.png</normaloff>:/icons/icons/remove.png</iconset>
       </property>
      </widget>
-     <widget class="QLabel" name="l_opt_rom_info">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>70</y>
-        <width>91</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>ROM info:</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="l_opt_rom">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>20</y>
+        <x>20</x>
+        <y>10</y>
         <width>61</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>ROM:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="l_opt_sel_name">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>20</y>
-        <width>531</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QPushButton" name="b_add_component">
       <property name="geometry">
        <rect>
-        <x>360</x>
-        <y>50</y>
-        <width>151</width>
+        <x>470</x>
+        <y>10</y>
+        <width>81</width>
         <height>31</height>
        </rect>
       </property>
@@ -359,20 +313,20 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>Add component</string>
+       <string/>
       </property>
       <property name="icon">
        <iconset resource="resources.qrc">
         <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
       </property>
      </widget>
-     <widget class="QTableView" name="tableView">
+     <widget class="QTableView" name="tv_rom_content">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>90</y>
+        <y>50</y>
         <width>631</width>
-        <height>121</height>
+        <height>161</height>
        </rect>
       </property>
      </widget>
@@ -400,6 +354,19 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="cursorWidth">
        <number>0</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="b_ropt_select">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>10</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select</string>
       </property>
      </widget>
     </widget>

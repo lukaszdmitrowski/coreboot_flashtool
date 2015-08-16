@@ -101,11 +101,11 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->log_rom_opt->setReadOnly(true);
         ui->log_extract->setReadOnly(true);
         ui->log_create_rom->setReadOnly(true);
+        ui->tv_rom_content->setSelectionBehavior(QAbstractItemView::SelectRows);
         active_log_out = ui->log_auto;
+        model = new QStandardItemModel();
 
         my_log_callback = &libflashrom_log;
-        Flashrom flashrom;
-        flashrom.init_flashrom();
         fill_cb_arch();
         fill_cb_programmers();
         fill_cb_payload();
@@ -173,6 +173,7 @@ void MainWindow::on_b_verify_clicked()
                         } else {
                                 qDebug() << "Chip not verified";
                         }
+                        delete [] data;
                 } else {
                         qDebug() << "Out of memory!";
                 }
@@ -217,10 +218,11 @@ void MainWindow::on_b_flash_clicked()
                                 write_result = flashrom.write_chip(&data, st.st_size);
 
                         if (write_result == 0) {
-                                qDebug() << "Chip verified";
+                                qDebug() << "Write OK";
                         } else {
-                                qDebug() << "Chip not verified";
+                                qDebug() << "Write failed";
                         }
+                        delete [] data;
                 } else {
                         qDebug() << "Out of memory!";
                 }
@@ -287,10 +289,8 @@ void MainWindow::on_b_auto_build_img_clicked()
         QString motherboard = data_gatherer.get_motherboard_model();
         QString display_panel = data_gatherer.get_display_panel_model();
         QString graphic_card = data_gatherer.get_graphic_card_model();
-        //QString chip_name = w->chip_name;
 
         qDebug() << "motherboard: " << motherboard;
-        //qDebug() << "chip_name: " << chip_name;
         qDebug() << "graphic_card: " << graphic_card;
         qDebug() << "display_panel: " << display_panel;
 
@@ -311,8 +311,6 @@ void MainWindow::on_b_auto_build_img_clicked()
                 QDomNode conf_child = config.firstChild();
                 bool board_ok = (motherboard == conf_child.firstChild().toText().data());
                 conf_child = conf_child.nextSibling();
-                //bool chipset_ok = (chip_name == conf_child.firstChild().toText().data());
-                //conf_child = conf_child.nextSibling();
                 bool gpu_ok = (graphic_card == conf_child.firstChild().toText().data());
                 conf_child = conf_child.nextSibling();
                 bool panel_ok = (display_panel == conf_child.firstChild().toText().data());
@@ -320,11 +318,10 @@ void MainWindow::on_b_auto_build_img_clicked()
                 QString need_vgabios = conf_child.firstChild().toText().data();
 
                 qDebug() << board_ok;
-                //qDebug() << chipset_ok;
                 qDebug() << gpu_ok;
                 qDebug() << panel_ok;
 
-                if (board_ok /*&& chipset_ok*/ && gpu_ok && panel_ok) {
+                if (board_ok && gpu_ok && panel_ok) {
                         if (need_vgabios == "factory") {
                                 QFileInfo factory_bios("hardware_data/factory_bios.bin");
                                 if (factory_bios.exists()) {
@@ -384,14 +381,11 @@ void MainWindow::on_b_auto_build_img_clicked()
                                 + ui->cb_auto_sel_payload->currentText();
                 QString copy_config_cmd = "cp coreboot_configs/" + working_config + " coreboot/.config";
 
-                qDebug() << "copy_config_cmd: " << copy_config_cmd;
-
                 system("rm coreboot/build/coreboot.rom");
                 system(copy_config_cmd.toStdString().c_str());
                 system("make -C coreboot");
 
                 QFile coreboot_rom_file("coreboot/build/coreboot.rom");
-
                 if (coreboot_rom_file.exists()) {
                     system("cp coreboot/build/coreboot.rom ../");
                 } else {
@@ -412,21 +406,39 @@ void MainWindow::on_b_auto_get_bios_clicked()
 
 void MainWindow::on_b_auto_flash_clicked()
 {
-        //unsigned int rom_size = fl_flash_getsize(flash_context);
+        Flashrom flashrom;
+        int write_result = -1;
+        unsigned long file_size = 0;
+        FILE *write_file;
+        unsigned char *data = NULL;
 
-        /* Read rom file to array */
-        //QFile file("automatic_build_rom.rom");
-        //QByteArray blob;
-        //char rom_buffer[rom_size];
 
-        //if (!file.open(QIODevice::ReadOnly)) {
-        //        qDebug() << "Can't open file!";
-        //} else {
-        //        blob = file.readAll();
-        //}
+        ui->log_flash->clear();
+        if (!(write_file = fopen("coreboot.rom", "rb"))) {
+                qDebug() << "No coreboot rom!";
+        } else {
+                struct stat st;
+                stat("coreboot.rom", &st);
 
-        /* WRITE IMAGE TO CHIP */
-        //fl_image_write(flash_context, blob.data(), rom_size);
+                data = new unsigned char[st.st_size];
+
+                if (data) {
+                        fread(data, sizeof(unsigned char), st.st_size, write_file);
+                        write_result = flashrom.write_chip(&data, st.st_size);
+                        if (write_result == 2)
+                                write_result = flashrom.write_chip(&data, st.st_size);
+
+                        if (write_result == 0) {
+                                qDebug() << "Write OK";
+                        } else {
+                                qDebug() << "Write failed";
+                        }
+                        delete [] data;
+                } else {
+                        qDebug() << "Out of memory!";
+                }
+                fclose(write_file);
+        }
 }
 
 void MainWindow::on_b_extract_clicked()
@@ -568,32 +580,6 @@ void MainWindow::on_act_about_triggered()
         about_window.exec();
 }
 
-void MainWindow::print_rom()
-{
-        char **cbfs_params;
-        /* PROGNAME(1) + NAME(1) + COMMAND(1) */
-        int param_count = 3;
-        QString params[3];
-
-        w->active_log_out->clear();
-        params[0] = "./flash_tool";
-        params[1] = flash_rom_path;
-        params[2] = "print";
-
-        cbfs_params = new char*[param_count];
-        for (int i = 0; i < param_count; ++i) {
-                cbfs_params[i] = new char[params[i].length()];
-                strcpy(cbfs_params[i], params[i].toStdString().c_str());
-        }
-
-        start_cbfs(param_count, cbfs_params);
-
-        for (int i = 0; i < param_count; ++i) {
-                delete [] cbfs_params[i];
-        }
-        delete [] cbfs_params;
-}
-
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
         switch (index) {
@@ -615,7 +601,61 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         }
 }
 
-QString MainWindow::get_flash_rom_path()
+QString MainWindow::get_cbfs_rom_path()
 {
-        return flash_rom_path;
+        return cbfs_rom_path;
+}
+
+void MainWindow::on_b_ropt_select_clicked()
+{
+        cbfs_rom_path = QFileDialog::getOpenFileName(this, tr("Select bootblock"), ".", "All files (*.*)");
+
+        char **cbfs_params;
+        /* PROGNAME(1) + NAME(1) + COMMAND(1) */
+        int param_count = 3;
+        QString params[3];
+
+        active_log_out->clear();
+        params[0] = "./flash_tool";
+        params[1] = cbfs_rom_path;
+        params[2] = "print";
+
+        cbfs_params = new char*[param_count];
+        for (int i = 0; i < param_count; ++i) {
+                cbfs_params[i] = new char[params[i].length()];
+                strcpy(cbfs_params[i], params[i].toStdString().c_str());
+        }
+
+        start_cbfs(param_count, cbfs_params);
+
+        for (int i = 0; i < param_count; ++i) {
+               delete [] cbfs_params[i];
+        }
+
+        delete [] cbfs_params;
+
+        QString rom_content_text = active_log_out->toPlainText();
+        QStringList rom_info_list = rom_content_text.split(QRegExp("\\s+"));
+
+        model->clear();
+        model->setHorizontalHeaderItem(0, new QStandardItem(QString("Name")));
+        model->setHorizontalHeaderItem(1, new QStandardItem(QString("Offset")));
+        model->setHorizontalHeaderItem(2, new QStandardItem(QString("Type")));
+        model->setHorizontalHeaderItem(3, new QStandardItem(QString("Size")));
+
+        for (unsigned int i = 18; i < rom_info_list.size() - 1; i+=4) {
+                QList<QStandardItem*> row;
+                row.append(new QStandardItem(rom_info_list[i]));
+                row.append(new QStandardItem(rom_info_list[i+1]));
+                row.append(new QStandardItem(rom_info_list[i+2]));
+                row.append(new QStandardItem(rom_info_list[i+3]));
+                model->appendRow(row);
+        }
+
+        ui->tv_rom_content->setModel(model);
+        ui->tv_rom_content->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
+        ui->tv_rom_content->setColumnWidth(0, 165);
+        ui->tv_rom_content->setColumnWidth(1, 90);
+        ui->tv_rom_content->setColumnWidth(2, 200);
+        ui->tv_rom_content->setColumnWidth(3, 100);
 }

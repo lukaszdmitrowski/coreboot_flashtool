@@ -60,7 +60,7 @@ void AddComponent::on_b_add_component_clicked()
 
         QString params[9];
         params[0] = "flash_tool";
-        params[1] = w->get_flash_rom_path();
+        params[1] = w->get_cbfs_rom_path();
         params[2] = "add";
 
         if (!component_path.isEmpty()) {
@@ -90,6 +90,7 @@ void AddComponent::on_b_add_component_clicked()
                 delete [] cbfs_params[i];
         }
         delete [] cbfs_params;
+        close();
 }
 
 void AddComponent::fill_cb_type()

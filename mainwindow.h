@@ -23,6 +23,7 @@
 
 #include <QMainWindow>
 #include <QTextEdit>
+#include <QStandardItemModel>
 
 namespace Ui {
 class MainWindow;
@@ -37,7 +38,7 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
     QTextEdit *active_log_out;
-    QString get_flash_rom_path();
+    QString get_cbfs_rom_path();
     QString chip_name;
     bool chip_found;
     bool programmer_initialized;
@@ -47,7 +48,6 @@ private slots:
     void on_b_init_prog_clicked();
 
     /* Toolbar */
-    //void on_act_sel_payload_triggered();
     void on_act_supported_list_triggered();
     void on_act_about_triggered();
 
@@ -58,7 +58,6 @@ private slots:
     void on_b_auto_flash_clicked();
 
     /* Flash tab */
-    //void on_b_sel_payload_clicked();
     void on_b_read_clicked();
     void on_b_probe_clicked();
     void on_b_verify_clicked();
@@ -75,7 +74,7 @@ private slots:
     void on_b_sel_boot_block_clicked();
 
     /* Rom options tab */
-    //void on_b_add_payload_clicked();
+    void on_b_ropt_select_clicked();
     void on_b_add_component_clicked();
     void on_b_remove_comp_clicked();
 
@@ -86,14 +85,12 @@ private:
     void fill_cb_programmers();
     void fill_cb_arch();
     void fill_cb_payload();
-    //void open_select_rom_window();
     void open_select_bios_rom_window();
     void open_select_bios_out_window();
-    void print_rom();
-    QString flash_rom_path;
+    QString cbfs_rom_path;
     QString bios_rom_path;
     QString bootblock_path;
-    //fl_flashctx_t *flash_context;
+    QStandardItemModel *model;
 };
 
 extern MainWindow *w;
