@@ -55,8 +55,8 @@ void DataGatherer::save_bios_rom_factory(QString save_path)
         unsigned long chip_size = 0;
         unsigned long written_bytes = 0;
 
-        if (flashrom.read_chip(buf, &chip_size) == 2)
-                        flashrom.read_chip(buf, &chip_size);
+        if (flashrom.read_chip(&buf, &chip_size) == 2)
+                        flashrom.read_chip(&buf, &chip_size);
 
         if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
                 qDebug() << "Can't open file!";

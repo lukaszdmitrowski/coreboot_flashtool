@@ -83,18 +83,18 @@ int Flashrom::probe_chip()
         return ret_val;
 }
 
-int Flashrom::read_chip(unsigned char *data_out, unsigned long *const chip_size)
+int Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_size)
 {
         int ret_val = 1;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
                         *chip_size = get_chip_size();
-                        data_out = new unsigned char[*chip_size];
-                        memset(data_out, 0, *chip_size);
+                        *data_out = new unsigned char[*chip_size];
+                        memset(*data_out, 0, *chip_size);
 
                         if (data_out) {
-                                fl_image_read(flash_context, data_out, *chip_size);
+                                fl_image_read(flash_context, *data_out, *chip_size);
                         } else {
                                 qDebug() << "Out of memory!";
                                 ret_val = 3;
@@ -110,7 +110,7 @@ int Flashrom::read_chip(unsigned char *data_out, unsigned long *const chip_size)
         return ret_val;
 }
 
-int Flashrom::verify_chip(void *buffer)
+int Flashrom::verify_chip(unsigned char **buffer, unsigned long buffer_size)
 {
         int ret_val = 1;
         unsigned long chip_size = 0;
@@ -119,10 +119,15 @@ int Flashrom::verify_chip(void *buffer)
                 if (w->chip_found) {
                         chip_size = get_chip_size();
 
-                        if (fl_image_verify(flash_context, buffer, chip_size) == 0) {
-                                ret_val = 0;
+                        if (buffer_size != chip_size) {
+                                qDebug() << "Buffer size different than chip size!";
+                                ret_val = 4;
                         } else {
-                                ret_val = 3;
+                                if (fl_image_verify(flash_context, *buffer, chip_size) == 0) {
+                                        ret_val = 0;
+                                } else {
+                                        ret_val = 3;
+                                }
                         }
                 } else {
                         probe_chip();
@@ -153,7 +158,7 @@ int Flashrom::erase_chip()
         return ret_val;
 }
 
-int Flashrom::write_chip(char *data)
+int Flashrom::write_chip(unsigned char **data, unsigned long data_size)
 {
         int ret_val = 1;
         unsigned long chip_size = 0;
@@ -161,7 +166,17 @@ int Flashrom::write_chip(char *data)
         if (w->programmer_initialized) {
                 if (w->chip_found) {
                         chip_size = get_chip_size();
-                        fl_image_write(flash_context, data, chip_size);
+
+                        if (data_size != chip_size) {
+                                qDebug() << "Data size different than chip size!";
+                                ret_val = 4;
+                        } else {
+                                if (fl_image_write(flash_context, *data, data_size) == 0) {
+                                        ret_val = 0;
+                                } else {
+                                        ret_val = 3;
+                                }
+                        }
                 } else {
                         probe_chip();
                         ret_val = 2;

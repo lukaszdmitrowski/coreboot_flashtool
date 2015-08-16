@@ -29,6 +29,7 @@
 #include "choosechip.h"
 #include "hashlibpp/hashlibpp.h"
 #include "flashrom.h"
+#include <sys/stat.h>
 #include <cstdarg>
 
 #include <QFileDialog>
@@ -146,30 +147,38 @@ void MainWindow::on_b_verify_clicked()
         Flashrom flashrom;
         QString verify_dir;
         int verify_result = -1;
+        unsigned long file_size = 0;
+        FILE *verify_file;
+        unsigned char *data = NULL;
 
-        verify_dir = QFileDialog::getExistingDirectory(this,
-                                                       tr("Select ROM to verify"),
-                                                       ".",
-                                                       QFileDialog::ShowDirsOnly
-                                                       | QFileDialog::DontResolveSymlinks);
+        verify_dir = QFileDialog::getOpenFileName(this, tr("Select ROM to verify"), ".", "All files (*.*)");
         ui->log_flash->clear();
-        QFile file(verify_dir);
-        QByteArray blob;
 
-        if (!file.open(QIODevice::ReadOnly)) {
+        if (!(verify_file = fopen(verify_dir.toStdString().c_str(), "rb"))) {
                 qDebug() << "Can't open file!";
         } else {
-                blob = file.readAll();
-                verify_result = flashrom.verify_chip(blob.data());
+                struct stat st;
+                stat(verify_dir.toStdString().c_str(), &st);
 
-                if (verify_result == 2)
-                        verify_result = flashrom.verify_chip(blob.data());
+                data = new unsigned char[st.st_size];
 
-                if (verify_result == 0) {
-                        qDebug() << "Chip verified";
+                if (data) {
+                        fread(data, sizeof(unsigned char), st.st_size, verify_file);
+                        verify_result = flashrom.verify_chip(&data, st.st_size);
+                        if (verify_result == 2)
+                                verify_result = flashrom.verify_chip(&data, st.st_size);
+
+                        if (verify_result == 0) {
+                                qDebug() << "Chip verified";
+                        } else {
+                                qDebug() << "Chip not verified";
+                        }
                 } else {
-                        qDebug() << "Chip not verified";
+                        qDebug() << "Out of memory!";
                 }
+
+
+                fclose(verify_file);
         }
 }
 
@@ -184,24 +193,38 @@ void MainWindow::on_b_erase_clicked()
 void MainWindow::on_b_flash_clicked()
 {
         Flashrom flashrom;
-        QString rom_dir;
+        QString write_dir;
+        int write_result = -1;
+        unsigned long file_size = 0;
+        FILE *write_file;
+        unsigned char *data = NULL;
 
-        rom_dir = QFileDialog::getExistingDirectory(this,
-                                                    tr("Select ROM to flash"),
-                                                    ".",
-                                                    QFileDialog::ShowDirsOnly
-                                                    | QFileDialog::DontResolveSymlinks);
-
+        write_dir = QFileDialog::getOpenFileName(this, tr("Select ROM to flash"), ".", "All files (*.*)");
         ui->log_flash->clear();
-        QFile file(rom_dir);
-        QByteArray blob;
 
-        if (!file.open(QIODevice::ReadOnly)) {
+        if (!(write_file = fopen(write_dir.toStdString().c_str(), "rb"))) {
                 qDebug() << "Can't open file!";
         } else {
-                blob = file.readAll();
-                if (flashrom.write_chip(blob.data()) == 2)
-                        flashrom.write_chip(blob.data());
+                struct stat st;
+                stat(write_dir.toStdString().c_str(), &st);
+
+                data = new unsigned char[st.st_size];
+
+                if (data) {
+                        fread(data, sizeof(unsigned char), st.st_size, write_file);
+                        write_result = flashrom.write_chip(&data, st.st_size);
+                        if (write_result == 2)
+                                write_result = flashrom.write_chip(&data, st.st_size);
+
+                        if (write_result == 0) {
+                                qDebug() << "Chip verified";
+                        } else {
+                                qDebug() << "Chip not verified";
+                        }
+                } else {
+                        qDebug() << "Out of memory!";
+                }
+                fclose(write_file);
         }
 }
 
