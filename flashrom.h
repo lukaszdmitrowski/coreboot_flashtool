@@ -34,10 +34,10 @@ public:
         int init_flashrom();
         int shutdown_flashrom();
         int probe_chip();
-        int read_chip(unsigned char *data_out, unsigned long chip_size);
-        int verify_chip(void *buffer, unsigned long chip_size);
+        int read_chip(unsigned char *data_out);
+        int verify_chip(void *buffer);
         int erase_chip();
-        int write_chip(char *data, unsigned long chip_size);
+        int write_chip(char *data);
         unsigned long get_chip_size();
 
 private:

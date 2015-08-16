@@ -49,10 +49,10 @@ int Flashrom::probe_chip()
                 if (!w->chip_found) {
                         ret_val = fl_flash_probe(&flash_context, NULL);
 
-                        if (ret_val == 0)
+                        if (ret_val == 0) {
                                 w->chip_found = true;
-
-                        if (ret_val == 3) {
+                                qDebug() << "Chip found!";
+                        } else if (ret_val == 3) {
                                 ChooseChip choose_chip_dialog;
                                 const char **chip_names = NULL;
                                 int chip_count = 0;
@@ -69,6 +69,9 @@ int Flashrom::probe_chip()
                                 fl_data_free(chip_names);
                                 w->chip_found = true;
                                 ret_val = 0;
+                                qDebug() << "Chip found!";
+                        } else {
+                                qDebug() << "Probing failed!";
                         }
                 } else {
                         qDebug() << "Already probed for a chip - " + w->chip_name;
@@ -81,16 +84,22 @@ int Flashrom::probe_chip()
         return ret_val;
 }
 
-int Flashrom::read_chip(unsigned char *data_out, unsigned long chip_size)
+int Flashrom::read_chip(unsigned char *data_out)
 {
         int ret_val = 1;
+        unsigned long chip_size = 0;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
+                        chip_size = get_chip_size();
+                        data_out = new unsigned char[chip_size];
+                        memset(data_out, 0, chip_size);
+
                         if (data_out) {
                                 fl_image_read(flash_context, data_out, chip_size);
                         } else {
                                 qDebug() << "Out of memory!";
+                                ret_val = 3;
                         }
                 } else {
                         probe_chip();
@@ -103,12 +112,15 @@ int Flashrom::read_chip(unsigned char *data_out, unsigned long chip_size)
         return ret_val;
 }
 
-int Flashrom::verify_chip(void *buffer, unsigned long chip_size)
+int Flashrom::verify_chip(void *buffer)
 {
         int ret_val = 1;
+        unsigned long chip_size = 0;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
+                        chip_size = get_chip_size();
+
                         if (fl_image_verify(flash_context, buffer, chip_size) == 0) {
                                 ret_val = 0;
                         } else {
@@ -143,12 +155,14 @@ int Flashrom::erase_chip()
         return ret_val;
 }
 
-int Flashrom::write_chip(char *data, unsigned long chip_size)
+int Flashrom::write_chip(char *data)
 {
         int ret_val = 1;
+        unsigned long chip_size = 0;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
+                        chip_size = get_chip_size();
                         fl_image_write(flash_context, data, chip_size);
                 } else {
                         probe_chip();
