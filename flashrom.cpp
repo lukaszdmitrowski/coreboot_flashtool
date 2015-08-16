@@ -69,7 +69,6 @@ int Flashrom::probe_chip()
                                 fl_data_free(chip_names);
                                 w->chip_found = true;
                                 ret_val = 0;
-                                qDebug() << "Chip found!";
                         } else {
                                 qDebug() << "Probing failed!";
                         }
@@ -84,19 +83,18 @@ int Flashrom::probe_chip()
         return ret_val;
 }
 
-int Flashrom::read_chip(unsigned char *data_out)
+int Flashrom::read_chip(unsigned char *data_out, unsigned long *const chip_size)
 {
         int ret_val = 1;
-        unsigned long chip_size = 0;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
-                        chip_size = get_chip_size();
-                        data_out = new unsigned char[chip_size];
-                        memset(data_out, 0, chip_size);
+                        *chip_size = get_chip_size();
+                        data_out = new unsigned char[*chip_size];
+                        memset(data_out, 0, *chip_size);
 
                         if (data_out) {
-                                fl_image_read(flash_context, data_out, chip_size);
+                                fl_image_read(flash_context, data_out, *chip_size);
                         } else {
                                 qDebug() << "Out of memory!";
                                 ret_val = 3;
