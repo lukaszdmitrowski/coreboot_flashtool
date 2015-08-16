@@ -2,6 +2,8 @@
 #include "ui_choosechip.h"
 #include "mainwindow.h"
 
+#include <QDebug>
+
 ChooseChip::ChooseChip(QWidget *parent) :
         QDialog(parent),
         ui(new Ui::ChooseChip)
@@ -28,6 +30,10 @@ void ChooseChip::on_b_chip_ok_clicked()
 {
         QString chosen_chip = ui->chip_list->currentItem()->text();
         w->chip_name = chosen_chip;
-        fl_flash_probe(flash_context_ptr, chosen_chip.toStdString().c_str());
+        if (fl_flash_probe(flash_context_ptr, chosen_chip.toStdString().c_str()) == 0) {
+                qDebug() << "Chip found!";
+        } else {
+                qDebug() << "Probing failed!";
+        }
         close();
 }

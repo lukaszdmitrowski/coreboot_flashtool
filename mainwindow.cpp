@@ -134,14 +134,17 @@ void MainWindow::on_b_read_clicked()
                                                      ".",
                                                      QFileDialog::ShowDirsOnly
                                                      | QFileDialog::DontResolveSymlinks);
-        data_gatherer.save_bios_rom_factory(save_dir + "factory_bios.bin");
+        if (save_dir.isEmpty()) {
+                qDebug() << "Output directory not selected!";
+        } else {
+                data_gatherer.save_bios_rom_factory(save_dir + "/factory_bios.bin");
+        }
 }
 
 void MainWindow::on_b_verify_clicked()
 {
         Flashrom flashrom;
         QString verify_dir;
-        unsigned int rom_size = 0;
         int verify_result = -1;
 
         verify_dir = QFileDialog::getExistingDirectory(this,
@@ -150,7 +153,6 @@ void MainWindow::on_b_verify_clicked()
                                                        QFileDialog::ShowDirsOnly
                                                        | QFileDialog::DontResolveSymlinks);
         ui->log_flash->clear();
-        rom_size = flashrom.get_chip_size();
         QFile file(verify_dir);
         QByteArray blob;
 
@@ -158,10 +160,10 @@ void MainWindow::on_b_verify_clicked()
                 qDebug() << "Can't open file!";
         } else {
                 blob = file.readAll();
-                verify_result = flashrom.verify_chip(blob.data(), rom_size);
+                verify_result = flashrom.verify_chip(blob.data());
 
                 if (verify_result == 2)
-                        verify_result = flashrom.verify_chip(blob.data(), rom_size);
+                        verify_result = flashrom.verify_chip(blob.data());
 
                 if (verify_result == 0) {
                         qDebug() << "Chip verified";
@@ -183,7 +185,6 @@ void MainWindow::on_b_flash_clicked()
 {
         Flashrom flashrom;
         QString rom_dir;
-        unsigned int rom_size = 0;
 
         rom_dir = QFileDialog::getExistingDirectory(this,
                                                     tr("Select ROM to flash"),
@@ -192,7 +193,6 @@ void MainWindow::on_b_flash_clicked()
                                                     | QFileDialog::DontResolveSymlinks);
 
         ui->log_flash->clear();
-        rom_size = flashrom.get_chip_size();
         QFile file(rom_dir);
         QByteArray blob;
 
@@ -200,8 +200,8 @@ void MainWindow::on_b_flash_clicked()
                 qDebug() << "Can't open file!";
         } else {
                 blob = file.readAll();
-                if (flashrom.write_chip(blob.data(), rom_size) == 2)
-                        flashrom.write_chip(blob.data(), rom_size);
+                if (flashrom.write_chip(blob.data()) == 2)
+                        flashrom.write_chip(blob.data());
         }
 }
 

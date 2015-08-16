@@ -52,19 +52,11 @@ void DataGatherer::save_bios_rom_factory(QString save_path)
         FILE *dump_file;
         Flashrom flashrom;
         unsigned char *buf = NULL;
-        unsigned long chip_size = flashrom.get_chip_size();
+        unsigned long chip_size = 0;
         unsigned long written_bytes = 0;
 
-        buf = new unsigned char[chip_size];
-        memset(buf, 0, chip_size);
-
-        if (buf) {
-                if (flashrom.read_chip(buf, chip_size) == 2)
-                        flashrom.read_chip(buf, chip_size);
-        } else {
-                qDebug() << "Out of memory!";
-                return;
-        }
+        if (flashrom.read_chip(buf) == 2)
+                        flashrom.read_chip(buf);
 
         if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
                 qDebug() << "Can't open file!";
@@ -86,7 +78,7 @@ void DataGatherer::save_bios_rom_from_iomem()
 
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
-    qDebug() << "extract rom";
+        qDebug() << "extract rom";
         start_bios_extract(bios_rom_path.toStdString().c_str());
 }
 
