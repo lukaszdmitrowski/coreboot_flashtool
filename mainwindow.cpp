@@ -87,7 +87,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     programmer_initialized(false),
     chip_found(false)
-    //flash_context(NULL)
 {
         ui->setupUi(this);
 
@@ -104,7 +103,8 @@ MainWindow::MainWindow(QWidget *parent) :
         active_log_out = ui->log_auto;
 
         my_log_callback = &libflashrom_log;
-        fl_init(0);
+        Flashrom flashrom;
+        flashrom.init_flashrom();
         fill_cb_arch();
         fill_cb_programmers();
         fill_cb_payload();
@@ -113,15 +113,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-        //fl_flash_release(flash_context);
-        //fl_shutdown();
+        Flashrom flashrom;
+        flashrom.shutdown_flashrom();
         delete ui;
 }
-
-/*void MainWindow::on_b_sel_payload_clicked()
-{
-        open_select_rom_window();
-}*/
 
 void MainWindow::on_b_probe_clicked()
 {
@@ -460,13 +455,6 @@ void MainWindow::on_b_create_rom_clicked()
         delete [] cbfs_params;
 }
 
-/*void MainWindow::on_b_add_payload_clicked()
-{
-        AddPayload add_payload_window;
-        add_payload_window.setModal(true);
-        add_payload_window.exec();
-}*/
-
 void MainWindow::on_b_add_component_clicked()
 {
         AddComponent add_component_window;
@@ -520,18 +508,6 @@ void MainWindow::fill_cb_payload()
         ui->cb_auto_sel_payload->addItem("GRUB 2");
 }
 
-/*void MainWindow::open_select_rom_window()
-{
-        QString rom_name;
-
-        flash_rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
-        rom_name = flash_rom_path.section('/', -1);
-        //ui->b_sel_payload->setVisible(false);
-        //ui->l_payload_name->setText(rom_name);
-        ui->l_opt_sel_name->setText(rom_name);
-        print_rom();
-}*/
-
 void MainWindow::open_select_bios_rom_window()
 {
         QString rom_name;
@@ -554,12 +530,6 @@ void MainWindow::open_select_bios_out_window()
         ui->l_ex_out_name->setText(rom_dir);
         set_output_directory(rom_dir.toStdString().c_str());
 }
-
-
-/*void MainWindow::on_act_sel_payload_triggered()
-{
-        open_select_rom_window();
-}*/
 
 void MainWindow::on_act_supported_list_triggered()
 {
