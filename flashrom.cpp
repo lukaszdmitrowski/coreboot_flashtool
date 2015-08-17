@@ -21,6 +21,7 @@
 #include "flashrom.h"
 #include "mainwindow.h"
 #include "choosechip.h"
+#include "constants.h"
 
 #include <QDebug>
 
@@ -42,18 +43,19 @@ int Flashrom::shutdown_flashrom()
         fl_shutdown();
 }
 
-int Flashrom::probe_chip()
+RET_VAL Flashrom::probe_chip()
 {
-        int ret_val = 1;
+        int probe_ret = -1;
+        RET_VAL ret = UNKNOWN;
 
         if (w->programmer_initialized) {
                 if (!w->chip_found) {
-                        ret_val = fl_flash_probe(&flash_context, NULL);
+                        probe_ret = fl_flash_probe(&flash_context, NULL);
 
-                        if (ret_val == 0) {
+                        if (probe_ret == 0) {
                                 w->chip_found = true;
                                 qDebug() << "Chip found!";
-                        } else if (ret_val == 3) {
+                        } else if (probe_ret == 3) {
                                 ChooseChip choose_chip_dialog;
                                 const char **chip_names = NULL;
                                 int chip_count = 0;
@@ -69,24 +71,28 @@ int Flashrom::probe_chip()
                                 choose_chip_dialog.exec();
                                 fl_data_free(chip_names);
                                 w->chip_found = true;
-                                ret_val = 0;
+                                probe_ret = 0;
                         } else {
+                                ret = ERR_PROBE_FAILED;
                                 qDebug() << "Probing failed!";
                         }
                 } else {
+                        ret = ERR_CHIP_PROBED;
                         qDebug() << "Already probed for a chip - " + w->chip_name;
                 }
 
         } else {
+                ret = ERR_PROG_NOT_INIT;
                 qDebug() << "Please initialize programmer!";
+
         }
 
-        return ret_val;
+        return ret;
 }
 
-int Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_size)
+RET_VAL Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_size)
 {
-        int ret_val = 1;
+        RET_VAL ret = UNKNOWN;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
@@ -95,20 +101,21 @@ int Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_size
                         memset(*data_out, 0, *chip_size);
 
                         if (data_out) {
-                                fl_image_read(flash_context, *data_out, *chip_size);
+                                if (!fl_image_read(flash_context, *data_out, *chip_size))
+                                        ret = SUCCESS;
                         } else {
                                 qDebug() << "Out of memory!";
-                                ret_val = 3;
+                                ret = ERR_MEM_ALLOC;
                         }
                 } else {
                         probe_chip();
-                        ret_val = 2;
+                        ret = ERR_CHIP_PROBED;
                 }
         } else {
-                qDebug() << "Please initialize programmer!";
+                ret = ERR_PROG_NOT_INIT;
         }
 
-        return ret_val;
+        return ret;
 }
 
 int Flashrom::verify_chip(unsigned char **buffer, unsigned long buffer_size)

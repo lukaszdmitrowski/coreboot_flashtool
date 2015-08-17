@@ -3,15 +3,16 @@
 
 #include <QString>
 #include "stdio.h"
+#include "constants.h"
 
 class DataGatherer
 {
 public:
         DataGatherer();
-        void save_lspci_output();
+        RET_VAL save_lspci_output();
         void save_edid_data();
         void save_dmidecode_output();
-        void save_bios_rom_factory(QString save_path);
+        RET_VAL save_bios_rom_factory(QString save_path);
         void save_bios_rom_from_iomem();
         void extract_rom(QString bios_rom_path);
 

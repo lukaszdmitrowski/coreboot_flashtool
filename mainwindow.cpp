@@ -28,6 +28,7 @@
 #include "choosechip.h"
 #include "hashlibpp/hashlibpp.h"
 #include "flashrom.h"
+#include "constants.h"
 #include <sys/stat.h>
 #include <cstdarg>
 
@@ -36,6 +37,7 @@
 #include <QFile>
 #include <QDebug>
 #include <QtXml>
+#include <QDesktopWidget>
 
 extern "C" {
 #include "libbiosext.h"
@@ -104,7 +106,6 @@ MainWindow::MainWindow(QWidget *parent) :
         active_log_out = ui->log_auto;
         model = new QStandardItemModel();
         info_dialog = new InfoDialog(this);
-        progress_dialog = new ProgressDialog(this);
 
         my_log_callback = &libflashrom_log;
         fill_cb_arch();
@@ -254,23 +255,23 @@ void MainWindow::on_b_sel_boot_block_clicked()
 void MainWindow::on_b_auto_get_bios_clicked()
 {
         DataGatherer data_gatherer;
+        RET_VAL ret = UNKNOWN;
 
-        //progress_dialog->show();
-        //progress_dialog->setText("Dumping factory BIOS...");
-        info_dialog->show();
-        info_dialog->setText("Dumping factory BIOS...");
-
-        data_gatherer.save_bios_rom_factory("hardware_data/factory_bios.bin");
-
-        //info_dialog->hide();
+        setWindowTitle("Please wait...");
+        QApplication::processEvents();
+        ret = data_gatherer.save_bios_rom_factory("hardware_data/factory_bios.bin");
+        setWindowTitle("Coreboot Flash Tool");
+        info_dialog->show_message(ret);
 }
 
 void MainWindow::on_b_auto_get_hw_data_clicked()
 {
         DataGatherer data_gatherer;
+        RET_VAL ret = UNKNOWN;
 
         /* Save lspci -nn output*/
-        data_gatherer.save_lspci_output();
+        if ((ret = data_gatherer.save_lspci_output()) != SUCCESS)
+                info_dialog->show_message(ret);
 
         /* Save EDID data */
         data_gatherer.save_edid_data();

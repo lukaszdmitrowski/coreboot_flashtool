@@ -1,6 +1,7 @@
 #ifndef InfoDialog_H
 #define InfoDialog_H
 
+#include "constants.h"
 #include <QDialog>
 
 namespace Ui {
@@ -14,8 +15,10 @@ class InfoDialog : public QDialog
 public:
         explicit InfoDialog(QWidget *parent = 0);
         ~InfoDialog();
-        void setText(QString text);
+        void show_message(RET_VAL ret_val);
 
+private slots:
+        void on_b_ok_clicked();
 
 private:
         Ui::InfoDialog *ui;

@@ -2,11 +2,13 @@
 #include "choosechip.h"
 #include "mainwindow.h"
 #include "flashrom.h"
+#include "constants.h"
 
 #include <QDebug>
 #include <QFile>
 #include <QDir>
 #include <QTextStream>
+#include <QApplication>
 
 extern "C" {
 #include "libcbfstool.h"
@@ -17,24 +19,29 @@ DataGatherer::DataGatherer()
 {
 }
 
-void DataGatherer::save_lspci_output()
+RET_VAL DataGatherer::save_lspci_output()
 {
         char buffer[2048];
         FILE *pipe, *file;
+        RET_VAL ret = UNKNOWN;
 
         file = fopen("hardware_data/lspci_output.txt", "w");
         if (!file) {
-                qDebug() << "Can't open file!";
-        }
-        if ((pipe = popen("lspci -nn", "r")) != NULL) {
-                while (!feof(pipe)) {
-                    if (fgets(buffer, 2048, pipe) != NULL)
-                            fprintf(file, "%s", buffer);
+                ret = ERR_CANT_OPEN_FILE;
+                qDebug() << "Can't opeddn file!";
+        } else {
+                if ((pipe = popen("lspci -nn", "r")) != NULL) {
+                        while (!feof(pipe)) {
+                                if (fgets(buffer, 2048, pipe) != NULL)
+                                        fprintf(file, "%s", buffer);
+                        }
+                        pclose(pipe);
+                        ret = SUCCESS;
                 }
-                pclose(pipe);
+                fclose(file);
         }
-        fclose(file);
-        //system("lspci -nn > lspci_output.txt");
+
+        return ret;
 }
 
 void DataGatherer::save_edid_data()
@@ -47,28 +54,37 @@ void DataGatherer::save_dmidecode_output()
         system("sudo dmidecode -t 2 > hardware_data/dmidecode_output.txt");
 }
 
-void DataGatherer::save_bios_rom_factory(QString save_path)
+RET_VAL DataGatherer::save_bios_rom_factory(QString save_path)
 {
         FILE *dump_file;
         Flashrom flashrom;
         unsigned char *buf = NULL;
         unsigned long chip_size = 0;
         unsigned long written_bytes = 0;
+        RET_VAL ret = UNKNOWN;
 
-        if (flashrom.read_chip(&buf, &chip_size) == 2)
-                        flashrom.read_chip(&buf, &chip_size);
+        ret = static_cast<RET_VAL>(flashrom.read_chip(&buf, &chip_size));
 
-        if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
-                qDebug() << "Can't open file!";
-                w->info_dialog->setText("Can't open file!");
-        } else {
-                written_bytes = fwrite(buf, 1, chip_size, dump_file);
-                fclose(dump_file);
+        if (ret != ERR_PROG_NOT_INIT) {
+                if (ret == ERR_CHIP_NOT_PROBED)
+                        ret = static_cast<RET_VAL>(flashrom.read_chip(&buf, &chip_size));
 
-                if (written_bytes < chip_size)
-                        qDebug() << "File not fully written!";
-                delete buf;
+                if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
+                        ret = ERR_CANT_OPEN_FILE;
+                } else {
+                        written_bytes = fwrite(buf, 1, chip_size, dump_file);
+                        fclose(dump_file);
+
+                        if (written_bytes < chip_size) {
+                                ret = ERR_CHIP_NOT_READ;
+                        } else {
+                                ret = SUCCESS;
+                        }
+                        delete buf;
+                }
         }
+
+        return ret;
 }
 
 void DataGatherer::save_bios_rom_from_iomem()
