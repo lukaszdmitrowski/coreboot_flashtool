@@ -18,6 +18,8 @@
  * Foundation, Inc.
  */
 
+#include <QtGlobal>
+
 #include "supported.h"
 #include "ui_supported.h"
 
@@ -140,7 +142,6 @@ void Supported::show_flash_chips()
         ui->l_custom->setText("Size");
 
         ui->tableView->setModel(sortFilterModel);
-        ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
         ui->tableView->setColumnWidth(0, 155);
         ui->tableView->setColumnWidth(1, 400);
         ui->tableView->setColumnWidth(2, 70);
@@ -177,7 +178,6 @@ void Supported::show_boards()
         ui->l_custom->setText("Status");
 
         ui->tableView->setModel(model);
-        ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
         ui->tableView->setColumnWidth(0, 155);
         ui->tableView->setColumnWidth(1, 400);
         ui->tableView->setColumnWidth(2, 70);
@@ -214,7 +214,6 @@ void Supported::show_chipsets()
         ui->l_custom->setText("Status");
 
         ui->tableView->setModel(model);
-        ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
         ui->tableView->setColumnWidth(0, 155);
         ui->tableView->setColumnWidth(1, 350);
         ui->tableView->setColumnWidth(2, 90);

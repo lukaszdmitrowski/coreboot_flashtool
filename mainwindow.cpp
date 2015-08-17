@@ -653,7 +653,6 @@ void MainWindow::on_b_ropt_select_clicked()
         }
 
         ui->tv_rom_content->setModel(model);
-        ui->tv_rom_content->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
         ui->tv_rom_content->setColumnWidth(0, 165);
         ui->tv_rom_content->setColumnWidth(1, 90);
         ui->tv_rom_content->setColumnWidth(2, 200);
