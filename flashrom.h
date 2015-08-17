@@ -36,9 +36,9 @@ public:
         int shutdown_flashrom();
         RET_VAL probe_chip();
         RET_VAL read_chip(unsigned char **data_out, unsigned long *const chip_size);
-        int verify_chip(unsigned char **buffer, unsigned long buffer_size);
-        int erase_chip();
-        int write_chip(unsigned char **data, unsigned long data_size);
+        RET_VAL verify_chip(unsigned char **buffer, unsigned long buffer_size);
+        RET_VAL erase_chip();
+        RET_VAL write_chip(unsigned char **data, unsigned long data_size);
         unsigned long get_chip_size();
 
 private:

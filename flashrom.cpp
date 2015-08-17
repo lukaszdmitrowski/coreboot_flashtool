@@ -54,7 +54,7 @@ RET_VAL Flashrom::probe_chip()
 
                         if (probe_ret == 0) {
                                 w->chip_found = true;
-                                qDebug() << "Chip found!";
+                                ret = SUCCESS;
                         } else if (probe_ret == 3) {
                                 ChooseChip choose_chip_dialog;
                                 const char **chip_names = NULL;
@@ -109,7 +109,7 @@ RET_VAL Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_
                         }
                 } else {
                         probe_chip();
-                        ret = ERR_CHIP_PROBED;
+                        ret = ERR_CHIP_NOT_PROBED;
                 }
         } else {
                 ret = ERR_PROG_NOT_INIT;
@@ -118,82 +118,80 @@ RET_VAL Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_
         return ret;
 }
 
-int Flashrom::verify_chip(unsigned char **buffer, unsigned long buffer_size)
+RET_VAL Flashrom::verify_chip(unsigned char **buffer, unsigned long buffer_size)
 {
-        int ret_val = 1;
         unsigned long chip_size = 0;
+        RET_VAL ret = UNKNOWN;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
                         chip_size = get_chip_size();
 
                         if (buffer_size != chip_size) {
-                                qDebug() << "Buffer size different than chip size!";
-                                ret_val = 4;
+                                ret = ERR_BUF_SIZE_DIFF;
                         } else {
                                 if (fl_image_verify(flash_context, *buffer, chip_size) == 0) {
-                                        ret_val = 0;
+                                        ret = SUCCESS;
                                 } else {
-                                        ret_val = 3;
+                                        ret = ERR_CHIP_NOT_VERIFIED;
                                 }
                         }
                 } else {
                         probe_chip();
-                        ret_val = 2;
+                        ret = ERR_CHIP_NOT_PROBED;
                 }
         } else {
-                qDebug() << "Please initialize programmer!";
+                ret = ERR_PROG_NOT_INIT;
         }
 
-        return ret_val;
+        return ret;
 }
 
-int Flashrom::erase_chip()
+RET_VAL Flashrom::erase_chip()
 {
-        int ret_val = 1;
+        RET_VAL ret = UNKNOWN;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
-                        fl_flash_erase(flash_context);
+                        ret = static_cast<RET_VAL>(fl_flash_erase(flash_context));
                 } else {
                         probe_chip();
-                        ret_val = 2;
+                        ret = ERR_CHIP_NOT_PROBED;
                 }
         } else {
-                qDebug() << "Please initialize programmer!";
+                ret = ERR_PROG_NOT_INIT;
         }
 
-        return ret_val;
+        return ret;
 }
 
-int Flashrom::write_chip(unsigned char **data, unsigned long data_size)
+RET_VAL Flashrom::write_chip(unsigned char **data, unsigned long data_size)
 {
-        int ret_val = 1;
         unsigned long chip_size = 0;
+        RET_VAL ret = UNKNOWN;
 
         if (w->programmer_initialized) {
                 if (w->chip_found) {
                         chip_size = get_chip_size();
 
                         if (data_size != chip_size) {
-                                qDebug() << "Data size different than chip size!";
-                                ret_val = 4;
+                                ret = ERR_BUF_SIZE_DIFF;
                         } else {
                                 if (fl_image_write(flash_context, *data, data_size) == 0) {
-                                        ret_val = 0;
+                                        ret = SUCCESS;
                                 } else {
-                                        ret_val = 3;
+                                        ret = ERR_WRITE_FAILED;
                                 }
                         }
                 } else {
                         probe_chip();
-                        ret_val = 2;
+                        ret = ERR_PROBE_FAILED;
                 }
         } else {
-                qDebug() << "Please initialize programmer!";
+                ret = ERR_PROG_NOT_INIT;
         }
 
-        return ret_val;
+        return ret;
 }
 
 unsigned long Flashrom::get_chip_size()

@@ -124,23 +124,32 @@ MainWindow::~MainWindow()
 void MainWindow::on_b_probe_clicked()
 {
         Flashrom flashrom;
-        flashrom.probe_chip();
+        RET_VAL ret = UNKNOWN;
+
+        setWindowTitle("Please wait...");
+        QApplication::processEvents();
+        ret = flashrom.probe_chip();
+        setWindowTitle("Coreboot Flash Tool");
+        info_dialog->show_message(ret);
 }
 
 void MainWindow::on_b_read_clicked()
 {
         QString save_dir;
         DataGatherer data_gatherer;
+        RET_VAL ret = UNKNOWN;
 
         save_dir = QFileDialog::getExistingDirectory(this,
                                                      tr("Select output directory"),
                                                      ".",
                                                      QFileDialog::ShowDirsOnly
                                                      | QFileDialog::DontResolveSymlinks);
-        if (save_dir.isEmpty()) {
-                qDebug() << "Output directory not selected!";
-        } else {
-                data_gatherer.save_bios_rom_factory(save_dir + "/factory_bios.bin");
+        if (!save_dir.isEmpty()) {
+                setWindowTitle("Please wait...");
+                QApplication::processEvents();
+                ret = data_gatherer.save_bios_rom_factory(save_dir + "/factory_bios.bin");
+                setWindowTitle("Coreboot Flash Tool");
+                info_dialog->show_message(ret);
         }
 }
 
@@ -148,87 +157,84 @@ void MainWindow::on_b_verify_clicked()
 {
         Flashrom flashrom;
         QString verify_dir;
-        int verify_result = -1;
-        unsigned long file_size = 0;
         FILE *verify_file;
         unsigned char *data = NULL;
+        RET_VAL ret = UNKNOWN;
 
-        verify_dir = QFileDialog::getOpenFileName(this, tr("Select ROM to verify"), ".", "All files (*.*)");
         ui->log_flash->clear();
+        verify_dir = QFileDialog::getOpenFileName(this, tr("Select ROM to verify"), ".", "All files (*.*)");
 
-        if (!(verify_file = fopen(verify_dir.toStdString().c_str(), "rb"))) {
-                qDebug() << "Can't open file!";
-        } else {
-                struct stat st;
-                stat(verify_dir.toStdString().c_str(), &st);
-
-                data = new unsigned char[st.st_size];
-
-                if (data) {
-                        fread(data, sizeof(unsigned char), st.st_size, verify_file);
-                        verify_result = flashrom.verify_chip(&data, st.st_size);
-                        if (verify_result == 2)
-                                verify_result = flashrom.verify_chip(&data, st.st_size);
-
-                        if (verify_result == 0) {
-                                qDebug() << "Chip verified";
-                        } else {
-                                qDebug() << "Chip not verified";
-                        }
-                        delete [] data;
+        if (!verify_dir.isEmpty()) {
+                if (!(verify_file = fopen(verify_dir.toStdString().c_str(), "rb"))) {
+                        ret = ERR_CANT_OPEN_FILE;
                 } else {
-                        qDebug() << "Out of memory!";
+                        struct stat st;
+                        stat(verify_dir.toStdString().c_str(), &st);
+
+                        data = new unsigned char[st.st_size];
+
+                        if (data) {
+                                fread(data, sizeof(unsigned char), st.st_size, verify_file);
+                                ret = flashrom.verify_chip(&data, st.st_size);
+
+                                if (ret == ERR_CHIP_NOT_PROBED)
+                                        ret = flashrom.verify_chip(&data, st.st_size);
+
+                                delete [] data;
+                        } else {
+                                ret = ERR_MEM_ALLOC;
+                        }
+
+                        fclose(verify_file);
                 }
-
-
-                fclose(verify_file);
+                info_dialog->show_message(ret);
         }
 }
 
 void MainWindow::on_b_erase_clicked()
 {
         Flashrom flashrom;
+        RET_VAL ret = UNKNOWN;
+
         ui->log_flash->clear();
-        if (flashrom.erase_chip() == 2)
+        ret = flashrom.erase_chip();
+        if (ret == ERR_CHIP_NOT_PROBED)
                 flashrom.erase_chip();
+        info_dialog->show_message(ret);
 }
 
 void MainWindow::on_b_flash_clicked()
 {
         Flashrom flashrom;
         QString write_dir;
-        int write_result = -1;
-        unsigned long file_size = 0;
         FILE *write_file;
         unsigned char *data = NULL;
+        RET_VAL ret = UNKNOWN;
 
-        write_dir = QFileDialog::getOpenFileName(this, tr("Select ROM to flash"), ".", "All files (*.*)");
         ui->log_flash->clear();
+        write_dir = QFileDialog::getOpenFileName(this, tr("Select ROM to flash"), ".", "All files (*.*)");
 
-        if (!(write_file = fopen(write_dir.toStdString().c_str(), "rb"))) {
-                qDebug() << "Can't open file!";
-        } else {
-                struct stat st;
-                stat(write_dir.toStdString().c_str(), &st);
-
-                data = new unsigned char[st.st_size];
-
-                if (data) {
-                        fread(data, sizeof(unsigned char), st.st_size, write_file);
-                        write_result = flashrom.write_chip(&data, st.st_size);
-                        if (write_result == 2)
-                                write_result = flashrom.write_chip(&data, st.st_size);
-
-                        if (write_result == 0) {
-                                qDebug() << "Write OK";
-                        } else {
-                                qDebug() << "Write failed";
-                        }
-                        delete [] data;
+        if (!write_dir.isEmpty()) {
+                if (!(write_file = fopen(write_dir.toStdString().c_str(), "rb"))) {
+                        ret = ERR_CANT_OPEN_FILE;
                 } else {
-                        qDebug() << "Out of memory!";
+                        struct stat st;
+                        stat(write_dir.toStdString().c_str(), &st);
+
+                        data = new unsigned char[st.st_size];
+
+                        if (data) {
+                                fread(data, sizeof(unsigned char), st.st_size, write_file);
+                                ret = flashrom.write_chip(&data, st.st_size);
+                                if (ret == ERR_CHIP_NOT_PROBED)
+                                        ret = flashrom.write_chip(&data, st.st_size);
+                                delete [] data;
+                        } else {
+                                ret = ERR_MEM_ALLOC;
+                        }
+                        fclose(write_file);
                 }
-                fclose(write_file);
+                info_dialog->show_message(ret);
         }
 }
 
