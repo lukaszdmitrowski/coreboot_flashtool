@@ -18,8 +18,6 @@
  * Foundation, Inc.
  */
 
-#include <QtGlobal>
-
 #include "supported.h"
 #include "ui_supported.h"
 

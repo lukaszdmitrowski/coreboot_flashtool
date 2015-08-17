@@ -21,11 +21,12 @@ SOURCES += main.cpp\
     deletecomponents.cpp \
     multisortfiltermodel.cpp \
     datagatherer.cpp \
-    progressdialog.cpp \
     choosechip.cpp \
     hashlibpp/hl_sha256wrapper.cpp \
     hashlibpp/hl_sha256.cpp \
-    flashrom.cpp
+    flashrom.cpp \
+    infodialog.cpp \
+    progressdialog.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -35,22 +36,24 @@ HEADERS  += mainwindow.h \
     deletecomponents.h \
     multisortfiltermodel.h \
     datagatherer.h \
-    progressdialog.h \
     choosechip.h \
     hashlibpp/hashlibpp.h \
     hashlibpp/hl_hashwrapper.h \
     hashlibpp/hl_exception.h \
     hashlibpp/hl_sha256.h \
     hashlibpp/hl_sha256wrapper.h \
-    flashrom.h
+    flashrom.h \
+    infodialog.h \
+    progressdialog.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
     about.ui \
     addcomponent.ui \
     deletecomponents.ui \
-    progressdialog.ui \
-    choosechip.ui
+    choosechip.ui \
+    infodialog.ui \
+    progressdialog.ui
 
 INCLUDEPATH += libflashrom \
                 libbiosext \
@@ -69,9 +72,6 @@ LIBS    += -L"$$_PRO_FILE_PWD_/libcbfstool"\
 LIBS    += -lftdi \
         -lusb \
         -lpci
-
-# Enable all programmers which the flashrom command-line tool enables.
-#QMAKE_CXXFLAGS += -D'CONFIG_INTERNAL=1' -D'CONFIG_SERPROG=1' -D'CONFIG_RAYER_SPI=1' -D'CONFIG_BITBANG_SPI=1' -D'CONFIG_NIC3COM=1' -D'CONFIG_GFXNVIDIA=1' -D'CONFIG_SATASII=1' -D'CONFIG_FT2232_SPI=1' -D'CONFIG_DUMMY=1' -D'CONFIG_DRKAISER=1' -D'CONFIG_NICREALTEK=1' -D'CONFIG_NICINTEL=1' -D'CONFIG_NICINTEL_SPI=1' -D'CONFIG_OGP_SPI=1' -D'CONFIG_BUSPIRATE_SPI=1' -D'CONFIG_SATAMV=1' -D'NEED_PCI=1' -D'HAVE_UTSNAME=1'
 
 RESOURCES += \
     resources.qrc

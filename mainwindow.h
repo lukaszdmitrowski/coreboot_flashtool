@@ -25,6 +25,9 @@
 #include <QTextEdit>
 #include <QStandardItemModel>
 
+#include "infodialog.h"
+#include "progressdialog.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -42,6 +45,8 @@ public:
     QString chip_name;
     bool chip_found;
     bool programmer_initialized;
+    InfoDialog *info_dialog;
+    ProgressDialog *progress_dialog;
 
 private slots:
     /* Main window */

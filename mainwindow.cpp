@@ -25,7 +25,6 @@
 #include "addcomponent.h"
 #include "deletecomponents.h"
 #include "datagatherer.h"
-#include "progressdialog.h"
 #include "choosechip.h"
 #include "hashlibpp/hashlibpp.h"
 #include "flashrom.h"
@@ -104,6 +103,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->tv_rom_content->setSelectionBehavior(QAbstractItemView::SelectRows);
         active_log_out = ui->log_auto;
         model = new QStandardItemModel();
+        info_dialog = new InfoDialog(this);
+        progress_dialog = new ProgressDialog(this);
 
         my_log_callback = &libflashrom_log;
         fill_cb_arch();
@@ -250,6 +251,20 @@ void MainWindow::on_b_sel_boot_block_clicked()
         ui->l_bootblack_name->setText(bootblock_name);
 }
 
+void MainWindow::on_b_auto_get_bios_clicked()
+{
+        DataGatherer data_gatherer;
+
+        //progress_dialog->show();
+        //progress_dialog->setText("Dumping factory BIOS...");
+        info_dialog->show();
+        info_dialog->setText("Dumping factory BIOS...");
+
+        data_gatherer.save_bios_rom_factory("hardware_data/factory_bios.bin");
+
+        //info_dialog->hide();
+}
+
 void MainWindow::on_b_auto_get_hw_data_clicked()
 {
         DataGatherer data_gatherer;
@@ -273,15 +288,15 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
 void MainWindow::on_b_auto_build_img_clicked()
 {
         DataGatherer data_gatherer;
-        ProgressDialog progress_dialog;
+        InfoDialog info_dialog;
 
         QDomDocument xmlBOM;
         QFile hardware_info("hardware_info.xml");
         QString hardware_data_path;
         bool is_config_ok = false;
 
-        //progress_dialog.setModal(true);
-        //progress_dialog.exec();
+        //info_dialog.setModal(true);
+        //info_dialog.exec();
 
         hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.tar)");
         data_gatherer.unpack_hardware_data_archive(hardware_data_path);
@@ -396,12 +411,6 @@ void MainWindow::on_b_auto_build_img_clicked()
                 qDebug() << "No configuration for your system! Please send hardware_data.tar to"
                                     " lukasz.dmitrowski@gmail.com";
         }
-}
-
-void MainWindow::on_b_auto_get_bios_clicked()
-{
-        DataGatherer data_gatherer;
-        data_gatherer.save_bios_rom_factory("hardware_data/factory_bios.bin");
 }
 
 void MainWindow::on_b_auto_flash_clicked()

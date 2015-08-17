@@ -60,15 +60,15 @@ void DataGatherer::save_bios_rom_factory(QString save_path)
 
         if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
                 qDebug() << "Can't open file!";
+                w->info_dialog->setText("Can't open file!");
         } else {
                 written_bytes = fwrite(buf, 1, chip_size, dump_file);
                 fclose(dump_file);
+
+                if (written_bytes < chip_size)
+                        qDebug() << "File not fully written!";
+                delete buf;
         }
-
-        if (written_bytes < chip_size)
-                qDebug() << "File not fully written!";
-
-        delete buf;
 }
 
 void DataGatherer::save_bios_rom_from_iomem()
