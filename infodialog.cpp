@@ -88,6 +88,9 @@ void InfoDialog::show_message(RET_VAL ret_val)
         case ERR_COREBOOT_NOROM:
                 ui->l_info->setText("Can't find coreboot rom!");
                 break;
+        case ERR_COREBOOT_WRONG_DIR:
+                ui->l_info->setText("Can't find coreboot Check path in preferences.");
+                break;
         default:
                 ui->l_info->setText("Unknown error!");
         }

@@ -9,6 +9,7 @@ Preferences::Preferences(QWidget *parent) :
         ui(new Ui::Preferences)
 {
         ui->setupUi(this);
+        ui->edit_cor_path->setText(w->coreboot_dir);
 }
 
 Preferences::~Preferences()

@@ -7,10 +7,4 @@
 		<vgabios_hash>82b4f9ba4c01c1b33a71f77835dcbd2770011e3761fc2426afe8052afd94ca33</vgabios_hash>
 		<config_file>T60_Intel945_LTN141XA-L01</config_file>
 	</config> 
-	<config>
-		<name>K53SD</name>
-		<gpu>NVIDIA Corporation GF119M [GeForce 610M] [10de:1058] (rev a1)</gpu>
-		<display_panel>B156XW02 V6 </display_panel>
-		<vgabios>641075a18725e847d093dc975bbf93ff9e1afc7869519329d7dfbd09140deb75</vgabios>
-	</config> 
 </configurations>

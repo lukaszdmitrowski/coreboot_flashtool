@@ -93,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
         active_log_out = ui->log_auto;
         chip_name = "";
-        coreboot_dir = "coreboot/";
+        coreboot_dir = "coreboot";
         chip_found = false;
         programmer_initialized = false;
         info_dialog = new InfoDialog(this);
@@ -323,8 +323,13 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
 
 void MainWindow::on_b_auto_build_img_clicked()
 {
-        DataGatherer data_gatherer;
+        QDir coreboot_directory(coreboot_dir);
+        if (!coreboot_directory.exists()) {
+                info_dialog->show_message(ERR_COREBOOT_WRONG_DIR);
+                return;
+        }
 
+        DataGatherer data_gatherer;
         QDomDocument xmlBOM;
         QFile hardware_info("hardware_info.xml");
         QString hardware_data_path;
@@ -350,6 +355,7 @@ void MainWindow::on_b_auto_build_img_clicked()
         if (!hardware_info.open(QIODevice::ReadOnly)) {
                 ret = ERR_FILE_HW_XML;
                 info_dialog->show_message(ret);
+                return;
         }
 
         xmlBOM.setContent(&hardware_info);
@@ -398,7 +404,10 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                                 //QFile vgabios_file(file_iterator.filePath());
                                                                 QString rename_command = "cp " + file_iterator.filePath() +
                                                                                          " hardware_data/factory_bios_components/factory_vgabios.bin";
+                                                                QString cp_to_coreboot_cmd = "cp hardware_data/factory_bios_components/factory_vgabios.bin "
+                                                                                             + coreboot_dir + "/vgabios.bin";
                                                                 system(rename_command.toStdString().c_str());
+                                                                system(cp_to_coreboot_cmd.toStdString().c_str());
                                                                 is_config_ok = true;
                                                                 /*if (!vgabios_file.open(QIODevice::WriteOnly )) {
                                                                         qDebug() << "Error while loading file: " + vgabios_file.fileName();
@@ -411,6 +420,8 @@ void MainWindow::on_b_auto_build_img_clicked()
                                         }
                                 } else {
                                         ret = ERR_COREBOOT_NEED_FACTORY_BIOS;
+                                        info_dialog->show_message(ret);
+                                        return;
                         }
                 } else if (need_vgabios == "memory") {
                                 QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
@@ -432,21 +443,23 @@ void MainWindow::on_b_auto_build_img_clicked()
         if (is_config_ok) {
                 QString working_config = config.lastChild().firstChild().toText().data() + "_"
                                 + ui->cb_auto_sel_payload->currentText();
-                QString copy_config_cmd = "cp coreboot_configs/" + working_config +
+                QString copy_config_cmd = "cp coreboot_configs/" + working_config + " " +
                                           coreboot_dir + "/.config";
                 QString make_coreboot_cmd = "make -C " + coreboot_dir;
+                QString rm_coreboot_cmd = "rm " + coreboot_dir + "/build/coreboot.rom";
+                QString cp_coreboot_cmd = "cp " + coreboot_dir + "/build/coreboot.rom coreboot.rom";
 
                 if (system(copy_config_cmd.toStdString().c_str()) != 0) {
                         ret = ERR_COREBOOT_COPY_CONFIG;
                         return;
                 }
-
-                system("rm coreboot/build/coreboot.rom");
+                QFile coreboot_rom_file(coreboot_dir + "/build/coreboot.rom");
+                if (coreboot_rom_file.exists())
+                        system(rm_coreboot_cmd.toStdString().c_str());
                 system(make_coreboot_cmd.toStdString().c_str());
 
-                QFile coreboot_rom_file("coreboot/build/coreboot.rom");
                 if (coreboot_rom_file.exists()) {
-                    if (system("cp coreboot/build/coreboot.rom ../") != 0)
+                    if (system(cp_coreboot_cmd.toStdString().c_str()) != 0)
                             ret = ERR_COREBOOT_COPY_ROM;
                 } else {
                         ret = ERR_COREBOOT_MAKE;
