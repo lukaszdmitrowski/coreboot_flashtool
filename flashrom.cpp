@@ -70,7 +70,7 @@ RET_VAL Flashrom::probe_chip()
                                 choose_chip_dialog.exec();
                                 fl_data_free(chip_names);
                                 w->chip_found = true;
-                                probe_ret = 0;
+                                ret = SUCCESS;
                         } else {
                                 ret = ERR_PROBE_FAILED;
                                 qDebug() << "Probing failed!";

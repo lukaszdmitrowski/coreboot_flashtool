@@ -55,7 +55,13 @@ RET_VAL DataGatherer::save_edid_data()
         RET_VAL ret = UNKNOWN;
 
         if (system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output.txt") != 0) {
-                ret = ERR_CMD_EDID_NOT_EXEC;
+                /* edid-decode may partially fail, but in most cases display panel name is extracted */
+                QFile edid_file("hardware_data/edid-decode_output.txt");
+                if (edid_file.exists()) {
+                        ret = SUCCESS;
+                } else {
+                        ret = ERR_CMD_EDID_NOT_EXEC;
+                }
         } else {
                 ret = SUCCESS;
         }

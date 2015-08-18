@@ -300,8 +300,13 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
                 info_dialog->show_message(ret);
 
         /* Save EDID data */
-        if ((ret = data_gatherer.save_edid_data()) != SUCCESS)
-                info_dialog->show_message(ret);
+        QFile lvds_path("/sys/class/drm/card0-LVDS-1/edid");
+
+        if (lvds_path.exists()) {
+                if ((ret = data_gatherer.save_edid_data()) != SUCCESS)
+                        info_dialog->show_message(ret);
+        }
+
 
         /* Save dmidecode output */
         if ((ret = data_gatherer.save_dmidecode_output()) != SUCCESS)
@@ -427,15 +432,17 @@ void MainWindow::on_b_auto_build_img_clicked()
         if (is_config_ok) {
                 QString working_config = config.lastChild().firstChild().toText().data() + "_"
                                 + ui->cb_auto_sel_payload->currentText();
-                QString copy_config_cmd = "cp coreboot_configs/" + working_config + " coreboot/.config";
+                QString copy_config_cmd = "cp coreboot_configs/" + working_config +
+                                          coreboot_dir + "/.config";
+                QString make_coreboot_cmd = "make -C " + coreboot_dir;
 
-                //system("rm coreboot/build/coreboot.rom");
                 if (system(copy_config_cmd.toStdString().c_str()) != 0) {
                         ret = ERR_COREBOOT_COPY_CONFIG;
                         return;
                 }
 
-                system("make -C coreboot");
+                system("rm coreboot/build/coreboot.rom");
+                system(make_coreboot_cmd.toStdString().c_str());
 
                 QFile coreboot_rom_file("coreboot/build/coreboot.rom");
                 if (coreboot_rom_file.exists()) {
