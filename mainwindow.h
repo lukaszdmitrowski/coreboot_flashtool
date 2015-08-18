@@ -42,6 +42,7 @@ public:
     QTextEdit *active_log_out;
     QString get_cbfs_rom_path();
     QString chip_name;
+    QString coreboot_dir;
     bool chip_found;
     bool programmer_initialized;
     InfoDialog *info_dialog;
@@ -52,6 +53,7 @@ private slots:
 
     /* Toolbar */
     void on_act_supported_list_triggered();
+    void on_act_preferences_triggered();
     void on_act_about_triggered();
 
     /* Auto tab */

@@ -785,6 +785,7 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </attribute>
    <addaction name="act_supported_list"/>
+   <addaction name="act_preferences"/>
    <addaction name="act_about"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -807,6 +808,15 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="toolTip">
     <string>Supported hardware</string>
+   </property>
+  </action>
+  <action name="act_preferences">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/icons/options.png</normaloff>:/icons/icons/options.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences</string>
    </property>
   </action>
  </widget>

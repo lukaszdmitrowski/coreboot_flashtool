@@ -29,6 +29,7 @@
 #include "hashlibpp/hashlibpp.h"
 #include "flashrom.h"
 #include "constants.h"
+#include "preferences.h"
 #include <sys/stat.h>
 #include <cstdarg>
 
@@ -588,9 +589,16 @@ void MainWindow::open_select_bios_out_window()
 
 void MainWindow::on_act_supported_list_triggered()
 {
-        Supported supported_window;
+        Supported supported_window(this);
         supported_window.setModal(true);
         supported_window.exec();
+}
+
+void MainWindow::on_act_preferences_triggered()
+{
+        Preferences preferences_window(this);
+        preferences_window.setModal(true);
+        preferences_window.exec();
 }
 
 void MainWindow::on_act_about_triggered()

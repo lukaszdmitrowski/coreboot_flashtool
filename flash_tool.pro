@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     hashlibpp/hl_sha256wrapper.cpp \
     hashlibpp/hl_sha256.cpp \
     flashrom.cpp \
-    infodialog.cpp
+    infodialog.cpp \
+    preferences.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -43,7 +44,8 @@ HEADERS  += mainwindow.h \
     hashlibpp/hl_sha256wrapper.h \
     flashrom.h \
     infodialog.h \
-    constants.h
+    constants.h \
+    preferences.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
@@ -51,7 +53,8 @@ FORMS    += mainwindow.ui \
     addcomponent.ui \
     deletecomponents.ui \
     choosechip.ui \
-    infodialog.ui
+    infodialog.ui \
+    preferences.ui
 
 INCLUDEPATH += libflashrom \
                 libbiosext \
