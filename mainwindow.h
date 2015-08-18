@@ -33,69 +33,69 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+        Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
-    Ui::MainWindow *ui;
-    QTextEdit *active_log_out;
-    QString get_cbfs_rom_path();
-    QString chip_name;
-    QString coreboot_dir;
-    bool chip_found;
-    bool programmer_initialized;
-    InfoDialog *info_dialog;
+        explicit MainWindow(QWidget *parent = 0);
+        ~MainWindow();
+        QString get_cbfs_rom_path();
+        Ui::MainWindow *ui;
+        QTextEdit *active_log_out;
+        QString chip_name;
+        QString coreboot_dir;
+        bool chip_found;
+        bool programmer_initialized;
+        InfoDialog *info_dialog;
 
 private slots:
-    /* Main window */
-    void on_b_init_prog_clicked();
+        /* Main window */
+        void on_b_init_prog_clicked();
 
-    /* Toolbar */
-    void on_act_supported_list_triggered();
-    void on_act_preferences_triggered();
-    void on_act_about_triggered();
+        /* Toolbar */
+        void on_act_supported_list_triggered();
+        void on_act_preferences_triggered();
+        void on_act_about_triggered();
 
-    /* Auto tab */
-    void on_b_auto_get_hw_data_clicked();
-    void on_b_auto_build_img_clicked();
-    void on_b_auto_get_bios_clicked();
-    void on_b_auto_flash_clicked();
+        /* Auto tab */
+        void on_b_auto_get_hw_data_clicked();
+        void on_b_auto_build_img_clicked();
+        void on_b_auto_get_bios_clicked();
+        void on_b_auto_flash_clicked();
 
-    /* Flash tab */
-    void on_b_read_clicked();
-    void on_b_probe_clicked();
-    void on_b_verify_clicked();
-    void on_b_erase_clicked();
-    void on_b_flash_clicked();
+        /* Flash tab */
+        void on_b_read_clicked();
+        void on_b_probe_clicked();
+        void on_b_verify_clicked();
+        void on_b_erase_clicked();
+        void on_b_flash_clicked();
 
-    /* Extract tab */
-    void on_b_sel_bios_rom_clicked();
-    void on_b_sel_bios_out_clicked();
-    void on_b_extract_clicked();
+        /* Extract tab */
+        void on_b_sel_bios_rom_clicked();
+        void on_b_sel_bios_out_clicked();
+        void on_b_extract_clicked();
 
-    /* Create rom tab */
-    void on_b_create_rom_clicked();
-    void on_b_sel_boot_block_clicked();
+        /* Create rom tab */
+        void on_b_create_rom_clicked();
+        void on_b_sel_boot_block_clicked();
 
-    /* Rom options tab */
-    void on_b_ropt_select_clicked();
-    void on_b_add_component_clicked();
-    void on_b_remove_comp_clicked();
+        /* Rom options tab */
+        void on_b_ropt_select_clicked();
+        void on_b_add_component_clicked();
+        void on_b_remove_comp_clicked();
 
-    /* Other */
-    void on_tabWidget_currentChanged(int index);
+        /* Other */
+        void on_tabWidget_currentChanged(int index);
 
 private:
-    void fill_cb_programmers();
-    void fill_cb_arch();
-    void fill_cb_payload();
-    void open_select_bios_rom_window();
-    void open_select_bios_out_window();
-    QString cbfs_rom_path;
-    QString bios_rom_path;
-    QString bootblock_path;
-    QStandardItemModel *model;
+        void fill_cb_programmers();
+        void fill_cb_arch();
+        void fill_cb_payload();
+        void open_select_bios_rom_window();
+        void open_select_bios_out_window();
+        QString cbfs_rom_path;
+        QString bios_rom_path;
+        QString bootblock_path;
+        QStandardItemModel *model;
 };
 
 extern MainWindow *w;

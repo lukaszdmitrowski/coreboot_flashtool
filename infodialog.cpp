@@ -21,8 +21,14 @@ void InfoDialog::show_message(RET_VAL ret_val)
         case SUCCESS:
                 ui->l_info->setText("Success!");
                 break;
-        case ERR_CANT_OPEN_FILE:
+        case ERR_FILE_SELECTED:
                 ui->l_info->setText("Can't open file!");
+                break;
+        case ERR_FILE_WRITE:
+                ui->l_info->setText("Can't write to file!");
+                break;
+        case ERR_FILE_HW_XML:
+                ui->l_info->setText("Can't open file hardware_info.xml");
                 break;
         case ERR_WRITE_FAILED:
                 ui->l_info->setText("Write failed!");
@@ -58,7 +64,29 @@ void InfoDialog::show_message(RET_VAL ret_val)
                 ui->l_info->setText("Can't execute: extract_vga_bios.sh");
                 break;
         case ERR_CMD_TAR_PACK_NOT_EXEC:
-                ui->l_info->setText("Can't execute: tar -cf hardware_data.tar hardware_data");
+                ui->l_info->setText("Can't execute: 'tar -cf hardware_data.tar hardware_data'");
+                break;
+        case ERR_CMD_TAR_UNPACK_NOT_EXEC:
+                ui->l_info->setText("Can't execute: 'tar -xf'");
+                break;
+        case ERR_CONFIG_NOT_KNOWN:
+                ui->l_info->setText("No configuration for your system! Please send hardware_data.tar to"
+                                    " lukasz.dmitrowski@gmail.com");
+                break;
+        case ERR_COREBOOT_COPY_ROM:
+                ui->l_info->setText("Can't copy coreboot rom file!");
+                break;
+        case ERR_COREBOOT_COPY_CONFIG:
+                ui->l_info->setText("Can't copy coreboot .config file!");
+                break;
+        case ERR_COREBOOT_MAKE:
+                ui->l_info->setText("Coreboot compilation failed!");
+                break;
+        case ERR_COREBOOT_NEED_FACTORY_BIOS:
+                ui->l_info->setText("This configuration requires factory VGABIOS, please use 'Get factory BIOS' button");
+                break;
+        case ERR_COREBOOT_NOROM:
+                ui->l_info->setText("Can't find coreboot rom!");
                 break;
         default:
                 ui->l_info->setText("Unknown error!");

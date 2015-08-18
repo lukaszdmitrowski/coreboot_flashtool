@@ -92,7 +92,7 @@ RET_VAL DataGatherer::save_bios_rom_factory(QString save_path)
                         ret = static_cast<RET_VAL>(flashrom.read_chip(&buf, &chip_size));
 
                 if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
-                        ret = ERR_CANT_OPEN_FILE;
+                        ret = ERR_FILE_SELECTED;
                 } else {
                         written_bytes = fwrite(buf, 1, chip_size, dump_file);
                         fclose(dump_file);
@@ -212,10 +212,19 @@ RET_VAL DataGatherer::create_hardware_data_archive()
         return ret;
 }
 
-void DataGatherer::unpack_hardware_data_archive(QString filename)
+RET_VAL DataGatherer::unpack_hardware_data_archive(QString filename)
 {
+        RET_VAL ret = UNKNOWN;
+
         QString untar_command = "tar -xf " + filename;
-        system(untar_command.toStdString().c_str());
+
+        if (system(untar_command.toStdString().c_str()) != 0) {
+                ret = ERR_CMD_TAR_UNPACK_NOT_EXEC;
+        } else {
+                ret = SUCCESS;
+        }
+
+        return ret;
 }
 
 

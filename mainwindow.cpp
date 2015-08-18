@@ -38,7 +38,7 @@
 #include <QFile>
 #include <QDebug>
 #include <QtXml>
-#include <QDesktopWidget>
+#include <QApplication>
 
 extern "C" {
 #include "libbiosext.h"
@@ -87,11 +87,17 @@ int libcbfstool_log(const char *const format, ...)
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    programmer_initialized(false),
-    chip_found(false)
+    ui(new Ui::MainWindow)
 {
         ui->setupUi(this);
+
+        active_log_out = ui->log_auto;
+        chip_name = "";
+        coreboot_dir = "coreboot/";
+        chip_found = false;
+        programmer_initialized = false;
+        info_dialog = new InfoDialog(this);
+        model = new QStandardItemModel();
 
         if (!QDir("hardware_data").exists())
             QDir().mkdir("hardware_data");
@@ -104,9 +110,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->log_extract->setReadOnly(true);
         ui->log_create_rom->setReadOnly(true);
         ui->tv_rom_content->setSelectionBehavior(QAbstractItemView::SelectRows);
-        active_log_out = ui->log_auto;
-        model = new QStandardItemModel();
-        info_dialog = new InfoDialog(this);
 
         my_log_callback = &libflashrom_log;
         fill_cb_arch();
@@ -167,8 +170,11 @@ void MainWindow::on_b_verify_clicked()
 
         if (!verify_dir.isEmpty()) {
                 if (!(verify_file = fopen(verify_dir.toStdString().c_str(), "rb"))) {
-                        ret = ERR_CANT_OPEN_FILE;
+                        ret = ERR_FILE_SELECTED;
                 } else {
+                        setWindowTitle("Please wait...");
+                        QApplication::processEvents();
+
                         struct stat st;
                         stat(verify_dir.toStdString().c_str(), &st);
 
@@ -187,6 +193,7 @@ void MainWindow::on_b_verify_clicked()
                         }
 
                         fclose(verify_file);
+                        setWindowTitle("Coreboot Flash Tool");
                 }
                 info_dialog->show_message(ret);
         }
@@ -198,9 +205,14 @@ void MainWindow::on_b_erase_clicked()
         RET_VAL ret = UNKNOWN;
 
         ui->log_flash->clear();
+        setWindowTitle("Please wait...");
+        QApplication::processEvents();
+
         ret = flashrom.erase_chip();
         if (ret == ERR_CHIP_NOT_PROBED)
                 flashrom.erase_chip();
+
+        setWindowTitle("Coreboot Flash Tool");
         info_dialog->show_message(ret);
 }
 
@@ -217,23 +229,30 @@ void MainWindow::on_b_flash_clicked()
 
         if (!write_dir.isEmpty()) {
                 if (!(write_file = fopen(write_dir.toStdString().c_str(), "rb"))) {
-                        ret = ERR_CANT_OPEN_FILE;
+                        ret = ERR_FILE_SELECTED;
                 } else {
+                        setWindowTitle("Please wait...");
+                        QApplication::processEvents();
+
                         struct stat st;
                         stat(write_dir.toStdString().c_str(), &st);
 
                         data = new unsigned char[st.st_size];
 
                         if (data) {
-                                fread(data, sizeof(unsigned char), st.st_size, write_file);
-                                ret = flashrom.write_chip(&data, st.st_size);
-                                if (ret == ERR_CHIP_NOT_PROBED)
+                                if (fread(data, sizeof(unsigned char), st.st_size, write_file) == 0) {
+                                        ret = ERR_FILE_WRITE;
+                                } else {
                                         ret = flashrom.write_chip(&data, st.st_size);
-                                delete [] data;
+                                        if (ret == ERR_CHIP_NOT_PROBED)
+                                                ret = flashrom.write_chip(&data, st.st_size);
+                                        delete [] data;
+                                }
                         } else {
                                 ret = ERR_MEM_ALLOC;
                         }
                         fclose(write_file);
+                        setWindowTitle("Coreboot Flash Tool");
                 }
                 info_dialog->show_message(ret);
         }
@@ -300,18 +319,20 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
 void MainWindow::on_b_auto_build_img_clicked()
 {
         DataGatherer data_gatherer;
-        InfoDialog info_dialog;
 
         QDomDocument xmlBOM;
         QFile hardware_info("hardware_info.xml");
         QString hardware_data_path;
         bool is_config_ok = false;
-
-        //info_dialog.setModal(true);
-        //info_dialog.exec();
+        RET_VAL ret = UNKNOWN;
 
         hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.tar)");
-        data_gatherer.unpack_hardware_data_archive(hardware_data_path);
+
+        ret = data_gatherer.unpack_hardware_data_archive(hardware_data_path);
+        if (ret != SUCCESS) {
+                info_dialog->show_message(ret);
+                return;
+        }
 
         QString motherboard = data_gatherer.get_motherboard_model();
         QString display_panel = data_gatherer.get_display_panel_model();
@@ -321,9 +342,9 @@ void MainWindow::on_b_auto_build_img_clicked()
         qDebug() << "graphic_card: " << graphic_card;
         qDebug() << "display_panel: " << display_panel;
 
-        if (!hardware_info.open(QIODevice::ReadOnly))
-        {
-                qDebug() << "Error while loading file: " + hardware_info.fileName();
+        if (!hardware_info.open(QIODevice::ReadOnly)) {
+                ret = ERR_FILE_HW_XML;
+                info_dialog->show_message(ret);
         }
 
         xmlBOM.setContent(&hardware_info);
@@ -384,7 +405,7 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                 }
                                         }
                                 } else {
-                                        qDebug() << "This configuration requires factory VGABIOS, please use 'Get factory BIOS' button";
+                                        ret = ERR_COREBOOT_NEED_FACTORY_BIOS;
                         }
                 } else if (need_vgabios == "memory") {
                                 QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
@@ -408,35 +429,37 @@ void MainWindow::on_b_auto_build_img_clicked()
                                 + ui->cb_auto_sel_payload->currentText();
                 QString copy_config_cmd = "cp coreboot_configs/" + working_config + " coreboot/.config";
 
-                system("rm coreboot/build/coreboot.rom");
-                system(copy_config_cmd.toStdString().c_str());
+                //system("rm coreboot/build/coreboot.rom");
+                if (system(copy_config_cmd.toStdString().c_str()) != 0) {
+                        ret = ERR_COREBOOT_COPY_CONFIG;
+                        return;
+                }
+
                 system("make -C coreboot");
 
                 QFile coreboot_rom_file("coreboot/build/coreboot.rom");
                 if (coreboot_rom_file.exists()) {
-                    system("cp coreboot/build/coreboot.rom ../");
+                    if (system("cp coreboot/build/coreboot.rom ../") != 0)
+                            ret = ERR_COREBOOT_COPY_ROM;
                 } else {
-                    qDebug() << "coreboot image compilation failed!";
+                        ret = ERR_COREBOOT_MAKE;
                 }
-
         } else {
-                qDebug() << "No configuration for your system! Please send hardware_data.tar to"
-                                    " lukasz.dmitrowski@gmail.com";
+                ret = ERR_CONFIG_NOT_KNOWN;
         }
+        info_dialog->show_message(ret);
 }
 
 void MainWindow::on_b_auto_flash_clicked()
 {
         Flashrom flashrom;
-        int write_result = -1;
-        unsigned long file_size = 0;
         FILE *write_file;
         unsigned char *data = NULL;
-
+        RET_VAL ret = UNKNOWN;
 
         ui->log_flash->clear();
         if (!(write_file = fopen("coreboot.rom", "rb"))) {
-                qDebug() << "No coreboot rom!";
+                ret = ERR_COREBOOT_NOROM;
         } else {
                 struct stat st;
                 stat("coreboot.rom", &st);
@@ -444,22 +467,20 @@ void MainWindow::on_b_auto_flash_clicked()
                 data = new unsigned char[st.st_size];
 
                 if (data) {
+                        setWindowTitle("Please wait...");
+                        QApplication::processEvents();
                         fread(data, sizeof(unsigned char), st.st_size, write_file);
-                        write_result = flashrom.write_chip(&data, st.st_size);
-                        if (write_result == 2)
-                                write_result = flashrom.write_chip(&data, st.st_size);
-
-                        if (write_result == 0) {
-                                qDebug() << "Write OK";
-                        } else {
-                                qDebug() << "Write failed";
-                        }
+                        ret = flashrom.write_chip(&data, st.st_size);
+                        if (ret == ERR_CHIP_NOT_PROBED)
+                                ret = flashrom.write_chip(&data, st.st_size);
                         delete [] data;
                 } else {
-                        qDebug() << "Out of memory!";
+                        ret = ERR_MEM_ALLOC;
                 }
                 fclose(write_file);
+                setWindowTitle("Coreboot Flash Tool");
         }
+        info_dialog->show_message(ret);
 }
 
 void MainWindow::on_b_extract_clicked()
@@ -671,7 +692,7 @@ void MainWindow::on_b_ropt_select_clicked()
         model->setHorizontalHeaderItem(2, new QStandardItem(QString("Type")));
         model->setHorizontalHeaderItem(3, new QStandardItem(QString("Size")));
 
-        for (unsigned int i = 18; i < rom_info_list.size() - 1; i+=4) {
+        for (int i = 18; i < rom_info_list.size() - 1; i+=4) {
                 QList<QStandardItem*> row;
                 row.append(new QStandardItem(rom_info_list[i]));
                 row.append(new QStandardItem(rom_info_list[i+1]));

@@ -21,7 +21,7 @@ public:
         QString get_motherboard_model();
 
         RET_VAL create_hardware_data_archive();
-        void unpack_hardware_data_archive(QString filename);
+        RET_VAL unpack_hardware_data_archive(QString filename);
 };
 
 #endif // DATAGATHERER_H
