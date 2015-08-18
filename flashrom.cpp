@@ -29,7 +29,6 @@ fl_flashctx_t *Flashrom::flash_context = NULL;
 
 Flashrom::Flashrom()
 {
-        init_flashrom();
 }
 
 int Flashrom::init_flashrom()

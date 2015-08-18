@@ -45,10 +45,25 @@ void InfoDialog::show_message(RET_VAL ret_val)
         case ERR_BUF_SIZE_DIFF:
                 ui->l_info->setText("Buffer size different than chip size!");
                 break;
+        case ERR_CMD_LSPCI_NOT_EXEC:
+                ui->l_info->setText("Cant't execute: 'lspci -nn > hardware_data/lspci_output.txt'");
+                break;
+        case ERR_CMD_EDID_NOT_EXEC:
+                ui->l_info->setText("Can't execute: 'cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output.txt'");
+                break;
+        case ERR_CMD_DMI_NOT_EXEC:
+                ui->l_info->setText("Can't execute: 'dmidecode -t 2 > hardware_data/dmidecode_output.txt'");
+                break;
+        case ERR_CMD_VGBABIOS_NOT_EXEC:
+                ui->l_info->setText("Can't execute: extract_vga_bios.sh");
+                break;
+        case ERR_CMD_TAR_PACK_NOT_EXEC:
+                ui->l_info->setText("Can't execute: tar -cf hardware_data.tar hardware_data");
+                break;
         default:
                 ui->l_info->setText("Unknown error!");
         }
-        show();
+        exec();
 }
 
 void InfoDialog::on_b_ok_clicked()

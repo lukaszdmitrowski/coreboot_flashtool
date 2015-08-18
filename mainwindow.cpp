@@ -280,16 +280,20 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
                 info_dialog->show_message(ret);
 
         /* Save EDID data */
-        data_gatherer.save_edid_data();
+        if ((ret = data_gatherer.save_edid_data()) != SUCCESS)
+                info_dialog->show_message(ret);
 
         /* Save dmidecode output */
-        data_gatherer.save_dmidecode_output();
+        if ((ret = data_gatherer.save_dmidecode_output()) != SUCCESS)
+                info_dialog->show_message(ret);
 
         /* Dump VGABIOS from iomem */
-        data_gatherer.save_bios_rom_from_iomem();
+        if ((ret = data_gatherer.save_bios_rom_from_iomem()) != SUCCESS)
+                info_dialog->show_message(ret);
 
         /* Create archive from gathered data */
-        data_gatherer.create_hardware_data_archive();
+        if ((ret = data_gatherer.create_hardware_data_archive()) != SUCCESS)
+                info_dialog->show_message(ret);
 }
 
 void MainWindow::on_b_auto_build_img_clicked()

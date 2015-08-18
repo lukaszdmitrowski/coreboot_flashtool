@@ -21,11 +21,11 @@ DataGatherer::DataGatherer()
 
 RET_VAL DataGatherer::save_lspci_output()
 {
-        char buffer[2048];
-        FILE *pipe, *file;
+        //char buffer[2048];
+        //FILE *pipe, *file;
         RET_VAL ret = UNKNOWN;
 
-        file = fopen("hardware_data/lspci_output.txt", "w");
+        /*file = fopen("hardware_data/lspci_output.txt", "w");
         if (!file) {
                 ret = ERR_CANT_OPEN_FILE;
                 qDebug() << "Can't opeddn file!";
@@ -39,19 +39,41 @@ RET_VAL DataGatherer::save_lspci_output()
                         ret = SUCCESS;
                 }
                 fclose(file);
+        }*/
+
+        if (system("lspci -nn > hardware_data/lspci_output.txt") != 0) {
+                ret = ERR_CMD_LSPCI_NOT_EXEC;
+        } else {
+                ret = SUCCESS;
         }
 
         return ret;
 }
 
-void DataGatherer::save_edid_data()
+RET_VAL DataGatherer::save_edid_data()
 {
-        system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output.txt");
+        RET_VAL ret = UNKNOWN;
+
+        if (system("cat /sys/class/drm/card0-LVDS-1/edid | edid-decode > hardware_data/edid-decode_output.txt") != 0) {
+                ret = ERR_CMD_EDID_NOT_EXEC;
+        } else {
+                ret = SUCCESS;
+        }
+
+        return ret;
 }
 
-void DataGatherer::save_dmidecode_output()
+RET_VAL DataGatherer::save_dmidecode_output()
 {
-        system("sudo dmidecode -t 2 > hardware_data/dmidecode_output.txt");
+        RET_VAL ret = UNKNOWN;
+
+        if (system("dmidecode -t 2 > hardware_data/dmidecode_output.txt") != 0) {
+                ret = ERR_CMD_DMI_NOT_EXEC;
+        } else {
+                ret = SUCCESS;
+        }
+
+        return ret;
 }
 
 RET_VAL DataGatherer::save_bios_rom_factory(QString save_path)
@@ -87,9 +109,17 @@ RET_VAL DataGatherer::save_bios_rom_factory(QString save_path)
         return ret;
 }
 
-void DataGatherer::save_bios_rom_from_iomem()
+RET_VAL DataGatherer::save_bios_rom_from_iomem()
 {
-        system("./extract_vga_bios.sh");
+        RET_VAL ret = UNKNOWN;
+
+        if (system("./extract_vga_bios.sh") != 0) {
+                ret = ERR_CMD_VGBABIOS_NOT_EXEC;
+        } else {
+                ret = SUCCESS;
+        }
+
+        return ret;
 }
 
 void DataGatherer::extract_rom(QString bios_rom_path)
@@ -169,9 +199,17 @@ QString DataGatherer::get_motherboard_model()
 
 
 
-void DataGatherer::create_hardware_data_archive()
+RET_VAL DataGatherer::create_hardware_data_archive()
 {
-        system("tar -cf hardware_data.tar hardware_data");
+        RET_VAL ret = UNKNOWN;
+
+        if (system("tar -cf hardware_data.tar hardware_data") != 0) {
+                ret = ERR_CMD_TAR_PACK_NOT_EXEC;
+        } else {
+                ret = SUCCESS;
+        }
+
+        return ret;
 }
 
 void DataGatherer::unpack_hardware_data_archive(QString filename)
