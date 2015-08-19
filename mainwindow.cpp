@@ -50,11 +50,12 @@ fl_log_callback_t *my_log_callback;
 
 int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
 {
-        QString text;
-
-        text.vsprintf(format, vl);
-        w->active_log_out->append(text);
-
+        if (log_level != FL_MSG_INFO)
+        {
+                QString text;
+                text.vsprintf(format, vl);
+                w->active_log_out->append(text);
+        }
         return 1;
 }
 
@@ -193,8 +194,11 @@ void MainWindow::on_b_verify_clicked()
                         data = new unsigned char[st.st_size];
 
                         if (data) {
-                                fread(data, sizeof(unsigned char), st.st_size, verify_file);
-                                ret = flasher.verify_chip(&data, st.st_size);
+                                if (fread(data, sizeof(unsigned char), st.st_size, verify_file) < (size_t)st.st_size) {
+                                        ret = ERR_READ_LESS_BYTES;
+                                } else {
+                                        ret = flasher.verify_chip(&data, st.st_size);
+                                }
 
                                 if (ret == ERR_CHIP_NOT_PROBED)
                                         ret = flasher.verify_chip(&data, st.st_size);
@@ -368,9 +372,9 @@ void MainWindow::on_b_auto_build_img_clicked()
         QString display_panel = data_gatherer.get_display_panel_model();
         QString graphic_card = data_gatherer.get_graphic_card_model();
 
-        qDebug() << "motherboard: " << motherboard;
-        qDebug() << "graphic_card: " << graphic_card;
-        qDebug() << "display_panel: " << display_panel;
+        //qDebug() << "motherboard: " << motherboard;
+        //qDebug() << "graphic_card: " << graphic_card;
+        //qDebug() << "display_panel: " << display_panel;
 
         if (!hardware_info.open(QIODevice::ReadOnly)) {
                 ret = ERR_FILE_HW_XML;
@@ -406,17 +410,26 @@ void MainWindow::on_b_auto_build_img_clicked()
 
                                 if (factory_bios.exists()) {
 
-                                        /* Extract factory bios components */
-                                        if (!QDir("hardware_data/factory_bios_components").exists())
+                                        /* Create components dir or remove previously extracted components */
+                                        if (!QDir("hardware_data/factory_bios_components").exists()) {
                                                 QDir().mkdir("hardware_data/factory_bios_components");
+                                        } else {
+                                                QDirIterator remove_iterator("hardware_data/factory_bios_components");
+                                                while (remove_iterator.hasNext()) {
+                                                        remove_iterator.next();
+                                                        QFile file(remove_iterator.filePath());
+                                                        file.remove();
+                                                }
+                                        }
+
+                                        /* Extract factory bios components */
                                         libbiosext_set_out_dir("hardware_data/factory_bios_components/");
                                         data_gatherer.extract_rom(factory_bios_dir);
 
                                         /* Check if extracted VGABIOS is known to work */
                                         conf_child = conf_child.nextSibling();
-                                        QDirIterator file_iterator("hardware_data/factory_bios_components");
                                         QString vgabios_xml_hash = conf_child.firstChild().toText().data();
-
+                                        QDirIterator file_iterator("hardware_data/factory_bios_components");
                                         while (file_iterator.hasNext()) {                 
                                                 if (file_iterator.next().contains("oprom_")) {
                                                         QString vgabios_hash = QString(sha_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
@@ -426,12 +439,13 @@ void MainWindow::on_b_auto_build_img_clicked()
 
                                                         if (vgabios_hash == vgabios_xml_hash) {
                                                                 //QFile vgabios_file(file_iterator.filePath());
-                                                                QString rename_command = "cp " + file_iterator.filePath() +
-                                                                                         " hardware_data/factory_bios_components/factory_vgabios.bin";
-                                                                QString cp_to_coreboot_cmd = "cp hardware_data/factory_bios_components/factory_vgabios.bin "
+                                                                QString cp_to_coreboot_cmd = "cp " + file_iterator.filePath() + " "
                                                                                              + coreboot_dir + "/vgabios.bin";
-                                                                system(rename_command.toStdString().c_str());
-                                                                system(cp_to_coreboot_cmd.toStdString().c_str());
+                                                                if (system(cp_to_coreboot_cmd.toStdString().c_str()) != 0) {
+                                                                        info_dialog->show_message(ERR_COREBOOT_COPY_VGABIOS);
+                                                                        return;
+                                                                }
+
                                                                 is_config_ok = true;
                                                                 /*if (!vgabios_file.open(QIODevice::WriteOnly )) {
                                                                         qDebug() << "Error while loading file: " + vgabios_file.fileName();
@@ -443,8 +457,7 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                 }
                                         }
                                 } else {
-                                        ret = ERR_COREBOOT_NEED_FACTORY_BIOS;
-                                        info_dialog->show_message(ret);
+                                        info_dialog->show_message(ERR_COREBOOT_NEED_FACTORY_BIOS);
                                         return;
                                 }
                         } else if (need_vgabios == "memory") {
@@ -452,11 +465,15 @@ void MainWindow::on_b_auto_build_img_clicked()
                                 QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
                                 QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
-                                qDebug() << vgabios_hash;
-                                qDebug() << vgabios_xml_hash;
-
-                                if (vgabios_hash == vgabios_xml_hash)
+                                if (vgabios_hash == vgabios_xml_hash) {
+                                        QString cp_to_coreboot_cmd = "cp hardware_data/vgabios_from_mem.bin "
+                                                                     + coreboot_dir + "/vgabios.bin";
+                                        if (system(cp_to_coreboot_cmd.toStdString().c_str()) != 0) {
+                                                info_dialog->show_message(ERR_COREBOOT_COPY_VGABIOS);
+                                                return;
+                                        }
                                         is_config_ok = true;
+                                }
 
                         } else {
                                 /* Proceed if configuration doesn't require factory VGABIOS */
@@ -475,26 +492,21 @@ void MainWindow::on_b_auto_build_img_clicked()
                 QString copy_config_cmd = "cp coreboot_configs/" + working_config + " " +
                                           coreboot_dir + "/.config";
                 QString make_coreboot_cmd = "make -C " + coreboot_dir;
-                QString rm_coreboot_cmd = "rm " + coreboot_dir + "/build/coreboot.rom";
                 QString cp_coreboot_cmd = "cp " + coreboot_dir + "/build/coreboot.rom coreboot.rom";
 
-                QApplication::processEvents();
-
+                /* Copy appropriate .config file to coreboot directory */
                 if (system(copy_config_cmd.toStdString().c_str()) != 0) {
                         ret = ERR_COREBOOT_COPY_CONFIG;
                         return;
                 }
-                QFile coreboot_rom_file(coreboot_dir + "/build/coreboot.rom");
-                if (coreboot_rom_file.exists())
-                        system(rm_coreboot_cmd.toStdString().c_str());
-                system(make_coreboot_cmd.toStdString().c_str());
 
-                if (coreboot_rom_file.exists()) {
-                    if (system(cp_coreboot_cmd.toStdString().c_str()) != 0)
-                            ret = ERR_COREBOOT_COPY_ROM;
-                } else {
+                /* Call make in coreboot */
+                if (system(make_coreboot_cmd.toStdString().c_str()) != 0)
                         ret = ERR_COREBOOT_MAKE;
-                }
+
+                /* Copy coreboot rom from coreboot directory */
+                if (system(cp_coreboot_cmd.toStdString().c_str()) != 0)
+                            ret = ERR_COREBOOT_COPY_ROM;
         } else {
                 ret = ERR_CONFIG_NOT_KNOWN;
         }
@@ -519,9 +531,12 @@ void MainWindow::on_b_auto_flash_clicked()
 
                 if (data) {
                         setWindowTitle("Please wait...");
-                        QApplication::processEvents();
-                        fread(data, sizeof(unsigned char), st.st_size, write_file);
-                        ret = flasher.write_chip(&data, st.st_size);
+                        QApplication::processEvents();                  
+                        if (fread(data, sizeof(unsigned char), st.st_size, write_file) < (size_t)st.st_size) {
+                                ret = ERR_READ_LESS_BYTES;
+                        } else {
+                                ret = flasher.write_chip(&data, st.st_size);
+                        }
                         if (ret == ERR_CHIP_NOT_PROBED)
                                 ret = flasher.write_chip(&data, st.st_size);
                         delete [] data;

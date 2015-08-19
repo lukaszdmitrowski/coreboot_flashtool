@@ -33,13 +33,13 @@ Flasher::Flasher()
 
 int Flasher::init_flashrom()
 {
-        fl_init(0);
+        return fl_init(0);
 }
 
 int Flasher::shutdown_flashrom()
 {
         fl_flash_release(flash_context);
-        fl_shutdown();
+        return fl_shutdown();
 }
 
 RET_VAL Flasher::probe_chip()

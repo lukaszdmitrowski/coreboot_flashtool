@@ -36,6 +36,9 @@ void InfoDialog::show_message(RET_VAL ret_val)
         case ERR_WRITE_FAILED:
                 ui->l_info->setText("Write failed!");
                 break;
+        case ERR_READ_LESS_BYTES:
+                ui->l_info->setText("File not fully read!");
+                break;
         case ERR_CHIP_NOT_READ:
                 ui->l_info->setText("Can't read chip!");
                 break;
@@ -73,11 +76,13 @@ void InfoDialog::show_message(RET_VAL ret_val)
                 ui->l_info->setText("Can't execute: 'tar -xf'");
                 break;
         case ERR_CONFIG_NOT_KNOWN:
-                ui->l_info->setText("No configuration for your system! Please send hardware_data.tar to"
-                                    " lukasz.dmitrowski@gmail.com");
+                ui->l_info->setText("No configuration for this data! Please send it to lukasz.dmitrowski@gmail.com");
                 break;
         case ERR_COREBOOT_COPY_ROM:
                 ui->l_info->setText("Can't copy coreboot rom file!");
+                break;
+        case ERR_COREBOOT_COPY_VGABIOS:
+                ui->l_info->setText("Can't copy VGABIOS to coreboot directory!");
                 break;
         case ERR_COREBOOT_COPY_CONFIG:
                 ui->l_info->setText("Can't copy coreboot .config file!");
