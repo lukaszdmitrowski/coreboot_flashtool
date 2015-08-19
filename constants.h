@@ -13,6 +13,7 @@ enum RET_VAL {
         ERR_FILE_SELECTED,
         ERR_FILE_HW_XML,
         ERR_FILE_WRITE,
+        ERR_FILE_CONFIG,
         ERR_MEM_ALLOC,
         ERR_DIR_NOT_SEL,
         ERR_BUF_SIZE_DIFF,

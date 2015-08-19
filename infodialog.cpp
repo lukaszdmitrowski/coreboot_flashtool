@@ -28,7 +28,10 @@ void InfoDialog::show_message(RET_VAL ret_val)
                 ui->l_info->setText("Can't write to file!");
                 break;
         case ERR_FILE_HW_XML:
-                ui->l_info->setText("Can't open file hardware_info.xml");
+                ui->l_info->setText("Can't open file hardware_info.xml!");
+                break;
+        case ERR_FILE_CONFIG:
+                ui->l_info->setText("Can't access config file!");
                 break;
         case ERR_WRITE_FAILED:
                 ui->l_info->setText("Write failed!");
@@ -89,7 +92,7 @@ void InfoDialog::show_message(RET_VAL ret_val)
                 ui->l_info->setText("Can't find coreboot rom!");
                 break;
         case ERR_COREBOOT_WRONG_DIR:
-                ui->l_info->setText("Can't find coreboot Check path in preferences.");
+                ui->l_info->setText("Can't find coreboot! Check path in preferences.");
                 break;
         default:
                 ui->l_info->setText("Unknown error!");

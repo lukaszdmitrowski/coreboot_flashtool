@@ -2,7 +2,9 @@
 #include "ui_preferences.h"
 #include "mainwindow.h"
 
+#include <QTextStream>
 #include <QFileDialog>
+#include <QFile>
 
 Preferences::Preferences(QWidget *parent) :
         QDialog(parent),
@@ -31,5 +33,14 @@ void Preferences::on_b_sel_cor_path_clicked()
 
 void Preferences::on_b_ok_clicked()
 {
-    close();
+        QFile config_file("preferences.cfg");
+        QString new_coreboot_path = "coreboot_path: " + ui->edit_cor_path->text();
+
+        if (config_file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text)) {
+                QTextStream config_stream(&config_file);
+                config_stream << new_coreboot_path;
+        } else {
+                w->info_dialog->show_message(ERR_FILE_CONFIG);
+        }
+        close();
 }

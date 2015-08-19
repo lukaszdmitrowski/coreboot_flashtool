@@ -39,6 +39,7 @@
 #include <QDebug>
 #include <QtXml>
 #include <QApplication>
+#include <QTextStream>
 
 extern "C" {
 #include "libbiosext.h"
@@ -115,6 +116,18 @@ MainWindow::MainWindow(QWidget *parent) :
         fill_cb_programmers();
         fill_cb_payload();
         fl_set_log_callback(my_log_callback);
+
+        QFile config_file("preferences.cfg");
+
+        if (config_file.open(QIODevice::ReadOnly)) {
+                QTextStream config_stream(&config_file);
+                QString coreboot_path_line;
+                coreboot_path_line = config_stream.readLine();
+                coreboot_path_line.remove("coreboot_path: ");
+                coreboot_dir = coreboot_path_line;
+        } else {
+                w->info_dialog->show_message(ERR_FILE_CONFIG);
+        }
 }
 
 MainWindow::~MainWindow()
