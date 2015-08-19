@@ -1,7 +1,7 @@
 #include "datagatherer.h"
 #include "choosechip.h"
 #include "mainwindow.h"
-#include "flashrom.h"
+#include "flasher.h"
 #include "constants.h"
 
 #include <QDebug>
@@ -85,17 +85,17 @@ RET_VAL DataGatherer::save_dmidecode_output()
 RET_VAL DataGatherer::save_bios_rom_factory(QString save_path)
 {
         FILE *dump_file;
-        Flashrom flashrom;
+        Flasher flasher;
         unsigned char *buf = NULL;
         unsigned long chip_size = 0;
         unsigned long written_bytes = 0;
         RET_VAL ret = UNKNOWN;
 
-        ret = static_cast<RET_VAL>(flashrom.read_chip(&buf, &chip_size));
+        ret = static_cast<RET_VAL>(flasher.read_chip(&buf, &chip_size));
 
         if (ret != ERR_PROG_NOT_INIT) {
                 if (ret == ERR_CHIP_NOT_PROBED)
-                        ret = static_cast<RET_VAL>(flashrom.read_chip(&buf, &chip_size));
+                        ret = static_cast<RET_VAL>(flasher.read_chip(&buf, &chip_size));
 
                 if (!(dump_file = fopen(save_path.toStdString().c_str(), "wb"))) {
                         ret = ERR_FILE_SELECTED;

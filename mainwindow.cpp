@@ -27,7 +27,7 @@
 #include "datagatherer.h"
 #include "choosechip.h"
 #include "hashlibpp/hashlibpp.h"
-#include "flashrom.h"
+#include "flasher.h"
 #include "constants.h"
 #include "preferences.h"
 #include <sys/stat.h>
@@ -47,7 +47,7 @@ extern "C" {
 
 fl_log_callback_t *my_log_callback;
 
-int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
+int libFlasher_log(fl_log_level_t log_level, const char *format, va_list vl)
 {
         QString text;
 
@@ -111,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->log_create_rom->setReadOnly(true);
         ui->tv_rom_content->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-        my_log_callback = &libflashrom_log;
+        my_log_callback = &libFlasher_log;
         fill_cb_arch();
         fill_cb_programmers();
         fill_cb_payload();
@@ -120,19 +120,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-        Flashrom flashrom;
-        flashrom.shutdown_flashrom();
+        Flasher flasher;
+        flasher.shutdown_flashrom();
         delete ui;
 }
 
 void MainWindow::on_b_probe_clicked()
 {
-        Flashrom flashrom;
+        Flasher flasher;
         RET_VAL ret = UNKNOWN;
 
         setWindowTitle("Please wait...");
         QApplication::processEvents();
-        ret = flashrom.probe_chip();
+        ret = flasher.probe_chip();
         setWindowTitle("Coreboot Flash Tool");
         info_dialog->show_message(ret);
 }
@@ -159,7 +159,7 @@ void MainWindow::on_b_read_clicked()
 
 void MainWindow::on_b_verify_clicked()
 {
-        Flashrom flashrom;
+        Flasher flasher;
         QString verify_dir;
         FILE *verify_file;
         unsigned char *data = NULL;
@@ -182,10 +182,10 @@ void MainWindow::on_b_verify_clicked()
 
                         if (data) {
                                 fread(data, sizeof(unsigned char), st.st_size, verify_file);
-                                ret = flashrom.verify_chip(&data, st.st_size);
+                                ret = flasher.verify_chip(&data, st.st_size);
 
                                 if (ret == ERR_CHIP_NOT_PROBED)
-                                        ret = flashrom.verify_chip(&data, st.st_size);
+                                        ret = flasher.verify_chip(&data, st.st_size);
 
                                 delete [] data;
                         } else {
@@ -201,16 +201,16 @@ void MainWindow::on_b_verify_clicked()
 
 void MainWindow::on_b_erase_clicked()
 {
-        Flashrom flashrom;
+        Flasher flasher;
         RET_VAL ret = UNKNOWN;
 
         ui->log_flash->clear();
         setWindowTitle("Please wait...");
         QApplication::processEvents();
 
-        ret = flashrom.erase_chip();
+        ret = flasher.erase_chip();
         if (ret == ERR_CHIP_NOT_PROBED)
-                flashrom.erase_chip();
+                flasher.erase_chip();
 
         setWindowTitle("Coreboot Flash Tool");
         info_dialog->show_message(ret);
@@ -218,7 +218,7 @@ void MainWindow::on_b_erase_clicked()
 
 void MainWindow::on_b_flash_clicked()
 {
-        Flashrom flashrom;
+        Flasher flasher;
         QString write_dir;
         FILE *write_file;
         unsigned char *data = NULL;
@@ -243,9 +243,9 @@ void MainWindow::on_b_flash_clicked()
                                 if (fread(data, sizeof(unsigned char), st.st_size, write_file) == 0) {
                                         ret = ERR_FILE_WRITE;
                                 } else {
-                                        ret = flashrom.write_chip(&data, st.st_size);
+                                        ret = flasher.write_chip(&data, st.st_size);
                                         if (ret == ERR_CHIP_NOT_PROBED)
-                                                ret = flashrom.write_chip(&data, st.st_size);
+                                                ret = flasher.write_chip(&data, st.st_size);
                                         delete [] data;
                                 }
                         } else {
@@ -472,7 +472,7 @@ void MainWindow::on_b_auto_build_img_clicked()
 
 void MainWindow::on_b_auto_flash_clicked()
 {
-        Flashrom flashrom;
+        Flasher flasher;
         FILE *write_file;
         unsigned char *data = NULL;
         RET_VAL ret = UNKNOWN;
@@ -490,9 +490,9 @@ void MainWindow::on_b_auto_flash_clicked()
                         setWindowTitle("Please wait...");
                         QApplication::processEvents();
                         fread(data, sizeof(unsigned char), st.st_size, write_file);
-                        ret = flashrom.write_chip(&data, st.st_size);
+                        ret = flasher.write_chip(&data, st.st_size);
                         if (ret == ERR_CHIP_NOT_PROBED)
-                                ret = flashrom.write_chip(&data, st.st_size);
+                                ret = flasher.write_chip(&data, st.st_size);
                         delete [] data;
                 } else {
                         ret = ERR_MEM_ALLOC;

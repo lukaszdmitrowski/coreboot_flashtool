@@ -257,7 +257,7 @@ void Supported::on_cb_sel_hardware_currentIndexChanged(int index)
         }
 }
 
-void Supported::on_cb_sel_vendor_currentIndexChanged(int index)
+void Supported::on_cb_sel_vendor_currentIndexChanged()
 {
         sortFilterModel->setFilter(0, ui->cb_sel_vendor->currentText());
         sortFilterModel->setSourceModel(model);

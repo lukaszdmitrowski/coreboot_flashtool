@@ -18,31 +18,31 @@
  * Foundation, Inc.
  */
 
-#include "flashrom.h"
+#include "flasher.h"
 #include "mainwindow.h"
 #include "choosechip.h"
 #include "constants.h"
 
 #include <QDebug>
 
-fl_flashctx_t *Flashrom::flash_context = NULL;
+fl_flashctx_t *Flasher::flash_context = NULL;
 
-Flashrom::Flashrom()
+Flasher::Flasher()
 {
 }
 
-int Flashrom::init_flashrom()
+int Flasher::init_flashrom()
 {
         fl_init(0);
 }
 
-int Flashrom::shutdown_flashrom()
+int Flasher::shutdown_flashrom()
 {
         fl_flash_release(flash_context);
         fl_shutdown();
 }
 
-RET_VAL Flashrom::probe_chip()
+RET_VAL Flasher::probe_chip()
 {
         int probe_ret = -1;
         RET_VAL ret = UNKNOWN;
@@ -89,7 +89,7 @@ RET_VAL Flashrom::probe_chip()
         return ret;
 }
 
-RET_VAL Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_size)
+RET_VAL Flasher::read_chip(unsigned char **data_out, unsigned long *const chip_size)
 {
         RET_VAL ret = UNKNOWN;
 
@@ -117,7 +117,7 @@ RET_VAL Flashrom::read_chip(unsigned char **data_out, unsigned long *const chip_
         return ret;
 }
 
-RET_VAL Flashrom::verify_chip(unsigned char **buffer, unsigned long buffer_size)
+RET_VAL Flasher::verify_chip(unsigned char **buffer, unsigned long buffer_size)
 {
         unsigned long chip_size = 0;
         RET_VAL ret = UNKNOWN;
@@ -146,7 +146,7 @@ RET_VAL Flashrom::verify_chip(unsigned char **buffer, unsigned long buffer_size)
         return ret;
 }
 
-RET_VAL Flashrom::erase_chip()
+RET_VAL Flasher::erase_chip()
 {
         RET_VAL ret = UNKNOWN;
 
@@ -164,7 +164,7 @@ RET_VAL Flashrom::erase_chip()
         return ret;
 }
 
-RET_VAL Flashrom::write_chip(unsigned char **data, unsigned long data_size)
+RET_VAL Flasher::write_chip(unsigned char **data, unsigned long data_size)
 {
         unsigned long chip_size = 0;
         RET_VAL ret = UNKNOWN;
@@ -193,7 +193,7 @@ RET_VAL Flashrom::write_chip(unsigned char **data, unsigned long data_size)
         return ret;
 }
 
-unsigned long Flashrom::get_chip_size()
+unsigned long Flasher::get_chip_size()
 {
         return fl_flash_getsize(flash_context);
 }

@@ -18,8 +18,8 @@
  * Foundation, Inc.
  */
 
-#ifndef FLASHROM_H
-#define FLASHROM_H
+#ifndef FLASHER_H
+#define FLASHER_H
 
 #include "stdio.h"
 #include "constants.h"
@@ -28,10 +28,10 @@ extern "C" {
 #include "libflashrom.h"
 }
 
-class Flashrom
+class Flasher
 {
 public:
-        Flashrom();
+        Flasher();
         int init_flashrom();
         int shutdown_flashrom();
         RET_VAL probe_chip();
@@ -45,4 +45,4 @@ private:
         static fl_flashctx_t *flash_context;
 };
 
-#endif // FLASHROM_H
+#endif // FLASHER_H

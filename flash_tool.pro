@@ -24,9 +24,9 @@ SOURCES += main.cpp\
     choosechip.cpp \
     hashlibpp/hl_sha256wrapper.cpp \
     hashlibpp/hl_sha256.cpp \
-    flashrom.cpp \
     infodialog.cpp \
-    preferences.cpp
+    preferences.cpp \
+    flasher.cpp
 
 HEADERS  += mainwindow.h \
     utests.h \
@@ -42,10 +42,10 @@ HEADERS  += mainwindow.h \
     hashlibpp/hl_exception.h \
     hashlibpp/hl_sha256.h \
     hashlibpp/hl_sha256wrapper.h \
-    flashrom.h \
     infodialog.h \
     constants.h \
-    preferences.h
+    preferences.h \
+    flasher.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
