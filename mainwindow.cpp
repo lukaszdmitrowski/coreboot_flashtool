@@ -94,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
         active_log_out = ui->log_auto;
         chip_name = "";
         coreboot_dir = "coreboot";
+        factory_bios_dir = "hardware_data/factory_bios.bin";
         chip_found = false;
         programmer_initialized = false;
         info_dialog = new InfoDialog(this);
@@ -288,6 +289,15 @@ void MainWindow::on_b_auto_get_bios_clicked()
         info_dialog->show_message(ret);
 }
 
+void MainWindow::on_b_auto_set_bios_clicked()
+{
+        factory_bios_dir = QFileDialog::getOpenFileName(this,
+                                                        tr("Select factory BIOS file"),
+                                                        ".",
+                                                        "All files (*.*)");
+
+}
+
 void MainWindow::on_b_auto_get_hw_data_clicked()
 {
         DataGatherer data_gatherer;
@@ -304,7 +314,6 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
                 if ((ret = data_gatherer.save_edid_data()) != SUCCESS)
                         info_dialog->show_message(ret);
         }
-
 
         /* Save dmidecode output */
         if ((ret = data_gatherer.save_dmidecode_output()) != SUCCESS)
@@ -374,19 +383,23 @@ void MainWindow::on_b_auto_build_img_clicked()
                 conf_child = conf_child.nextSibling();
                 QString need_vgabios = conf_child.firstChild().toText().data();
 
-                qDebug() << board_ok;
-                qDebug() << gpu_ok;
-                qDebug() << panel_ok;
+                //qDebug() << board_ok;
+                //qDebug() << gpu_ok;
+                //qDebug() << panel_ok;
 
                 if (board_ok && gpu_ok && panel_ok) {
                         if (need_vgabios == "factory") {
-                                QFileInfo factory_bios("hardware_data/factory_bios.bin");
+                                QFileInfo factory_bios(factory_bios_dir);
+
                                 if (factory_bios.exists()) {
+
                                         /* Extract factory bios components */
                                         if (!QDir("hardware_data/factory_bios_components").exists())
                                                 QDir().mkdir("hardware_data/factory_bios_components");
                                         libbiosext_set_out_dir("hardware_data/factory_bios_components/");
-                                        data_gatherer.extract_rom("hardware_data/factory_bios.bin");
+                                        data_gatherer.extract_rom(factory_bios_dir);
+
+                                        /* Check if extracted VGABIOS is known to work */
                                         conf_child = conf_child.nextSibling();
                                         QDirIterator file_iterator("hardware_data/factory_bios_components");
                                         QString vgabios_xml_hash = conf_child.firstChild().toText().data();
@@ -420,8 +433,9 @@ void MainWindow::on_b_auto_build_img_clicked()
                                         ret = ERR_COREBOOT_NEED_FACTORY_BIOS;
                                         info_dialog->show_message(ret);
                                         return;
-                        }
-                } else if (need_vgabios == "memory") {
+                                }
+                        } else if (need_vgabios == "memory") {
+                                /* Check if memory-extracted VGABIOS is known to work */
                                 QString vgabios_hash = QString(sha_wrapper->getHashFromFile("hardware_data/vgabios_from_mem.bin").c_str());
                                 QString vgabios_xml_hash = conf_child.firstChild().toText().data();
 
@@ -430,6 +444,10 @@ void MainWindow::on_b_auto_build_img_clicked()
 
                                 if (vgabios_hash == vgabios_xml_hash)
                                         is_config_ok = true;
+
+                        } else {
+                                /* Proceed if configuration doesn't require factory VGABIOS */
+                                is_config_ok = true;
                         }
                 }
 
@@ -446,6 +464,8 @@ void MainWindow::on_b_auto_build_img_clicked()
                 QString make_coreboot_cmd = "make -C " + coreboot_dir;
                 QString rm_coreboot_cmd = "rm " + coreboot_dir + "/build/coreboot.rom";
                 QString cp_coreboot_cmd = "cp " + coreboot_dir + "/build/coreboot.rom coreboot.rom";
+
+                QApplication::processEvents();
 
                 if (system(copy_config_cmd.toStdString().c_str()) != 0) {
                         ret = ERR_COREBOOT_COPY_CONFIG;

@@ -113,9 +113,9 @@
      <widget class="QPushButton" name="b_auto_flash">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>480</x>
         <y>50</y>
-        <width>211</width>
+        <width>151</width>
         <height>27</height>
        </rect>
       </property>
@@ -126,14 +126,14 @@
      <widget class="QPushButton" name="b_auto_get_hw_data">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>320</x>
         <y>50</y>
-        <width>191</width>
+        <width>151</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>Get hardware data</string>
+       <string>Get HW data</string>
       </property>
      </widget>
      <widget class="QPushButton" name="b_auto_build_img">
@@ -154,12 +154,25 @@
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>201</width>
+        <width>151</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
        <string>Get factory BIOS</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="b_auto_set_bios">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>50</y>
+        <width>141</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set factory BIOS</string>
       </property>
      </widget>
     </widget>

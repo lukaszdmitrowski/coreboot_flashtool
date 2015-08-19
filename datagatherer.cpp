@@ -130,7 +130,6 @@ RET_VAL DataGatherer::save_bios_rom_from_iomem()
 
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
-        qDebug() << "extract rom";
         libbiosext_extract(bios_rom_path.toStdString().c_str());
 }
 

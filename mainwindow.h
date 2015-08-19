@@ -43,6 +43,7 @@ public:
         QTextEdit *active_log_out;
         QString chip_name;
         QString coreboot_dir;
+        QString factory_bios_dir;
         bool chip_found;
         bool programmer_initialized;
         InfoDialog *info_dialog;
@@ -57,9 +58,10 @@ private slots:
         void on_act_about_triggered();
 
         /* Auto tab */
+        void on_b_auto_get_bios_clicked();
+        void on_b_auto_set_bios_clicked();
         void on_b_auto_get_hw_data_clicked();
         void on_b_auto_build_img_clicked();
-        void on_b_auto_get_bios_clicked();
         void on_b_auto_flash_clicked();
 
         /* Flash tab */
