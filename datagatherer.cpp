@@ -131,7 +131,7 @@ RET_VAL DataGatherer::save_bios_rom_from_iomem()
 void DataGatherer::extract_rom(QString bios_rom_path)
 {
         qDebug() << "extract rom";
-        start_bios_extract(bios_rom_path.toStdString().c_str());
+        libbiosext_extract(bios_rom_path.toStdString().c_str());
 }
 
 QString DataGatherer::get_graphic_card_model()

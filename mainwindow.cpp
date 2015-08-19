@@ -47,7 +47,7 @@ extern "C" {
 
 fl_log_callback_t *my_log_callback;
 
-int libFlasher_log(fl_log_level_t log_level, const char *format, va_list vl)
+int libflashrom_log(fl_log_level_t log_level, const char *format, va_list vl)
 {
         QString text;
 
@@ -101,8 +101,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
         if (!QDir("hardware_data").exists())
             QDir().mkdir("hardware_data");
-        if (!QDir("bios_dump").exists())
-            QDir().mkdir("bios_dump");
 
         ui->log_auto->setReadOnly(true);
         ui->log_flash->setReadOnly(true);
@@ -111,7 +109,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->log_create_rom->setReadOnly(true);
         ui->tv_rom_content->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-        my_log_callback = &libFlasher_log;
+        my_log_callback = &libflashrom_log;
         fill_cb_arch();
         fill_cb_programmers();
         fill_cb_payload();
@@ -387,7 +385,7 @@ void MainWindow::on_b_auto_build_img_clicked()
                                         /* Extract factory bios components */
                                         if (!QDir("hardware_data/factory_bios_components").exists())
                                                 QDir().mkdir("hardware_data/factory_bios_components");
-                                        set_output_directory("hardware_data/factory_bios_components/");
+                                        libbiosext_set_out_dir("hardware_data/factory_bios_components/");
                                         data_gatherer.extract_rom("hardware_data/factory_bios.bin");
                                         conf_child = conf_child.nextSibling();
                                         QDirIterator file_iterator("hardware_data/factory_bios_components");
@@ -625,7 +623,7 @@ void MainWindow::open_select_bios_out_window()
         rom_dir.append("/");
         ui->b_sel_bios_out->setVisible(false);
         ui->l_ex_out_name->setText(rom_dir);
-        set_output_directory(rom_dir.toStdString().c_str());
+        libbiosext_set_out_dir(rom_dir.toStdString().c_str());
 }
 
 void MainWindow::on_act_supported_list_triggered()

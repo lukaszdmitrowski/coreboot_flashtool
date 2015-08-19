@@ -50,7 +50,7 @@ private slots:
         void on_cb_sel_hardware_currentIndexChanged(int index);
         void on_cb_sel_vendor_currentIndexChanged();
         void on_edit_name_textChanged(const QString &arg1);
-        void on_cb_sel_custom_currentIndexChanged(int index);
+        void on_cb_sel_custom_currentIndexChanged();
 
 private:
         QString test_state_to_qstring(fl_test_state test_state);

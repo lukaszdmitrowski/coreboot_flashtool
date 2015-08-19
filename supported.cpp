@@ -271,7 +271,7 @@ void Supported::on_edit_name_textChanged(const QString &arg1)
         ui->tableView->setModel(sortFilterModel);
 }
 
-void Supported::on_cb_sel_custom_currentIndexChanged(int index)
+void Supported::on_cb_sel_custom_currentIndexChanged()
 {
         if (ui->cb_sel_hardware->currentText() == "Chips")
                 sortFilterModel->setFilter(4, ui->cb_sel_custom->currentText());
