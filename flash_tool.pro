@@ -45,7 +45,8 @@ HEADERS  += mainwindow.h \
     infodialog.h \
     constants.h \
     preferences.h \
-    flasher.h
+    flasher.h \
+    loggers.h
 
 FORMS    += mainwindow.ui \
     supported.ui \
