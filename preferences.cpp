@@ -33,6 +33,8 @@ Preferences::Preferences(QWidget *parent) :
         ui->setupUi(this);
         ui->edit_cor_path->setText(w->coreboot_dir);
         ui->edit_cor_path->setReadOnly(true);
+        ui->edit_conf_path->setText(w->configurations_path);
+        ui->edit_conf_path->setReadOnly(true);
 }
 
 Preferences::~Preferences()
@@ -52,17 +54,30 @@ void Preferences::on_b_sel_cor_path_clicked()
         w->coreboot_dir = coreboot_dir;
 }
 
+void Preferences::on_b_sel_conf_path_clicked()
+{
+        QString configurations_path = QFileDialog::getOpenFileName(this, tr("Select xml file with working configurations"), ".", "Xml files (*.xml)");
+
+        ui->edit_conf_path->setText(configurations_path);
+        w->configurations_path = configurations_path;
+}
+
 void Preferences::on_b_ok_clicked()
 {
         QFile config_file("preferences.cfg");
-        QString new_coreboot_path = "coreboot_path: " + ui->edit_cor_path->text();
+        QString new_coreboot_path = "coreboot_path: " + ui->edit_cor_path->text() + "\n";
+        QString new_configurations_path = "configurations_path: " + ui->edit_conf_path->text();
 
         w->coreboot_dir = ui->edit_cor_path->text();
+        w->configurations_path = ui->edit_conf_path->text();
+
         if (config_file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text)) {
                 QTextStream config_stream(&config_file);
                 config_stream << new_coreboot_path;
+                config_stream << new_configurations_path;
         } else {
                 w->info_dialog->show_message(ERR_FILE_CONFIG);
         }
         close();
 }
+

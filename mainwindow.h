@@ -60,6 +60,8 @@ public:
          */
         QString coreboot_dir;
 
+        QString configurations_path;
+
         /**
          * @brief Path to factory BIOS file
          */

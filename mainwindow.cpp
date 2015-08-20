@@ -123,9 +123,15 @@ MainWindow::MainWindow(QWidget *parent) :
         if (config_file.open(QIODevice::ReadOnly)) {
                 QTextStream config_stream(&config_file);
                 QString coreboot_path_line;
+                QString configurations_path_line;
+
                 coreboot_path_line = config_stream.readLine();
                 coreboot_path_line.remove("coreboot_path: ");
                 coreboot_dir = coreboot_path_line;
+
+                configurations_path_line = config_stream.readLine();
+                configurations_path_line.remove("configurations_path: ");
+                configurations_path = configurations_path_line;
         } else {
                 w->info_dialog->show_message(ERR_FILE_CONFIG);
         }
@@ -372,7 +378,7 @@ void MainWindow::on_b_auto_build_img_clicked()
 
         DataGatherer data_gatherer;
         QDomDocument xmlBOM;
-        QFile hardware_info("hardware_info.xml");
+        QFile hardware_info(w->configurations_path);
         QString hardware_data_path;
         bool is_config_ok = false;
         RET_VAL ret = UNKNOWN;

@@ -42,11 +42,15 @@ private slots:
          */
         void on_b_sel_cor_path_clicked();
 
+        void on_b_sel_conf_path_clicked();
+
         /**
          * @brief Called when on_b_ok button is clicked
          * Saves coreboot path to preferences.cfg file and application variables
          */
         void on_b_ok_clicked();
+
+
 
 private:
         Ui::Preferences *ui;
