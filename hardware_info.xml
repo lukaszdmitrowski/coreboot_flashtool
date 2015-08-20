@@ -6,5 +6,21 @@
 		<need_vgabios>factory</need_vgabios>
 		<vgabios_hash>82b4f9ba4c01c1b33a71f77835dcbd2770011e3761fc2426afe8052afd94ca33</vgabios_hash>
 		<config_file>T60_Intel945_LTN141XA-L01</config_file>
+	</config>
+	<config>
+		<motherboard>TESTBOARD12</motherboard>
+		<gpu>FamousCompany Test Graphic Card GX12345P [8086:27a2] (rev 03)</gpu>
+		<display_panel>TESTPANEL12</display_panel>
+		<need_vgabios>memory</need_vgabios>
+		<vgabios_hash>5201b1991a2b6f46494d62f3fbdaa2e9f6179fb7fde7fac459d322ab69fe673b</vgabios_hash>
+		<config_file>Test1_Config</config_file>
+	</config>  
+	<config>
+		<motherboard>FancyBoard-XX5C</motherboard>
+		<gpu>EVGA GTX950 [1111:2222] (rev 05)</gpu>
+		<display_panel>-</display_panel>
+		<need_vgabios>-</need_vgabios>
+		<vgabios_hash>-</vgabios_hash>
+		<config_file>Test2_Config</config_file>
 	</config> 
 </configurations>

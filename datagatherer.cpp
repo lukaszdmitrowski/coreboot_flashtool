@@ -129,7 +129,6 @@ QString DataGatherer::get_graphic_card_model()
                         QString line = in.readLine();
                         if (line.contains("VGA")) {
                                 graphic_card_model = line.right(line.length() - 42);
-                                //qDebug() << graphic_card_model;
                         }
                 }
         }
@@ -151,8 +150,7 @@ QString DataGatherer::get_display_panel_model()
                 while (!in.atEnd()) {
                         QString line = in.readLine();
                         if (line.contains("ASCII string:")) {
-                                display_panel_model = line.right(12);
-                                //qDebug() << display_panel_model;
+                                display_panel_model = line.right(line.length() - (line.indexOf(":")+2));
                         }
                 }
         }
@@ -174,8 +172,7 @@ QString DataGatherer::get_motherboard_model()
                 while (!in.atEnd()) {
                         QString line = in.readLine();
                         if (line.contains("Product Name:")) {
-                                motherboard_model = line.right(line.length() - 15);
-                                //qDebug() << motherboard_model;
+                                motherboard_model = line.right(line.length() - (line.indexOf(":")+2));
                         }
                 }
         }

@@ -383,21 +383,41 @@ void MainWindow::on_b_auto_build_img_clicked()
 
         while ((!config.isNull()) && (!is_config_ok)) {
                 QDomNode conf_child = config.firstChild();
-                bool board_ok = (motherboard == conf_child.firstChild().toText().data());
+                bool is_board_ok = false;
+                bool is_gpu_ok = false;
+                bool is_panel_ok = false;
+
+                QString board_config = conf_child.firstChild().toText().data();
                 conf_child = conf_child.nextSibling();
-                bool gpu_ok = (graphic_card == conf_child.firstChild().toText().data());
+                QString gpu_config = conf_child.firstChild().toText().data();
                 conf_child = conf_child.nextSibling();
-                bool panel_ok = (display_panel == conf_child.firstChild().toText().data());
+                QString panel_config = conf_child.firstChild().toText().data();
                 conf_child = conf_child.nextSibling();
                 QString need_vgabios = conf_child.firstChild().toText().data();
 
-                //qDebug() << board_ok;
-                //qDebug() << gpu_ok;
-                //qDebug() << panel_ok;
+                is_board_ok = (motherboard == board_config);
+                if (gpu_config == "-") {
+                        is_gpu_ok = true;
+                } else {
+                        is_gpu_ok = (graphic_card == gpu_config);
+                }
 
-                if (board_ok && gpu_ok && panel_ok) {
+                if (panel_config == "-") {
+                        is_panel_ok = true;
+                } else {
+                        is_panel_ok = (display_panel == panel_config);
+                }
+
+                //qDebug() << is_board_ok;
+                //qDebug() << is_gpu_ok;
+                //qDebug() << is_panel_ok;
+                //qDebug() << "need bios: " << need_vgabios;
+
+                conf_child = conf_child.nextSibling();
+                if (is_board_ok && is_gpu_ok && is_panel_ok) {
                         if (need_vgabios == "factory") {
                                 QFileInfo factory_bios(factory_bios_dir);
+                                qDebug() << factory_bios_dir;
 
                                 if (factory_bios.exists()) {
 
@@ -418,7 +438,6 @@ void MainWindow::on_b_auto_build_img_clicked()
                                         data_gatherer.extract_rom(factory_bios_dir);
 
                                         /* Check if extracted VGABIOS is known to work */
-                                        conf_child = conf_child.nextSibling();
                                         QString vgabios_xml_hash = conf_child.firstChild().toText().data();
                                         QDirIterator file_iterator("factory_bios_components");
 
@@ -426,11 +445,7 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                 if (file_iterator.next().contains("oprom_")) {
                                                         QString vgabios_hash = QString(sha_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
 
-                                                        //qDebug() << vgabios_hash;
-                                                        //qDebug() << vgabios_xml_hash;
-
                                                         if (vgabios_hash == vgabios_xml_hash) {
-                                                                //QFile vgabios_file(file_iterator.filePath());
                                                                 QString cp_to_coreboot_cmd = "cp " + file_iterator.filePath() + " "
                                                                                              + coreboot_dir + "vgabios.bin";
                                                                 if (system(cp_to_coreboot_cmd.toStdString().c_str()) != 0) {
@@ -439,12 +454,6 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                                 }
 
                                                                 is_config_ok = true;
-                                                                /*if (!vgabios_file.open(QIODevice::WriteOnly )) {
-                                                                        qDebug() << "Error while loading file: " + vgabios_file.fileName();
-                                                                } else {
-                                                                    vgabios_file.rename("factory_bios.bin");
-                                                                    vgabios_file.close();
-                                                                }*/
                                                         }
                                                 }
                                         }
