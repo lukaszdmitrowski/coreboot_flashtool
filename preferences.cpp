@@ -32,6 +32,7 @@ Preferences::Preferences(QWidget *parent) :
 {
         ui->setupUi(this);
         ui->edit_cor_path->setText(w->coreboot_dir);
+        ui->edit_cor_path->setReadOnly(true);
 }
 
 Preferences::~Preferences()
@@ -56,6 +57,7 @@ void Preferences::on_b_ok_clicked()
         QFile config_file("preferences.cfg");
         QString new_coreboot_path = "coreboot_path: " + ui->edit_cor_path->text();
 
+        w->coreboot_dir = ui->edit_cor_path->text();
         if (config_file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text)) {
                 QTextStream config_stream(&config_file);
                 config_stream << new_coreboot_path;

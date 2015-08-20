@@ -365,6 +365,10 @@ void MainWindow::on_b_auto_build_img_clicked()
                 info_dialog->show_message(ERR_COREBOOT_WRONG_DIR);
                 return;
         }
+        if (!(coreboot_directory.dirName() == "coreboot")) {
+                info_dialog->show_message(ERR_COREBOOT_WRONG_DIR);
+                return;
+        }
 
         DataGatherer data_gatherer;
         QDomDocument xmlBOM;
@@ -424,10 +428,10 @@ void MainWindow::on_b_auto_build_img_clicked()
                                 if (factory_bios.exists()) {
 
                                         /* Create components dir or remove previously extracted components */
-                                        if (!QDir("hardware_data/factory_bios_components").exists()) {
-                                                QDir().mkdir("hardware_data/factory_bios_components");
+                                        if (!QDir("factory_bios_components").exists()) {
+                                                QDir().mkdir("factory_bios_components");
                                         } else {
-                                                QDirIterator remove_iterator("hardware_data/factory_bios_components");
+                                                QDirIterator remove_iterator("factory_bios_components");
                                                 while (remove_iterator.hasNext()) {
                                                         remove_iterator.next();
                                                         QFile file(remove_iterator.filePath());
@@ -436,13 +440,14 @@ void MainWindow::on_b_auto_build_img_clicked()
                                         }
 
                                         /* Extract factory bios components */
-                                        libbiosext_set_out_dir("hardware_data/factory_bios_components/");
+                                        libbiosext_set_out_dir("factory_bios_components/");
                                         data_gatherer.extract_rom(factory_bios_dir);
 
                                         /* Check if extracted VGABIOS is known to work */
                                         conf_child = conf_child.nextSibling();
                                         QString vgabios_xml_hash = conf_child.firstChild().toText().data();
-                                        QDirIterator file_iterator("hardware_data/factory_bios_components");
+                                        QDirIterator file_iterator("factory_bios_components");
+
                                         while (file_iterator.hasNext()) {                 
                                                 if (file_iterator.next().contains("oprom_")) {
                                                         QString vgabios_hash = QString(sha_wrapper->getHashFromFile(file_iterator.filePath().toStdString()).c_str());
@@ -453,7 +458,7 @@ void MainWindow::on_b_auto_build_img_clicked()
                                                         if (vgabios_hash == vgabios_xml_hash) {
                                                                 //QFile vgabios_file(file_iterator.filePath());
                                                                 QString cp_to_coreboot_cmd = "cp " + file_iterator.filePath() + " "
-                                                                                             + coreboot_dir + "/vgabios.bin";
+                                                                                             + coreboot_dir + "vgabios.bin";
                                                                 if (system(cp_to_coreboot_cmd.toStdString().c_str()) != 0) {
                                                                         info_dialog->show_message(ERR_COREBOOT_COPY_VGABIOS);
                                                                         return;
@@ -480,7 +485,7 @@ void MainWindow::on_b_auto_build_img_clicked()
 
                                 if (vgabios_hash == vgabios_xml_hash) {
                                         QString cp_to_coreboot_cmd = "cp hardware_data/vgabios_from_mem.bin "
-                                                                     + coreboot_dir + "/vgabios.bin";
+                                                                     + coreboot_dir + "vgabios.bin";
                                         if (system(cp_to_coreboot_cmd.toStdString().c_str()) != 0) {
                                                 info_dialog->show_message(ERR_COREBOOT_COPY_VGABIOS);
                                                 return;
