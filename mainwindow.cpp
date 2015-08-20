@@ -330,6 +330,8 @@ void MainWindow::on_b_auto_get_hw_data_clicked()
         /* Create archive from gathered data */
         if ((ret = data_gatherer.create_hardware_data_archive()) != SUCCESS)
                 info_dialog->show_message(ret);
+
+        info_dialog->show_message("Finished gathering data");
 }
 
 void MainWindow::on_b_auto_build_img_clicked()
