@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -91,40 +91,293 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a77ded74272e1c80715106081e12b67fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a77ded74272e1c80715106081e12b67fb"></a>
-RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>save_lspci_output</b> ()</td></tr>
+<tr class="memitem:a77ded74272e1c80715106081e12b67fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a77ded74272e1c80715106081e12b67fb">save_lspci_output</a> ()</td></tr>
+<tr class="memdesc:a77ded74272e1c80715106081e12b67fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save output of 'lspci -nn' to hardware_data/lspci_output.txt.  <a href="#a77ded74272e1c80715106081e12b67fb">More...</a><br/></td></tr>
 <tr class="separator:a77ded74272e1c80715106081e12b67fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ea3c1580b848d09da73fc4422043e0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ea3c1580b848d09da73fc4422043e0d"></a>
-RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>save_edid_data</b> ()</td></tr>
+<tr class="memitem:a8ea3c1580b848d09da73fc4422043e0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a8ea3c1580b848d09da73fc4422043e0d">save_edid_data</a> ()</td></tr>
+<tr class="memdesc:a8ea3c1580b848d09da73fc4422043e0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save output of 'cat /sys/class/drm/card0-LVDS-1/edid | edid-decode' command to hardware_data/edid-decode_output.txt.  <a href="#a8ea3c1580b848d09da73fc4422043e0d">More...</a><br/></td></tr>
 <tr class="separator:a8ea3c1580b848d09da73fc4422043e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f20eb5811ca910ba418bcab7439a99f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f20eb5811ca910ba418bcab7439a99f"></a>
-RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>save_dmidecode_output</b> ()</td></tr>
+<tr class="memitem:a0f20eb5811ca910ba418bcab7439a99f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a0f20eb5811ca910ba418bcab7439a99f">save_dmidecode_output</a> ()</td></tr>
+<tr class="memdesc:a0f20eb5811ca910ba418bcab7439a99f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save output of 'dmidecode -t 2' to hardware_data/dmidecode_output.txt.  <a href="#a0f20eb5811ca910ba418bcab7439a99f">More...</a><br/></td></tr>
 <tr class="separator:a0f20eb5811ca910ba418bcab7439a99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2183a8a06988a7bcd95170d94d961f85"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2183a8a06988a7bcd95170d94d961f85"></a>
-RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>save_bios_rom_factory</b> (QString save_path)</td></tr>
+<tr class="memitem:a2183a8a06988a7bcd95170d94d961f85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a2183a8a06988a7bcd95170d94d961f85">save_bios_rom_factory</a> (QString save_path)</td></tr>
+<tr class="memdesc:a2183a8a06988a7bcd95170d94d961f85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read and save factory BIOS image.  <a href="#a2183a8a06988a7bcd95170d94d961f85">More...</a><br/></td></tr>
 <tr class="separator:a2183a8a06988a7bcd95170d94d961f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f6d3d2669450f279064694798912358"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f6d3d2669450f279064694798912358"></a>
-RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>save_bios_rom_from_iomem</b> ()</td></tr>
+<tr class="memitem:a7f6d3d2669450f279064694798912358"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a7f6d3d2669450f279064694798912358">save_bios_rom_from_iomem</a> ()</td></tr>
+<tr class="memdesc:a7f6d3d2669450f279064694798912358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call 'extract_vga_bios.sh' responsible for extracting VGABIOS from memory.  <a href="#a7f6d3d2669450f279064694798912358">More...</a><br/></td></tr>
 <tr class="separator:a7f6d3d2669450f279064694798912358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abefb282ecb13454e87779fafe51bfe74"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abefb282ecb13454e87779fafe51bfe74"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>extract_rom</b> (QString bios_rom_path)</td></tr>
+<tr class="memitem:abefb282ecb13454e87779fafe51bfe74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#abefb282ecb13454e87779fafe51bfe74">extract_rom</a> (QString bios_rom_path)</td></tr>
+<tr class="memdesc:abefb282ecb13454e87779fafe51bfe74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract rom components to specified path.  <a href="#abefb282ecb13454e87779fafe51bfe74">More...</a><br/></td></tr>
 <tr class="separator:abefb282ecb13454e87779fafe51bfe74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb8ae017608db79de193dca247b15fc3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb8ae017608db79de193dca247b15fc3"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>get_graphic_card_model</b> ()</td></tr>
+<tr class="memitem:afb8ae017608db79de193dca247b15fc3"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#afb8ae017608db79de193dca247b15fc3">get_graphic_card_model</a> ()</td></tr>
+<tr class="memdesc:afb8ae017608db79de193dca247b15fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return graphic card model basing on lspci_output.txt.  <a href="#afb8ae017608db79de193dca247b15fc3">More...</a><br/></td></tr>
 <tr class="separator:afb8ae017608db79de193dca247b15fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e4f5ea1610739e09b433daadc537e3e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e4f5ea1610739e09b433daadc537e3e"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>get_display_panel_model</b> ()</td></tr>
+<tr class="memitem:a3e4f5ea1610739e09b433daadc537e3e"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a3e4f5ea1610739e09b433daadc537e3e">get_display_panel_model</a> ()</td></tr>
+<tr class="memdesc:a3e4f5ea1610739e09b433daadc537e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return display panel model basing on edid-decode_output.txt.  <a href="#a3e4f5ea1610739e09b433daadc537e3e">More...</a><br/></td></tr>
 <tr class="separator:a3e4f5ea1610739e09b433daadc537e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a2de7e19f4a673e1f88e962f8b32588"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5a2de7e19f4a673e1f88e962f8b32588"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>get_motherboard_model</b> ()</td></tr>
+<tr class="memitem:a5a2de7e19f4a673e1f88e962f8b32588"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a5a2de7e19f4a673e1f88e962f8b32588">get_motherboard_model</a> ()</td></tr>
+<tr class="memdesc:a5a2de7e19f4a673e1f88e962f8b32588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return motherboard model basing on dmidecode_output.txt.  <a href="#a5a2de7e19f4a673e1f88e962f8b32588">More...</a><br/></td></tr>
 <tr class="separator:a5a2de7e19f4a673e1f88e962f8b32588"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5071be7a22f26a1e8c4956fd88756aa6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5071be7a22f26a1e8c4956fd88756aa6"></a>
-RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>create_hardware_data_archive</b> ()</td></tr>
+<tr class="memitem:a5071be7a22f26a1e8c4956fd88756aa6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#a5071be7a22f26a1e8c4956fd88756aa6">create_hardware_data_archive</a> ()</td></tr>
+<tr class="memdesc:a5071be7a22f26a1e8c4956fd88756aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create tar file from all files related to gathered hardware data.  <a href="#a5071be7a22f26a1e8c4956fd88756aa6">More...</a><br/></td></tr>
 <tr class="separator:a5071be7a22f26a1e8c4956fd88756aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaea8e9ae23a7f6ea5e0b1b04e9125596"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaea8e9ae23a7f6ea5e0b1b04e9125596"></a>
-RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>unpack_hardware_data_archive</b> (QString filename)</td></tr>
+<tr class="memitem:aaea8e9ae23a7f6ea5e0b1b04e9125596"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataGatherer.html#aaea8e9ae23a7f6ea5e0b1b04e9125596">unpack_hardware_data_archive</a> (QString filename)</td></tr>
+<tr class="memdesc:aaea8e9ae23a7f6ea5e0b1b04e9125596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpack tar file from specified path.  <a href="#aaea8e9ae23a7f6ea5e0b1b04e9125596">More...</a><br/></td></tr>
 <tr class="separator:aaea8e9ae23a7f6ea5e0b1b04e9125596"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a5071be7a22f26a1e8c4956fd88756aa6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> DataGatherer::create_hardware_data_archive </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create tar file from all files related to gathered hardware data. </p>
+<p>Create archive of all files related to gathered hardware data with use of 'tar -cf hardware_data.tar hardware_data' command</p>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Tar file successfully created </dd>
+<dd>
+ERR_CMD_TAR_PACK_NOT_EXEC - Command execution failed </dd>
+<dd>
+UNKNOWN - Unknown error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abefb282ecb13454e87779fafe51bfe74"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DataGatherer::extract_rom </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>bios_rom_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extract rom components to specified path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">bios_rom_path</td><td>- path for extracted submodules</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Extracts rom coomponents to specified path with use of bios_extract tool </p>
+
+</div>
+</div>
+<a class="anchor" id="a3e4f5ea1610739e09b433daadc537e3e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DataGatherer::get_display_panel_model </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return display panel model basing on edid-decode_output.txt. </p>
+<dl class="section return"><dt>Returns</dt><dd>Display panel model </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afb8ae017608db79de193dca247b15fc3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DataGatherer::get_graphic_card_model </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return graphic card model basing on lspci_output.txt. </p>
+<dl class="section return"><dt>Returns</dt><dd>Graphic card model </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5a2de7e19f4a673e1f88e962f8b32588"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DataGatherer::get_motherboard_model </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return motherboard model basing on dmidecode_output.txt. </p>
+<dl class="section return"><dt>Returns</dt><dd>Motherboard model </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2183a8a06988a7bcd95170d94d961f85"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> DataGatherer::save_bios_rom_factory </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>save_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read and save factory BIOS image. </p>
+<p>Reads factory BIOS image and saves it to specified path</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">save_path</td><td>- path of saved image</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Success </dd>
+<dd>
+ERR_PROG_NOT_INIT - Programmer not initialized </dd>
+<dd>
+UNKNOWN - Unknown error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7f6d3d2669450f279064694798912358"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> DataGatherer::save_bios_rom_from_iomem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Call 'extract_vga_bios.sh' responsible for extracting VGABIOS from memory. </p>
+<p>Calls 'extract_vga_bios.sh' script which extracts VGABIOS from running system memory and saves it in hardware_data/vgabios_from_mem.bin</p>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Success </dd>
+<dd>
+ERR_CMD_VGBABIOS_NOT_EXEC - Command execution failed </dd>
+<dd>
+ERR_CHIP_NOT_PROBED - Chip not probed (no flash context) </dd>
+<dd>
+UNKNOWN - Unknown error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0f20eb5811ca910ba418bcab7439a99f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> DataGatherer::save_dmidecode_output </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save output of 'dmidecode -t 2' to hardware_data/dmidecode_output.txt. </p>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Success </dd>
+<dd>
+ERR_CMD_DMI_NOT_EXEC - Command execution failed </dd>
+<dd>
+UNKNOWN - Unknown error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8ea3c1580b848d09da73fc4422043e0d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> DataGatherer::save_edid_data </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save output of 'cat /sys/class/drm/card0-LVDS-1/edid | edid-decode' command to hardware_data/edid-decode_output.txt. </p>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Success </dd>
+<dd>
+ERR_CMD_EDID_NOT_EXEC - Command execution failed </dd>
+<dd>
+UNKNOWN - Unknown error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a77ded74272e1c80715106081e12b67fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> DataGatherer::save_lspci_output </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save output of 'lspci -nn' to hardware_data/lspci_output.txt. </p>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Success </dd>
+<dd>
+ERR_CMD_LSPCI_NOT_EXEC - Command execution failed </dd>
+<dd>
+UNKNOWN - Unknown error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaea8e9ae23a7f6ea5e0b1b04e9125596"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> DataGatherer::unpack_hardware_data_archive </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unpack tar file from specified path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>- path to tar file</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Tar file successfully extracted </dd>
+<dd>
+ERR_CMD_TAR_UNPACK_NOT_EXEC - Command execution failed </dd>
+<dd>
+UNKNOWN - Unknown error </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="datagatherer_8h_source.html">datagatherer.h</a></li>
 <li>datagatherer.cpp</li>
@@ -132,7 +385,7 @@ RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><b>unpack_hardware_da
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

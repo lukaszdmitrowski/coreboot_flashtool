@@ -36,6 +36,10 @@ public:
         ~DeleteComponents();
 
 private slots:
+        /**
+         * @brief Called when b_remove_comp button is clicked
+         * Removes CBFS component with use of cbfs_tool
+         */
         void on_b_remove_comp_clicked();
 
 private:

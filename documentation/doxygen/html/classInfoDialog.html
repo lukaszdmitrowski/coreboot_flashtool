@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,6 +83,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classInfoDialog-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">InfoDialog Class Reference</div>  </div>
@@ -102,10 +104,48 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a446583cff8652d633f59db711bad2edc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a446583cff8652d633f59db711bad2edc"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>InfoDialog</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a446583cff8652d633f59db711bad2edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec99044be3072eddb6a84fc8073063fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec99044be3072eddb6a84fc8073063fb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>show_message</b> (RET_VAL ret_val)</td></tr>
+<tr class="memitem:aec99044be3072eddb6a84fc8073063fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInfoDialog.html#aec99044be3072eddb6a84fc8073063fb">show_message</a> (<a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> ret_val)</td></tr>
+<tr class="memdesc:aec99044be3072eddb6a84fc8073063fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows dialog with info(error) message.  <a href="#aec99044be3072eddb6a84fc8073063fb">More...</a><br/></td></tr>
 <tr class="separator:aec99044be3072eddb6a84fc8073063fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:afef573d182e2eb7291db912ed80ea9e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afef573d182e2eb7291db912ed80ea9e8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInfoDialog.html#afef573d182e2eb7291db912ed80ea9e8">on_b_ok_clicked</a> ()</td></tr>
+<tr class="memdesc:afef573d182e2eb7291db912ed80ea9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when b_ok button is clicked Closes dialog. <br/></td></tr>
+<tr class="separator:afef573d182e2eb7291db912ed80ea9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aeee19d6ee0f2d0318571ba605a33cbf1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeee19d6ee0f2d0318571ba605a33cbf1"></a>
+Ui::InfoDialog *&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b></td></tr>
+<tr class="separator:aeee19d6ee0f2d0318571ba605a33cbf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aec99044be3072eddb6a84fc8073063fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoDialog::show_message </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td>
+          <td class="paramname"><em>ret_val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shows dialog with info(error) message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ret_val</td><td>[in] error type </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="infodialog_8h_source.html">infodialog.h</a></li>
 <li>infodialog.cpp</li>
@@ -113,7 +153,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>show_message</b> (RET
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

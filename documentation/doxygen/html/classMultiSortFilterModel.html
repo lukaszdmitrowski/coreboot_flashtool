@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -84,6 +84,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMultiSortFilterModel-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">MultiSortFilterModel Class Reference</div>  </div>
@@ -103,11 +104,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a699c545b421837b006e064ca6be97016"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a699c545b421837b006e064ca6be97016"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>MultiSortFilterModel</b> (QObject *parent=0)</td></tr>
 <tr class="separator:a699c545b421837b006e064ca6be97016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66d2fe690a6603dd520c38a13f2b6a9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66d2fe690a6603dd520c38a13f2b6a9a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setFilterKeyColumns</b> (const QList&lt; qint32 &gt; &amp;filterColumns)</td></tr>
+<tr class="memitem:a66d2fe690a6603dd520c38a13f2b6a9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMultiSortFilterModel.html#a66d2fe690a6603dd520c38a13f2b6a9a">setFilterKeyColumns</a> (const QList&lt; qint32 &gt; &amp;filterColumns)</td></tr>
+<tr class="memdesc:a66d2fe690a6603dd520c38a13f2b6a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set list of columns to be filtered.  <a href="#a66d2fe690a6603dd520c38a13f2b6a9a">More...</a><br/></td></tr>
 <tr class="separator:a66d2fe690a6603dd520c38a13f2b6a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a924f1e5389e8045f072b7c8eec79b97b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a924f1e5389e8045f072b7c8eec79b97b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setFilter</b> (qint32 column, const QString &amp;pattern)</td></tr>
+<tr class="memitem:a924f1e5389e8045f072b7c8eec79b97b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMultiSortFilterModel.html#a924f1e5389e8045f072b7c8eec79b97b">setFilter</a> (qint32 column, const QString &amp;pattern)</td></tr>
+<tr class="memdesc:a924f1e5389e8045f072b7c8eec79b97b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set filter pattern to specified column.  <a href="#a924f1e5389e8045f072b7c8eec79b97b">More...</a><br/></td></tr>
 <tr class="separator:a924f1e5389e8045f072b7c8eec79b97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -115,7 +116,73 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a308fb74918e50bba787fbcb82fb04f91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a308fb74918e50bba787fbcb82fb04f91"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>filterAcceptsRow</b> (int sourceRow, const QModelIndex &amp;sourceParent) const </td></tr>
 <tr class="separator:a308fb74918e50bba787fbcb82fb04f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3f7bd26205a06897a3ee67d40581dfd4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f7bd26205a06897a3ee67d40581dfd4"></a>
+QMap&lt; qint32, QString &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>columnPatterns</b></td></tr>
+<tr class="separator:a3f7bd26205a06897a3ee67d40581dfd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a924f1e5389e8045f072b7c8eec79b97b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MultiSortFilterModel::setFilter </td>
+          <td>(</td>
+          <td class="paramtype">qint32&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>pattern</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set filter pattern to specified column. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">column</td><td>[in] Column number </td></tr>
+    <tr><td class="paramname">pattern</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a66d2fe690a6603dd520c38a13f2b6a9a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MultiSortFilterModel::setFilterKeyColumns </td>
+          <td>(</td>
+          <td class="paramtype">const QList&lt; qint32 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>filterColumns</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set list of columns to be filtered. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filterColumns</td><td>[in] - Columns to be filtered </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="multisortfiltermodel_8h_source.html">multisortfiltermodel.h</a></li>
 <li>multisortfiltermodel.cpp</li>
@@ -123,7 +190,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>filterAcceptsRow</b> 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

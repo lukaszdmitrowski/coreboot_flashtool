@@ -276,12 +276,25 @@ void MainWindow::on_b_flash_clicked()
 
 void MainWindow::on_b_sel_bios_rom_clicked()
 {
-        open_select_bios_rom_window();
+        QString rom_name;
+
+        bios_rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
+        rom_name = bios_rom_path.section('/', -1);
+        ui->b_sel_bios_rom->setVisible(false);
+        ui->l_ex_rom_name->setText(rom_name);
 }
 
 void MainWindow::on_b_sel_bios_out_clicked()
 {
-        open_select_bios_out_window();
+        QString rom_dir = QFileDialog::getExistingDirectory(this,
+                                                            tr("Select output dir"),
+                                                            ".",
+                                                            QFileDialog::ShowDirsOnly
+                                                            | QFileDialog::DontResolveSymlinks);
+        rom_dir.append("/");
+        ui->b_sel_bios_out->setVisible(false);
+        ui->l_ex_out_name->setText(rom_dir);
+        libbiosext_set_out_dir(rom_dir.toStdString().c_str());
 }
 
 void MainWindow::on_b_sel_boot_block_clicked()
@@ -649,29 +662,6 @@ void MainWindow::fill_cb_payload()
 {
         ui->cb_auto_sel_payload->addItem("SeaBIOS");
         ui->cb_auto_sel_payload->addItem("GRUB 2");
-}
-
-void MainWindow::open_select_bios_rom_window()
-{
-        QString rom_name;
-
-        bios_rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
-        rom_name = bios_rom_path.section('/', -1);
-        ui->b_sel_bios_rom->setVisible(false);
-        ui->l_ex_rom_name->setText(rom_name);
-}
-
-void MainWindow::open_select_bios_out_window()
-{
-        QString rom_dir = QFileDialog::getExistingDirectory(this,
-                                                            tr("Select output dir"),
-                                                            ".",
-                                                            QFileDialog::ShowDirsOnly
-                                                            | QFileDialog::DontResolveSymlinks);
-        rom_dir.append("/");
-        ui->b_sel_bios_out->setVisible(false);
-        ui->l_ex_out_name->setText(rom_dir);
-        libbiosext_set_out_dir(rom_dir.toStdString().c_str());
 }
 
 void MainWindow::on_act_supported_list_triggered()

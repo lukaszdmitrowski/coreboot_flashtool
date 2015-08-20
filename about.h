@@ -37,6 +37,12 @@ public:
     ~About();
 
 private slots:
+     /**
+     * @brief Called when b_about_close button is clicked
+     *
+     * Closes About dialog
+     *
+     */
     void on_b_about_close_clicked();
 
 private:

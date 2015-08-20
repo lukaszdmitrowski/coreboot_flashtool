@@ -21,25 +21,7 @@ DataGatherer::DataGatherer()
 
 RET_VAL DataGatherer::save_lspci_output()
 {
-        //char buffer[2048];
-        //FILE *pipe, *file;
         RET_VAL ret = UNKNOWN;
-
-        /*file = fopen("hardware_data/lspci_output.txt", "w");
-        if (!file) {
-                ret = ERR_CANT_OPEN_FILE;
-                qDebug() << "Can't opeddn file!";
-        } else {
-                if ((pipe = popen("lspci -nn", "r")) != NULL) {
-                        while (!feof(pipe)) {
-                                if (fgets(buffer, 2048, pipe) != NULL)
-                                        fprintf(file, "%s", buffer);
-                        }
-                        pclose(pipe);
-                        ret = SUCCESS;
-                }
-                fclose(file);
-        }*/
 
         if (system("lspci -nn > hardware_data/lspci_output.txt") != 0) {
                 ret = ERR_CMD_LSPCI_NOT_EXEC;

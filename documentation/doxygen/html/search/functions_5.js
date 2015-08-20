@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['verify_5fchip',['verify_chip',['../classFlasher.html#a333de6a14a78764fddd2ffcdf38980f4',1,'Flasher']]]
+  ['init_5fflashrom',['init_flashrom',['../classFlasher.html#ad41b2dded5ee4422a204470d34785670',1,'Flasher']]]
 ];

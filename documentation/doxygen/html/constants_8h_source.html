@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,49 +83,111 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">constants.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CONSTANTS_H</span></div>
+<a href="constants_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CONSTANTS_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CONSTANTS_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">enum</span> RET_VAL {</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        SUCCESS = 0,</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        ERR_PROG_NOT_INIT,</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        ERR_PROBE_FAILED,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        ERR_WRITE_FAILED,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        ERR_READ_LESS_BYTES,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        ERR_CHIP_NOT_PROBED,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        ERR_CHIP_PROBED,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        ERR_CHIP_NOT_READ,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        ERR_CHIP_NOT_VERIFIED,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        ERR_FILE_SELECTED,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        ERR_FILE_HW_XML,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        ERR_FILE_WRITE,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        ERR_FILE_CONFIG,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        ERR_MEM_ALLOC,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        ERR_DIR_NOT_SEL,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        ERR_BUF_SIZE_DIFF,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        ERR_CMD_LSPCI_NOT_EXEC,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        ERR_CMD_EDID_NOT_EXEC,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        ERR_CMD_DMI_NOT_EXEC,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        ERR_CMD_VGBABIOS_NOT_EXEC,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        ERR_CMD_TAR_PACK_NOT_EXEC,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        ERR_CMD_TAR_UNPACK_NOT_EXEC,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        ERR_CONFIG_NOT_KNOWN,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        ERR_COREBOOT_COPY_ROM,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        ERR_COREBOOT_COPY_VGABIOS,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        ERR_COREBOOT_COPY_CONFIG,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        ERR_COREBOOT_MAKE,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        ERR_COREBOOT_NEED_FACTORY_BIOS,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        ERR_COREBOOT_NOROM,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        ERR_COREBOOT_WRONG_DIR,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        UNKNOWN</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">   12</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faac7f69f7c9e5aea9b8f54cf02870e2bf8">   16</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faac7f69f7c9e5aea9b8f54cf02870e2bf8">SUCCESS</a> = 0,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa7e99340f7a1cb603e38a5035f8d1b5d2">   21</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa7e99340f7a1cb603e38a5035f8d1b5d2">ERR_PROG_NOT_INIT</a>,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa93c0493ec30916e79815294487bf3708">   26</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa93c0493ec30916e79815294487bf3708">ERR_PROBE_FAILED</a>,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaf71d0a36a94b6ddf3850111b297ad03f">   31</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaf71d0a36a94b6ddf3850111b297ad03f">ERR_WRITE_FAILED</a>,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faab63644ff6a63e25f4f82ba6873624b96">   36</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faab63644ff6a63e25f4f82ba6873624b96">ERR_READ_LESS_BYTES</a>,</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif // CONSTANTS_H</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa0c7a00960b47bfbcd7c7cb248f478e3c">   41</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa0c7a00960b47bfbcd7c7cb248f478e3c">ERR_CHIP_NOT_PROBED</a>,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa9a61f540a7531a8b59adfb8cb06b2e74">   46</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa9a61f540a7531a8b59adfb8cb06b2e74">ERR_CHIP_PROBED</a>,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaaf827c08ae0567a25a42bc75bfe7f82a">   51</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaaf827c08ae0567a25a42bc75bfe7f82a">ERR_CHIP_NOT_READ</a>,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa9070a6d8881c93f6af92ccb819a3351d">   56</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa9070a6d8881c93f6af92ccb819a3351d">ERR_CHIP_NOT_VERIFIED</a>,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa357dcacb7fea5cb731e00b72c2dc4505">   61</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa357dcacb7fea5cb731e00b72c2dc4505">ERR_FILE_SELECTED</a>,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faac895fb44a78065b5b9c35706ff4f1f98">   66</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faac895fb44a78065b5b9c35706ff4f1f98">ERR_FILE_HW_XML</a>,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa736e9ab32bfa78ed7ac62d8b321aa332">   71</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa736e9ab32bfa78ed7ac62d8b321aa332">ERR_FILE_WRITE</a>,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa70a88cfd0fe8ab82be3cb1c707ca899d">   76</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa70a88cfd0fe8ab82be3cb1c707ca899d">ERR_FILE_CONFIG</a>,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa843792d9cae30d684f41e84b64750961">   81</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa843792d9cae30d684f41e84b64750961">ERR_MEM_ALLOC</a>,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaad6622b6634c340fb09c7b96429ad251">   86</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaad6622b6634c340fb09c7b96429ad251">ERR_DIR_NOT_SEL</a>,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa793fd379718ccd6b4e1ba1b893a4371a">   91</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa793fd379718ccd6b4e1ba1b893a4371a">ERR_BUF_SIZE_DIFF</a>,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8439c3d776bb25b4c7ff00e6bb2ff2cf">   96</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8439c3d776bb25b4c7ff00e6bb2ff2cf">ERR_CMD_LSPCI_NOT_EXEC</a>,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa1743b7a8224c58e6cf9bcfa9a5e94f75">  101</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa1743b7a8224c58e6cf9bcfa9a5e94f75">ERR_CMD_EDID_NOT_EXEC</a>,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa0ee3269dc1240b8e596abe1dce61fcc4">  106</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa0ee3269dc1240b8e596abe1dce61fcc4">ERR_CMD_DMI_NOT_EXEC</a>,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8e1773545184322c3d84e16324ba8969">  111</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8e1773545184322c3d84e16324ba8969">ERR_CMD_VGBABIOS_NOT_EXEC</a>,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa7a30d07f353033189c749f631207673e">  116</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa7a30d07f353033189c749f631207673e">ERR_CMD_TAR_PACK_NOT_EXEC</a>,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaddf03555f8e8833bdd158a1cf5f45324">  121</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaddf03555f8e8833bdd158a1cf5f45324">ERR_CMD_TAR_UNPACK_NOT_EXEC</a>,</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaee2256918ccc6df45ba3520afc64cf70">  126</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaee2256918ccc6df45ba3520afc64cf70">ERR_CONFIG_NOT_KNOWN</a>,</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8827775da7c1b6e59d17c99c66794e7a">  131</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8827775da7c1b6e59d17c99c66794e7a">ERR_COREBOOT_COPY_ROM</a>,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa31571baa5bea3b635f596f21ac0db812">  136</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa31571baa5bea3b635f596f21ac0db812">ERR_COREBOOT_COPY_VGABIOS</a>,</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa1d5875e9625f97ca5244425e29284549">  141</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa1d5875e9625f97ca5244425e29284549">ERR_COREBOOT_COPY_CONFIG</a>,</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8b7421cacfd160b904f89e5d01f037fd">  146</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8b7421cacfd160b904f89e5d01f037fd">ERR_COREBOOT_MAKE</a>,</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaf81a826b9680026180251acb060a2bdb">  151</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaf81a826b9680026180251acb060a2bdb">ERR_COREBOOT_NEED_FACTORY_BIOS</a>,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa87a122ef3157f3960350427047486307">  156</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa87a122ef3157f3960350427047486307">ERR_COREBOOT_NOROM</a>,</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa3cc831a6a831b00f8df46450add4660d">  161</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa3cc831a6a831b00f8df46450add4660d">ERR_COREBOOT_WRONG_DIR</a>,</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa6ce26a62afab55d7606ad4e92428b30c">  166</a></span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa6ce26a62afab55d7606ad4e92428b30c">UNKNOWN</a></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;};</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor">#endif // CONSTANTS_H</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor"></span></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa0c7a00960b47bfbcd7c7cb248f478e3c"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa0c7a00960b47bfbcd7c7cb248f478e3c">ERR_CHIP_NOT_PROBED</a></div><div class="ttdoc">No probed chip (no flash cotext) </div><div class="ttdef"><b>Definition:</b> constants.h:41</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa3cc831a6a831b00f8df46450add4660d"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa3cc831a6a831b00f8df46450add4660d">ERR_COREBOOT_WRONG_DIR</a></div><div class="ttdoc">No coreboot dir found. </div><div class="ttdef"><b>Definition:</b> constants.h:161</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faaee2256918ccc6df45ba3520afc64cf70"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaee2256918ccc6df45ba3520afc64cf70">ERR_CONFIG_NOT_KNOWN</a></div><div class="ttdoc">No working configuration is known. </div><div class="ttdef"><b>Definition:</b> constants.h:126</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faac895fb44a78065b5b9c35706ff4f1f98"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faac895fb44a78065b5b9c35706ff4f1f98">ERR_FILE_HW_XML</a></div><div class="ttdoc">hardware_data.xml file can&#39;t be read </div><div class="ttdef"><b>Definition:</b> constants.h:66</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faaaf827c08ae0567a25a42bc75bfe7f82a"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaaf827c08ae0567a25a42bc75bfe7f82a">ERR_CHIP_NOT_READ</a></div><div class="ttdoc">Chip can&#39;t be read. </div><div class="ttdef"><b>Definition:</b> constants.h:51</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa9a61f540a7531a8b59adfb8cb06b2e74"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa9a61f540a7531a8b59adfb8cb06b2e74">ERR_CHIP_PROBED</a></div><div class="ttdoc">Chip already probed. </div><div class="ttdef"><b>Definition:</b> constants.h:46</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa793fd379718ccd6b4e1ba1b893a4371a"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa793fd379718ccd6b4e1ba1b893a4371a">ERR_BUF_SIZE_DIFF</a></div><div class="ttdoc">Size of input data differ from chip size. </div><div class="ttdef"><b>Definition:</b> constants.h:91</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa7e99340f7a1cb603e38a5035f8d1b5d2"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa7e99340f7a1cb603e38a5035f8d1b5d2">ERR_PROG_NOT_INIT</a></div><div class="ttdoc">Programmer not initialized. </div><div class="ttdef"><b>Definition:</b> constants.h:21</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa1d5875e9625f97ca5244425e29284549"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa1d5875e9625f97ca5244425e29284549">ERR_COREBOOT_COPY_CONFIG</a></div><div class="ttdoc">Configuration can&#39;t be copied to coreboot. </div><div class="ttdef"><b>Definition:</b> constants.h:141</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa7a30d07f353033189c749f631207673e"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa7a30d07f353033189c749f631207673e">ERR_CMD_TAR_PACK_NOT_EXEC</a></div><div class="ttdoc">Files not packed to tar file. </div><div class="ttdef"><b>Definition:</b> constants.h:116</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faaf71d0a36a94b6ddf3850111b297ad03f"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaf71d0a36a94b6ddf3850111b297ad03f">ERR_WRITE_FAILED</a></div><div class="ttdoc">Writing to a chip failed. </div><div class="ttdef"><b>Definition:</b> constants.h:31</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa31571baa5bea3b635f596f21ac0db812"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa31571baa5bea3b635f596f21ac0db812">ERR_COREBOOT_COPY_VGABIOS</a></div><div class="ttdoc">VGABIOS can&#39;t be copied to coreboot. </div><div class="ttdef"><b>Definition:</b> constants.h:136</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faac7f69f7c9e5aea9b8f54cf02870e2bf8"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faac7f69f7c9e5aea9b8f54cf02870e2bf8">SUCCESS</a></div><div class="ttdoc">Operation executed successfully. </div><div class="ttdef"><b>Definition:</b> constants.h:16</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa6ce26a62afab55d7606ad4e92428b30c"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa6ce26a62afab55d7606ad4e92428b30c">UNKNOWN</a></div><div class="ttdoc">Unknown error. </div><div class="ttdef"><b>Definition:</b> constants.h:166</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa8e1773545184322c3d84e16324ba8969"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8e1773545184322c3d84e16324ba8969">ERR_CMD_VGBABIOS_NOT_EXEC</a></div><div class="ttdoc">Script &#39;extract_vga_bios.sh&#39; not executed. </div><div class="ttdef"><b>Definition:</b> constants.h:111</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa843792d9cae30d684f41e84b64750961"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa843792d9cae30d684f41e84b64750961">ERR_MEM_ALLOC</a></div><div class="ttdoc">Memory allocation failed. </div><div class="ttdef"><b>Definition:</b> constants.h:81</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa736e9ab32bfa78ed7ac62d8b321aa332"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa736e9ab32bfa78ed7ac62d8b321aa332">ERR_FILE_WRITE</a></div><div class="ttdoc">File can&#39;t be written. </div><div class="ttdef"><b>Definition:</b> constants.h:71</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faaf81a826b9680026180251acb060a2bdb"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaf81a826b9680026180251acb060a2bdb">ERR_COREBOOT_NEED_FACTORY_BIOS</a></div><div class="ttdoc">Coreboot configuration needs factory BIOS. </div><div class="ttdef"><b>Definition:</b> constants.h:151</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa87a122ef3157f3960350427047486307"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa87a122ef3157f3960350427047486307">ERR_COREBOOT_NOROM</a></div><div class="ttdoc">No coreboot rom found. </div><div class="ttdef"><b>Definition:</b> constants.h:156</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa357dcacb7fea5cb731e00b72c2dc4505"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa357dcacb7fea5cb731e00b72c2dc4505">ERR_FILE_SELECTED</a></div><div class="ttdoc">Selected file can&#39;t be opened. </div><div class="ttdef"><b>Definition:</b> constants.h:61</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa9070a6d8881c93f6af92ccb819a3351d"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa9070a6d8881c93f6af92ccb819a3351d">ERR_CHIP_NOT_VERIFIED</a></div><div class="ttdoc">Chip not verfied. </div><div class="ttdef"><b>Definition:</b> constants.h:56</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa8827775da7c1b6e59d17c99c66794e7a"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8827775da7c1b6e59d17c99c66794e7a">ERR_COREBOOT_COPY_ROM</a></div><div class="ttdoc">Coreboot rom can&#39;t be copied. </div><div class="ttdef"><b>Definition:</b> constants.h:131</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faaddf03555f8e8833bdd158a1cf5f45324"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaddf03555f8e8833bdd158a1cf5f45324">ERR_CMD_TAR_UNPACK_NOT_EXEC</a></div><div class="ttdoc">Files not extracted from tar file. </div><div class="ttdef"><b>Definition:</b> constants.h:121</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faab63644ff6a63e25f4f82ba6873624b96"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faab63644ff6a63e25f4f82ba6873624b96">ERR_READ_LESS_BYTES</a></div><div class="ttdoc">Not enough amount of bytes has been read. </div><div class="ttdef"><b>Definition:</b> constants.h:36</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa1743b7a8224c58e6cf9bcfa9a5e94f75"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa1743b7a8224c58e6cf9bcfa9a5e94f75">ERR_CMD_EDID_NOT_EXEC</a></div><div class="ttdoc">Command &#39;cat /sys/class/drm/card0-LVDS-1/edid | edid-decode&#39; not executed. </div><div class="ttdef"><b>Definition:</b> constants.h:101</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa8439c3d776bb25b4c7ff00e6bb2ff2cf"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8439c3d776bb25b4c7ff00e6bb2ff2cf">ERR_CMD_LSPCI_NOT_EXEC</a></div><div class="ttdoc">Command &#39;lspci -nn&#39; not executed. </div><div class="ttdef"><b>Definition:</b> constants.h:96</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa70a88cfd0fe8ab82be3cb1c707ca899d"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa70a88cfd0fe8ab82be3cb1c707ca899d">ERR_FILE_CONFIG</a></div><div class="ttdoc">Config file can&#39;t be accessed. </div><div class="ttdef"><b>Definition:</b> constants.h:76</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa93c0493ec30916e79815294487bf3708"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa93c0493ec30916e79815294487bf3708">ERR_PROBE_FAILED</a></div><div class="ttdoc">Probing for a chip failed. </div><div class="ttdef"><b>Definition:</b> constants.h:26</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa0ee3269dc1240b8e596abe1dce61fcc4"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa0ee3269dc1240b8e596abe1dce61fcc4">ERR_CMD_DMI_NOT_EXEC</a></div><div class="ttdoc">Command &#39;lspci -nn&#39; not executed. </div><div class="ttdef"><b>Definition:</b> constants.h:106</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74fa"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a></div><div class="ttdeci">RET_VAL</div><div class="ttdoc">Possible error codes. </div><div class="ttdef"><b>Definition:</b> constants.h:12</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faa8b7421cacfd160b904f89e5d01f037fd"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faa8b7421cacfd160b904f89e5d01f037fd">ERR_COREBOOT_MAKE</a></div><div class="ttdoc">Coreboot make error. </div><div class="ttdef"><b>Definition:</b> constants.h:146</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74faaad6622b6634c340fb09c7b96429ad251"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74faaad6622b6634c340fb09c7b96429ad251">ERR_DIR_NOT_SEL</a></div><div class="ttdoc">Directory in QFileDialog not selected. </div><div class="ttdef"><b>Definition:</b> constants.h:86</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

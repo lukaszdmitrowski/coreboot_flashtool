@@ -29,7 +29,18 @@ class MultiSortFilterModel : public QSortFilterProxyModel
 
 public:
         explicit MultiSortFilterModel(QObject *parent = 0);
+
+        /**
+         * @brief Set list of columns to be filtered
+         * @param filterColumns [in] - Columns to be filtered
+         */
         void setFilterKeyColumns(const QList<qint32> &filterColumns);
+
+        /**
+         * @brief Set filter pattern to specified column
+         * @param column [in] Column number
+         * @param pattern
+         */
         void setFilter(qint32 column, const QString &pattern);
 
 protected:

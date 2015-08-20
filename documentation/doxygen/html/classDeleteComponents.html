@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,6 +83,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classDeleteComponents-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">DeleteComponents Class Reference</div>  </div>
@@ -102,6 +104,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a27897b1d60d46c4ca576d60d5a71b0ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a27897b1d60d46c4ca576d60d5a71b0ea"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DeleteComponents</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a27897b1d60d46c4ca576d60d5a71b0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a4dd54a166cded9f1ada0becc3d6c2437"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4dd54a166cded9f1ada0becc3d6c2437"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDeleteComponents.html#a4dd54a166cded9f1ada0becc3d6c2437">on_b_remove_comp_clicked</a> ()</td></tr>
+<tr class="memdesc:a4dd54a166cded9f1ada0becc3d6c2437"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when b_remove_comp button is clicked Removes CBFS component with use of cbfs_tool. <br/></td></tr>
+<tr class="separator:a4dd54a166cded9f1ada0becc3d6c2437"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad43d0808f935a920ea4cbddc5548ed8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad43d0808f935a920ea4cbddc5548ed8c"></a>
+Ui::DeleteComponents *&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b></td></tr>
+<tr class="separator:ad43d0808f935a920ea4cbddc5548ed8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="deletecomponents_8h_source.html">deletecomponents.h</a></li>
@@ -110,7 +125,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

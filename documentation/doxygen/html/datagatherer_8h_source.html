@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -87,33 +88,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;stdio.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;constants.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="constants_8h.html">constants.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 <div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classDataGatherer.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDataGatherer.html">DataGatherer</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <a class="code" href="classDataGatherer.html">DataGatherer</a>();</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        RET_VAL save_lspci_output();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        RET_VAL save_edid_data();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        RET_VAL save_dmidecode_output();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        RET_VAL save_bios_rom_factory(QString save_path);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        RET_VAL save_bios_rom_from_iomem();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">void</span> extract_rom(QString bios_rom_path);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        QString get_graphic_card_model();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        QString get_display_panel_model();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        QString get_motherboard_model();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        RET_VAL create_hardware_data_archive();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        RET_VAL unpack_hardware_data_archive(QString filename);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif // DATAGATHERER_H</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> <a class="code" href="classDataGatherer.html#a77ded74272e1c80715106081e12b67fb">save_lspci_output</a>();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> <a class="code" href="classDataGatherer.html#a8ea3c1580b848d09da73fc4422043e0d">save_edid_data</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> <a class="code" href="classDataGatherer.html#a0f20eb5811ca910ba418bcab7439a99f">save_dmidecode_output</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> <a class="code" href="classDataGatherer.html#a2183a8a06988a7bcd95170d94d961f85">save_bios_rom_factory</a>(QString save_path);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> <a class="code" href="classDataGatherer.html#a7f6d3d2669450f279064694798912358">save_bios_rom_from_iomem</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classDataGatherer.html#abefb282ecb13454e87779fafe51bfe74">extract_rom</a>(QString bios_rom_path);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        QString <a class="code" href="classDataGatherer.html#afb8ae017608db79de193dca247b15fc3">get_graphic_card_model</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        QString <a class="code" href="classDataGatherer.html#a3e4f5ea1610739e09b433daadc537e3e">get_display_panel_model</a>();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        QString <a class="code" href="classDataGatherer.html#a5a2de7e19f4a673e1f88e962f8b32588">get_motherboard_model</a>();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> <a class="code" href="classDataGatherer.html#a5071be7a22f26a1e8c4956fd88756aa6">create_hardware_data_archive</a>();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <a class="code" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> <a class="code" href="classDataGatherer.html#aaea8e9ae23a7f6ea5e0b1b04e9125596">unpack_hardware_data_archive</a>(QString filename);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;};</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif // DATAGATHERER_H</span></div>
+<div class="ttc" id="classDataGatherer_html_a0f20eb5811ca910ba418bcab7439a99f"><div class="ttname"><a href="classDataGatherer.html#a0f20eb5811ca910ba418bcab7439a99f">DataGatherer::save_dmidecode_output</a></div><div class="ttdeci">RET_VAL save_dmidecode_output()</div><div class="ttdoc">Save output of &#39;dmidecode -t 2&#39; to hardware_data/dmidecode_output.txt. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:54</div></div>
+<div class="ttc" id="classDataGatherer_html_abefb282ecb13454e87779fafe51bfe74"><div class="ttname"><a href="classDataGatherer.html#abefb282ecb13454e87779fafe51bfe74">DataGatherer::extract_rom</a></div><div class="ttdeci">void extract_rom(QString bios_rom_path)</div><div class="ttdoc">Extract rom components to specified path. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:113</div></div>
+<div class="ttc" id="classDataGatherer_html_a5071be7a22f26a1e8c4956fd88756aa6"><div class="ttname"><a href="classDataGatherer.html#a5071be7a22f26a1e8c4956fd88756aa6">DataGatherer::create_hardware_data_archive</a></div><div class="ttdeci">RET_VAL create_hardware_data_archive()</div><div class="ttdoc">Create tar file from all files related to gathered hardware data. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:189</div></div>
+<div class="ttc" id="constants_8h_html"><div class="ttname"><a href="constants_8h.html">constants.h</a></div></div>
+<div class="ttc" id="classDataGatherer_html_a7f6d3d2669450f279064694798912358"><div class="ttname"><a href="classDataGatherer.html#a7f6d3d2669450f279064694798912358">DataGatherer::save_bios_rom_from_iomem</a></div><div class="ttdeci">RET_VAL save_bios_rom_from_iomem()</div><div class="ttdoc">Call &#39;extract_vga_bios.sh&#39; responsible for extracting VGABIOS from memory. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:100</div></div>
+<div class="ttc" id="classDataGatherer_html_a2183a8a06988a7bcd95170d94d961f85"><div class="ttname"><a href="classDataGatherer.html#a2183a8a06988a7bcd95170d94d961f85">DataGatherer::save_bios_rom_factory</a></div><div class="ttdeci">RET_VAL save_bios_rom_factory(QString save_path)</div><div class="ttdoc">Read and save factory BIOS image. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:67</div></div>
 <div class="ttc" id="classDataGatherer_html"><div class="ttname"><a href="classDataGatherer.html">DataGatherer</a></div><div class="ttdef"><b>Definition:</b> datagatherer.h:8</div></div>
+<div class="ttc" id="classDataGatherer_html_afb8ae017608db79de193dca247b15fc3"><div class="ttname"><a href="classDataGatherer.html#afb8ae017608db79de193dca247b15fc3">DataGatherer::get_graphic_card_model</a></div><div class="ttdeci">QString get_graphic_card_model()</div><div class="ttdoc">Return graphic card model basing on lspci_output.txt. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:118</div></div>
+<div class="ttc" id="classDataGatherer_html_a77ded74272e1c80715106081e12b67fb"><div class="ttname"><a href="classDataGatherer.html#a77ded74272e1c80715106081e12b67fb">DataGatherer::save_lspci_output</a></div><div class="ttdeci">RET_VAL save_lspci_output()</div><div class="ttdoc">Save output of &#39;lspci -nn&#39; to hardware_data/lspci_output.txt. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:22</div></div>
+<div class="ttc" id="classDataGatherer_html_a3e4f5ea1610739e09b433daadc537e3e"><div class="ttname"><a href="classDataGatherer.html#a3e4f5ea1610739e09b433daadc537e3e">DataGatherer::get_display_panel_model</a></div><div class="ttdeci">QString get_display_panel_model()</div><div class="ttdoc">Return display panel model basing on edid-decode_output.txt. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:141</div></div>
+<div class="ttc" id="classDataGatherer_html_a5a2de7e19f4a673e1f88e962f8b32588"><div class="ttname"><a href="classDataGatherer.html#a5a2de7e19f4a673e1f88e962f8b32588">DataGatherer::get_motherboard_model</a></div><div class="ttdeci">QString get_motherboard_model()</div><div class="ttdoc">Return motherboard model basing on dmidecode_output.txt. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:164</div></div>
+<div class="ttc" id="classDataGatherer_html_aaea8e9ae23a7f6ea5e0b1b04e9125596"><div class="ttname"><a href="classDataGatherer.html#aaea8e9ae23a7f6ea5e0b1b04e9125596">DataGatherer::unpack_hardware_data_archive</a></div><div class="ttdeci">RET_VAL unpack_hardware_data_archive(QString filename)</div><div class="ttdoc">Unpack tar file from specified path. </div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:202</div></div>
+<div class="ttc" id="classDataGatherer_html_a8ea3c1580b848d09da73fc4422043e0d"><div class="ttname"><a href="classDataGatherer.html#a8ea3c1580b848d09da73fc4422043e0d">DataGatherer::save_edid_data</a></div><div class="ttdeci">RET_VAL save_edid_data()</div><div class="ttdoc">Save output of &#39;cat /sys/class/drm/card0-LVDS-1/edid | edid-decode&#39; command to hardware_data/edid-dec...</div><div class="ttdef"><b>Definition:</b> datagatherer.cpp:35</div></div>
+<div class="ttc" id="constants_8h_html_a162259a19a6f1c2e286a49703fab74fa"><div class="ttname"><a href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a></div><div class="ttdeci">RET_VAL</div><div class="ttdoc">Possible error codes. </div><div class="ttdef"><b>Definition:</b> constants.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

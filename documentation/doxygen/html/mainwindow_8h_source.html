@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -122,78 +123,141 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classMainWindow.html">MainWindow</a>(QWidget *parent = 0);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        ~<a class="code" href="classMainWindow.html">MainWindow</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        QString get_cbfs_rom_path();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="classUi_1_1MainWindow.html">Ui::MainWindow</a> *ui;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        QTextEdit *active_log_out;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        QString chip_name;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        QString coreboot_dir;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        QString factory_bios_dir;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">bool</span> chip_found;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">bool</span> programmer_initialized;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="classInfoDialog.html">InfoDialog</a> *info_dialog;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">/* Main window */</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> on_b_init_prog_clicked();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="comment">/* Toolbar */</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">void</span> on_act_supported_list_triggered();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">void</span> on_act_preferences_triggered();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> on_act_about_triggered();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="comment">/* Auto tab */</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">void</span> on_b_auto_get_bios_clicked();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">void</span> on_b_auto_set_bios_clicked();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">void</span> on_b_auto_get_hw_data_clicked();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordtype">void</span> on_b_auto_build_img_clicked();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordtype">void</span> on_b_auto_flash_clicked();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="comment">/* Flash tab */</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">void</span> on_b_read_clicked();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">void</span> on_b_probe_clicked();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">void</span> on_b_verify_clicked();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">void</span> on_b_erase_clicked();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordtype">void</span> on_b_flash_clicked();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="comment">/* Extract tab */</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordtype">void</span> on_b_sel_bios_rom_clicked();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordtype">void</span> on_b_sel_bios_out_clicked();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">void</span> on_b_extract_clicked();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="comment">/* Create rom tab */</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordtype">void</span> on_b_create_rom_clicked();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">void</span> on_b_sel_boot_block_clicked();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        QString <a class="code" href="classMainWindow.html#a7aa165ddf55717d85ab6f744f63c8795">get_cbfs_rom_path</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        Ui::MainWindow *ui;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classMainWindow.html#acb081a83000d665b349943e012e14c67">   51</a></span>&#160;        QTextEdit *<a class="code" href="classMainWindow.html#acb081a83000d665b349943e012e14c67">active_log_out</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classMainWindow.html#a898a7f35b61cbb1668be8ab027ee6c87">   56</a></span>&#160;        QString <a class="code" href="classMainWindow.html#a898a7f35b61cbb1668be8ab027ee6c87">chip_name</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classMainWindow.html#af3641fe0d6d71b6fe3ada1a7fd9f0abe">   61</a></span>&#160;        QString <a class="code" href="classMainWindow.html#af3641fe0d6d71b6fe3ada1a7fd9f0abe">coreboot_dir</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classMainWindow.html#aa9b9e4aa3b2225b372c723f900fd4840">   66</a></span>&#160;        QString <a class="code" href="classMainWindow.html#aa9b9e4aa3b2225b372c723f900fd4840">factory_bios_dir</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classMainWindow.html#afe8040a491f4140c36c4d1cca2a63390">   71</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classMainWindow.html#afe8040a491f4140c36c4d1cca2a63390">chip_found</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classMainWindow.html#ade45675d9c29a12f3891c0e5ffb6b520">   76</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classMainWindow.html#ade45675d9c29a12f3891c0e5ffb6b520">programmer_initialized</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classMainWindow.html#add53793006fe49da98302a2f0df4f34f">   81</a></span>&#160;        <a class="code" href="classInfoDialog.html">InfoDialog</a> *<a class="code" href="classMainWindow.html#add53793006fe49da98302a2f0df4f34f">info_dialog</a>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="comment">/* Rom options tab */</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">void</span> on_b_ropt_select_clicked();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">void</span> on_b_add_component_clicked();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">void</span> on_b_remove_comp_clicked();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="comment">/* Other */</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">void</span> on_tabWidget_currentChanged(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="comment">/* Main window */</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a739bb8827f4f89a8d0603ee30b07f7c1">on_b_init_prog_clicked</a>();</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">void</span> fill_cb_programmers();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">void</span> fill_cb_arch();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordtype">void</span> fill_cb_payload();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordtype">void</span> open_select_bios_rom_window();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">void</span> open_select_bios_out_window();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        QString cbfs_rom_path;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        QString bios_rom_path;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        QString bootblock_path;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        QStandardItemModel *model;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">extern</span> <a class="code" href="classMainWindow.html">MainWindow</a> *w;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif // MAINWINDOW_H</span></div>
-<div class="ttc" id="classUi_1_1MainWindow_html"><div class="ttname"><a href="classUi_1_1MainWindow.html">Ui::MainWindow</a></div><div class="ttdef"><b>Definition:</b> ui_mainwindow.h:432</div></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="comment">/* Toolbar */</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#aded4c0deda475f41cb48fedf6df3df63">on_act_supported_list_triggered</a>();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a993203a924e4c60865ce293bb46d15ac">on_act_preferences_triggered</a>();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a447e7e603fbe7751a69c3db95b3ec012">on_act_about_triggered</a>();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="comment">/* Auto tab */</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a32935bfab4fa2a17626957996b1fead7">on_b_auto_get_bios_clicked</a>();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a4830493a356334bf5e96fa9b61da4e1d">on_b_auto_set_bios_clicked</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#af9c4de9fbdb4e838461ead091fef3fce">on_b_auto_get_hw_data_clicked</a>();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a030136de444199a8119222d3c8093664">on_b_auto_build_img_clicked</a>();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a01786662cf8383bbdad963120a2834f1">on_b_auto_flash_clicked</a>();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="comment">/* Flash tab */</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a88dc514059002f16a2aa3879875a016e">on_b_read_clicked</a>();</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a6cc92e76d7af1478e51152bdc70a1b73">on_b_probe_clicked</a>();</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#ab499c9bac34bc0b0a129daf2f98be600">on_b_verify_clicked</a>();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a236be77c3d33de2f5471782e34fb367f">on_b_erase_clicked</a>();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#aa1e6672a66f7195d9b0d76d36aa943bf">on_b_flash_clicked</a>();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="comment">/* Extract tab */</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#af195c59d4c2855425a0b71ccb90f831f">on_b_sel_bios_rom_clicked</a>();</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#afde47b8ac1142cac0203201773bc32e1">on_b_sel_bios_out_clicked</a>();</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#ac6d361a650d166d2d1735f4200dbefbe">on_b_extract_clicked</a>();</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="comment">/* Create rom tab */</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a610d1d0afb9bcfa9eb8a7866cd257504">on_b_create_rom_clicked</a>();</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a7f42eb351b8c54a64ced019a07d8e4c2">on_b_sel_boot_block_clicked</a>();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="comment">/* Rom options tab */</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#af96f3db5924f0a35c66a59fbe614a289">on_b_ropt_select_clicked</a>();</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a1db273138c56264df50ce331cecd4dfb">on_b_add_component_clicked</a>();</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a848f02b599ae50b1f782ce3b134bbfb8">on_b_remove_comp_clicked</a>();</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="comment">/* Other */</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#ab5ec4a06e4e38781eb7b913fed92733e">on_tabWidget_currentChanged</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#aa569b50f0f5a2628569f179e6881957c">fill_cb_programmers</a>();</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#add8df6b342782960fb076672be9c69ec">fill_cb_arch</a>();</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#aad98fcd8753232a1c6184466dbb0fa3d">fill_cb_payload</a>();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
+<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="classMainWindow.html#a666d6e863a93675876ee998efe0be38b">  250</a></span>&#160;        QString <a class="code" href="classMainWindow.html#a666d6e863a93675876ee998efe0be38b">cbfs_rom_path</a>;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="classMainWindow.html#a5f5cd2886112a393e4de3e9f4eebfa22">  255</a></span>&#160;        QString <a class="code" href="classMainWindow.html#a5f5cd2886112a393e4de3e9f4eebfa22">bios_rom_path</a>;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
+<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="classMainWindow.html#adb69c52f622073f0f67fb95290428b8c">  260</a></span>&#160;        QString <a class="code" href="classMainWindow.html#adb69c52f622073f0f67fb95290428b8c">bootblock_path</a>;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="classMainWindow.html#aa1a1f8ce9c37a7ac70d21402759638b3">  265</a></span>&#160;        QStandardItemModel *<a class="code" href="classMainWindow.html#aa1a1f8ce9c37a7ac70d21402759638b3">model</a>;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;};</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="keyword">extern</span> <a class="code" href="classMainWindow.html">MainWindow</a> *w;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="preprocessor">#endif // MAINWINDOW_H</span></div>
+<div class="ttc" id="classMainWindow_html_a6cc92e76d7af1478e51152bdc70a1b73"><div class="ttname"><a href="classMainWindow.html#a6cc92e76d7af1478e51152bdc70a1b73">MainWindow::on_b_probe_clicked</a></div><div class="ttdeci">void on_b_probe_clicked()</div><div class="ttdoc">Called when on_b_probe button is clicked Probes for all known chips, if multiple chips are found it o...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:141</div></div>
+<div class="ttc" id="classMainWindow_html_a5f5cd2886112a393e4de3e9f4eebfa22"><div class="ttname"><a href="classMainWindow.html#a5f5cd2886112a393e4de3e9f4eebfa22">MainWindow::bios_rom_path</a></div><div class="ttdeci">QString bios_rom_path</div><div class="ttdoc">Path to BIOS image for bios_extract tool. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:255</div></div>
+<div class="ttc" id="classMainWindow_html_a447e7e603fbe7751a69c3db95b3ec012"><div class="ttname"><a href="classMainWindow.html#a447e7e603fbe7751a69c3db95b3ec012">MainWindow::on_act_about_triggered</a></div><div class="ttdeci">void on_act_about_triggered()</div><div class="ttdoc">Called when on_act_about action is clicked Opens About window with information about application and ...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:681</div></div>
+<div class="ttc" id="classMainWindow_html_add53793006fe49da98302a2f0df4f34f"><div class="ttname"><a href="classMainWindow.html#add53793006fe49da98302a2f0df4f34f">MainWindow::info_dialog</a></div><div class="ttdeci">InfoDialog * info_dialog</div><div class="ttdoc">Pointer to InfoDialog. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:81</div></div>
+<div class="ttc" id="classMainWindow_html_aa1a1f8ce9c37a7ac70d21402759638b3"><div class="ttname"><a href="classMainWindow.html#aa1a1f8ce9c37a7ac70d21402759638b3">MainWindow::model</a></div><div class="ttdeci">QStandardItemModel * model</div><div class="ttdoc">Pointer to model responsible for storing data of corresponding rom content in cbfs_tool. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:265</div></div>
+<div class="ttc" id="classMainWindow_html_a236be77c3d33de2f5471782e34fb367f"><div class="ttname"><a href="classMainWindow.html#a236be77c3d33de2f5471782e34fb367f">MainWindow::on_b_erase_clicked</a></div><div class="ttdeci">void on_b_erase_clicked()</div><div class="ttdoc">Called when on_b_erase button is clicked Erases chip conetent. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:218</div></div>
+<div class="ttc" id="classMainWindow_html_a01786662cf8383bbdad963120a2834f1"><div class="ttname"><a href="classMainWindow.html#a01786662cf8383bbdad963120a2834f1">MainWindow::on_b_auto_flash_clicked</a></div><div class="ttdeci">void on_b_auto_flash_clicked()</div><div class="ttdoc">Called when on_b_auto_flash button is clicked Writes coreboot image to chip. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:529</div></div>
+<div class="ttc" id="classMainWindow_html_acb081a83000d665b349943e012e14c67"><div class="ttname"><a href="classMainWindow.html#acb081a83000d665b349943e012e14c67">MainWindow::active_log_out</a></div><div class="ttdeci">QTextEdit * active_log_out</div><div class="ttdoc">Pointer to active log output. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:51</div></div>
+<div class="ttc" id="classMainWindow_html_af195c59d4c2855425a0b71ccb90f831f"><div class="ttname"><a href="classMainWindow.html#af195c59d4c2855425a0b71ccb90f831f">MainWindow::on_b_sel_bios_rom_clicked</a></div><div class="ttdeci">void on_b_sel_bios_rom_clicked()</div><div class="ttdoc">Called when on_sel_bios_rom button is clicked Opens QFileDialog to select a rom for extraction...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:277</div></div>
+<div class="ttc" id="classMainWindow_html_a993203a924e4c60865ce293bb46d15ac"><div class="ttname"><a href="classMainWindow.html#a993203a924e4c60865ce293bb46d15ac">MainWindow::on_act_preferences_triggered</a></div><div class="ttdeci">void on_act_preferences_triggered()</div><div class="ttdoc">Called when on_act_preferences action is clicked Opens Preferences window with possible application o...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:674</div></div>
+<div class="ttc" id="classMainWindow_html_a898a7f35b61cbb1668be8ab027ee6c87"><div class="ttname"><a href="classMainWindow.html#a898a7f35b61cbb1668be8ab027ee6c87">MainWindow::chip_name</a></div><div class="ttdeci">QString chip_name</div><div class="ttdoc">Name of probed chip. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:56</div></div>
+<div class="ttc" id="classMainWindow_html_ade45675d9c29a12f3891c0e5ffb6b520"><div class="ttname"><a href="classMainWindow.html#ade45675d9c29a12f3891c0e5ffb6b520">MainWindow::programmer_initialized</a></div><div class="ttdeci">bool programmer_initialized</div><div class="ttdoc">Indicates if programmer has been initialized by flashrom. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:76</div></div>
+<div class="ttc" id="classMainWindow_html_add8df6b342782960fb076672be9c69ec"><div class="ttname"><a href="classMainWindow.html#add8df6b342782960fb076672be9c69ec">MainWindow::fill_cb_arch</a></div><div class="ttdeci">void fill_cb_arch()</div><div class="ttdoc">Fill cb_arch combo box with available architectures. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:653</div></div>
 <div class="ttc" id="classInfoDialog_html"><div class="ttname"><a href="classInfoDialog.html">InfoDialog</a></div><div class="ttdef"><b>Definition:</b> infodialog.h:11</div></div>
+<div class="ttc" id="classMainWindow_html_aa1e6672a66f7195d9b0d76d36aa943bf"><div class="ttname"><a href="classMainWindow.html#aa1e6672a66f7195d9b0d76d36aa943bf">MainWindow::on_b_flash_clicked</a></div><div class="ttdeci">void on_b_flash_clicked()</div><div class="ttdoc">Called when on_b_flash button is clicked Opens QFileDialog and writes selected file content to chip...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:235</div></div>
+<div class="ttc" id="classMainWindow_html_aa9b9e4aa3b2225b372c723f900fd4840"><div class="ttname"><a href="classMainWindow.html#aa9b9e4aa3b2225b372c723f900fd4840">MainWindow::factory_bios_dir</a></div><div class="ttdeci">QString factory_bios_dir</div><div class="ttdoc">Path to factory BIOS file. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:66</div></div>
+<div class="ttc" id="classMainWindow_html_aa569b50f0f5a2628569f179e6881957c"><div class="ttname"><a href="classMainWindow.html#aa569b50f0f5a2628569f179e6881957c">MainWindow::fill_cb_programmers</a></div><div class="ttdeci">void fill_cb_programmers()</div><div class="ttdoc">Fill cb_programmers combo box with available programmers. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:640</div></div>
+<div class="ttc" id="classMainWindow_html_adb69c52f622073f0f67fb95290428b8c"><div class="ttname"><a href="classMainWindow.html#adb69c52f622073f0f67fb95290428b8c">MainWindow::bootblock_path</a></div><div class="ttdeci">QString bootblock_path</div><div class="ttdoc">Path to boot block for bios_extract tool. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:260</div></div>
+<div class="ttc" id="classMainWindow_html_a4830493a356334bf5e96fa9b61da4e1d"><div class="ttname"><a href="classMainWindow.html#a4830493a356334bf5e96fa9b61da4e1d">MainWindow::on_b_auto_set_bios_clicked</a></div><div class="ttdeci">void on_b_auto_set_bios_clicked()</div><div class="ttdoc">Called when on_b_auto_set_bios button is clicked Opens QFileDialog to set a path to factory BIOS imag...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:322</div></div>
+<div class="ttc" id="classMainWindow_html_af3641fe0d6d71b6fe3ada1a7fd9f0abe"><div class="ttname"><a href="classMainWindow.html#af3641fe0d6d71b6fe3ada1a7fd9f0abe">MainWindow::coreboot_dir</a></div><div class="ttdeci">QString coreboot_dir</div><div class="ttdoc">Path to coreboot directory. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:61</div></div>
+<div class="ttc" id="classMainWindow_html_af9c4de9fbdb4e838461ead091fef3fce"><div class="ttname"><a href="classMainWindow.html#af9c4de9fbdb4e838461ead091fef3fce">MainWindow::on_b_auto_get_hw_data_clicked</a></div><div class="ttdeci">void on_b_auto_get_hw_data_clicked()</div><div class="ttdoc">Called when on_b_auto_get_hw_data button is clicked Opens QFileDialog to set a path to factory BIOS i...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:331</div></div>
+<div class="ttc" id="classMainWindow_html_afde47b8ac1142cac0203201773bc32e1"><div class="ttname"><a href="classMainWindow.html#afde47b8ac1142cac0203201773bc32e1">MainWindow::on_b_sel_bios_out_clicked</a></div><div class="ttdeci">void on_b_sel_bios_out_clicked()</div><div class="ttdoc">Called when on_b_sel_bios_out button is clicked Opens QFileDialog to select output directory for extr...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:287</div></div>
+<div class="ttc" id="classMainWindow_html_a7aa165ddf55717d85ab6f744f63c8795"><div class="ttname"><a href="classMainWindow.html#a7aa165ddf55717d85ab6f744f63c8795">MainWindow::get_cbfs_rom_path</a></div><div class="ttdeci">QString get_cbfs_rom_path()</div><div class="ttdoc">Return path to rom loaded to cbfs_tool. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:709</div></div>
+<div class="ttc" id="classMainWindow_html_af96f3db5924f0a35c66a59fbe614a289"><div class="ttname"><a href="classMainWindow.html#af96f3db5924f0a35c66a59fbe614a289">MainWindow::on_b_ropt_select_clicked</a></div><div class="ttdeci">void on_b_ropt_select_clicked()</div><div class="ttdoc">Called when on_b_ropt_select button is clicked Opens QFileDialog to select rom file for cbfs_tool...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:714</div></div>
+<div class="ttc" id="classMainWindow_html_a030136de444199a8119222d3c8093664"><div class="ttname"><a href="classMainWindow.html#a030136de444199a8119222d3c8093664">MainWindow::on_b_auto_build_img_clicked</a></div><div class="ttdeci">void on_b_auto_build_img_clicked()</div><div class="ttdoc">Called when on_b_auto_build_img button is clicked Builds coreboot image and copies it to application ...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:361</div></div>
+<div class="ttc" id="classMainWindow_html_ab499c9bac34bc0b0a129daf2f98be600"><div class="ttname"><a href="classMainWindow.html#ab499c9bac34bc0b0a129daf2f98be600">MainWindow::on_b_verify_clicked</a></div><div class="ttdeci">void on_b_verify_clicked()</div><div class="ttdoc">Called when on_b_verify button is clicked Opens QFileDialog, reads chip content and compares it with ...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:173</div></div>
+<div class="ttc" id="classMainWindow_html_aad98fcd8753232a1c6184466dbb0fa3d"><div class="ttname"><a href="classMainWindow.html#aad98fcd8753232a1c6184466dbb0fa3d">MainWindow::fill_cb_payload</a></div><div class="ttdeci">void fill_cb_payload()</div><div class="ttdoc">Fill cb_payload combo box with available payloads. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:661</div></div>
+<div class="ttc" id="classMainWindow_html_aded4c0deda475f41cb48fedf6df3df63"><div class="ttname"><a href="classMainWindow.html#aded4c0deda475f41cb48fedf6df3df63">MainWindow::on_act_supported_list_triggered</a></div><div class="ttdeci">void on_act_supported_list_triggered()</div><div class="ttdoc">Called when on_act_supported_list action is clicked Opens Supported window with list of hardware supp...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:667</div></div>
+<div class="ttc" id="classMainWindow_html_afe8040a491f4140c36c4d1cca2a63390"><div class="ttname"><a href="classMainWindow.html#afe8040a491f4140c36c4d1cca2a63390">MainWindow::chip_found</a></div><div class="ttdeci">bool chip_found</div><div class="ttdoc">Indicates if chip was found by flashrom. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:71</div></div>
+<div class="ttc" id="classMainWindow_html_a7f42eb351b8c54a64ced019a07d8e4c2"><div class="ttname"><a href="classMainWindow.html#a7f42eb351b8c54a64ced019a07d8e4c2">MainWindow::on_b_sel_boot_block_clicked</a></div><div class="ttdeci">void on_b_sel_boot_block_clicked()</div><div class="ttdoc">Called when on_b_sel_boot_block button is clicked Opens QFileDialog to select boot block file...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:300</div></div>
+<div class="ttc" id="classMainWindow_html_a666d6e863a93675876ee998efe0be38b"><div class="ttname"><a href="classMainWindow.html#a666d6e863a93675876ee998efe0be38b">MainWindow::cbfs_rom_path</a></div><div class="ttdeci">QString cbfs_rom_path</div><div class="ttdoc">Path to CBFS rom image for cbfs_tool. </div><div class="ttdef"><b>Definition:</b> mainwindow.h:250</div></div>
+<div class="ttc" id="classMainWindow_html_ab5ec4a06e4e38781eb7b913fed92733e"><div class="ttname"><a href="classMainWindow.html#ab5ec4a06e4e38781eb7b913fed92733e">MainWindow::on_tabWidget_currentChanged</a></div><div class="ttdeci">void on_tabWidget_currentChanged(int index)</div><div class="ttdoc">Called when tabWidget tab is changed Sets appropriate log output to active_log_out pointer...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:688</div></div>
+<div class="ttc" id="classMainWindow_html_a32935bfab4fa2a17626957996b1fead7"><div class="ttname"><a href="classMainWindow.html#a32935bfab4fa2a17626957996b1fead7">MainWindow::on_b_auto_get_bios_clicked</a></div><div class="ttdeci">void on_b_auto_get_bios_clicked()</div><div class="ttdoc">Called when on_b_auto_get_bios button is clicked Reads BIOS image from chip and saves it in hardware_...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:310</div></div>
+<div class="ttc" id="classMainWindow_html_ac6d361a650d166d2d1735f4200dbefbe"><div class="ttname"><a href="classMainWindow.html#ac6d361a650d166d2d1735f4200dbefbe">MainWindow::on_b_extract_clicked</a></div><div class="ttdeci">void on_b_extract_clicked()</div><div class="ttdoc">Called when on_b_extract button is clicked Extracts rom contents with use of bios_extract tool...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:565</div></div>
+<div class="ttc" id="classMainWindow_html_a739bb8827f4f89a8d0603ee30b07f7c1"><div class="ttname"><a href="classMainWindow.html#a739bb8827f4f89a8d0603ee30b07f7c1">MainWindow::on_b_init_prog_clicked</a></div><div class="ttdeci">void on_b_init_prog_clicked()</div><div class="ttdoc">Called when b_init_prog button is clicked Initializes a programmer selected in cb_sel_progr combo box...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:628</div></div>
+<div class="ttc" id="classMainWindow_html_a848f02b599ae50b1f782ce3b134bbfb8"><div class="ttname"><a href="classMainWindow.html#a848f02b599ae50b1f782ce3b134bbfb8">MainWindow::on_b_remove_comp_clicked</a></div><div class="ttdeci">void on_b_remove_comp_clicked()</div><div class="ttdoc">Called when on_b_remove_comp button is clicked Opens DeleteComponents dialog. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:621</div></div>
+<div class="ttc" id="classMainWindow_html_a610d1d0afb9bcfa9eb8a7866cd257504"><div class="ttname"><a href="classMainWindow.html#a610d1d0afb9bcfa9eb8a7866cd257504">MainWindow::on_b_create_rom_clicked</a></div><div class="ttdeci">void on_b_create_rom_clicked()</div><div class="ttdoc">Called when on_b_create_rom button is clicked Creates image with use of cbfs_tool. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:571</div></div>
+<div class="ttc" id="classMainWindow_html_a1db273138c56264df50ce331cecd4dfb"><div class="ttname"><a href="classMainWindow.html#a1db273138c56264df50ce331cecd4dfb">MainWindow::on_b_add_component_clicked</a></div><div class="ttdeci">void on_b_add_component_clicked()</div><div class="ttdoc">Called when on_b_add_component button is clicked Opens AddComponent dialog. </div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:614</div></div>
 <div class="ttc" id="classMainWindow_html"><div class="ttname"><a href="classMainWindow.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> mainwindow.h:34</div></div>
+<div class="ttc" id="classMainWindow_html_a88dc514059002f16a2aa3879875a016e"><div class="ttname"><a href="classMainWindow.html#a88dc514059002f16a2aa3879875a016e">MainWindow::on_b_read_clicked</a></div><div class="ttdeci">void on_b_read_clicked()</div><div class="ttdoc">Called when on_b_read button is clicked Opens QFileDialog, reads chip content and saves it to selecte...</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:153</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

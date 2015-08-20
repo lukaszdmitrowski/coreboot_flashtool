@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,6 +83,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classAddComponent-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AddComponent Class Reference</div>  </div>
@@ -102,7 +105,86 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a09f1311751df371815dde94ca52f505e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09f1311751df371815dde94ca52f505e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AddComponent</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a09f1311751df371815dde94ca52f505e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a52f806860222fff6ed7d835e23bf4bbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAddComponent.html#a52f806860222fff6ed7d835e23bf4bbf">on_b_sel_component_clicked</a> ()</td></tr>
+<tr class="memdesc:a52f806860222fff6ed7d835e23bf4bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when b_sel_component button is clicked.  <a href="#a52f806860222fff6ed7d835e23bf4bbf">More...</a><br/></td></tr>
+<tr class="separator:a52f806860222fff6ed7d835e23bf4bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87ba9103ce19e0584b2c7cae943cc85e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAddComponent.html#a87ba9103ce19e0584b2c7cae943cc85e">on_b_add_component_clicked</a> ()</td></tr>
+<tr class="memdesc:a87ba9103ce19e0584b2c7cae943cc85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when b_add_component button is clicked.  <a href="#a87ba9103ce19e0584b2c7cae943cc85e">More...</a><br/></td></tr>
+<tr class="separator:a87ba9103ce19e0584b2c7cae943cc85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a331f3a13deaee3caa6aac82f16b39b6b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a331f3a13deaee3caa6aac82f16b39b6b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAddComponent.html#a331f3a13deaee3caa6aac82f16b39b6b">fill_cb_type</a> ()</td></tr>
+<tr class="memdesc:a331f3a13deaee3caa6aac82f16b39b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills cb_type combo box with possible component types. <br/></td></tr>
+<tr class="separator:a331f3a13deaee3caa6aac82f16b39b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a12b6d9b8347bb831e63eb431d4d11827"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a12b6d9b8347bb831e63eb431d4d11827"></a>
+Ui::AddComponent *&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b></td></tr>
+<tr class="separator:a12b6d9b8347bb831e63eb431d4d11827"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0beb3dbb08be16537bb9532cdf2bf851"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0beb3dbb08be16537bb9532cdf2bf851"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAddComponent.html#a0beb3dbb08be16537bb9532cdf2bf851">component_path</a></td></tr>
+<tr class="memdesc:a0beb3dbb08be16537bb9532cdf2bf851"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to component. <br/></td></tr>
+<tr class="separator:a0beb3dbb08be16537bb9532cdf2bf851"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a87ba9103ce19e0584b2c7cae943cc85e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AddComponent::on_b_add_component_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when b_add_component button is clicked. </p>
+<p>Adds component to CBFS image </p>
+
+</div>
+</div>
+<a class="anchor" id="a52f806860222fff6ed7d835e23bf4bbf"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AddComponent::on_b_sel_component_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when b_sel_component button is clicked. </p>
+<p>Calls QFileDialog to select a path for component </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="addcomponent_8h_source.html">addcomponent.h</a></li>
 <li>addcomponent.cpp</li>
@@ -110,7 +192,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

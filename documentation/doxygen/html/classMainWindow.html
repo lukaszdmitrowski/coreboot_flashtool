@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -84,6 +84,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMainWindow-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">MainWindow Class Reference</div>  </div>
@@ -103,37 +106,192 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8b244be8b7b7db1b08de2a2acb9409db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b244be8b7b7db1b08de2a2acb9409db"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>MainWindow</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a8b244be8b7b7db1b08de2a2acb9409db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aa165ddf55717d85ab6f744f63c8795"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7aa165ddf55717d85ab6f744f63c8795"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>get_cbfs_rom_path</b> ()</td></tr>
+<tr class="memitem:a7aa165ddf55717d85ab6f744f63c8795"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a7aa165ddf55717d85ab6f744f63c8795">get_cbfs_rom_path</a> ()</td></tr>
+<tr class="memdesc:a7aa165ddf55717d85ab6f744f63c8795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return path to rom loaded to cbfs_tool.  <a href="#a7aa165ddf55717d85ab6f744f63c8795">More...</a><br/></td></tr>
 <tr class="separator:a7aa165ddf55717d85ab6f744f63c8795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a35466a70ed47252a0191168126a352a5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35466a70ed47252a0191168126a352a5"></a>
-<a class="el" href="classUi_1_1MainWindow.html">Ui::MainWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b></td></tr>
+Ui::MainWindow *&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b></td></tr>
 <tr class="separator:a35466a70ed47252a0191168126a352a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb081a83000d665b349943e012e14c67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb081a83000d665b349943e012e14c67"></a>
-QTextEdit *&#160;</td><td class="memItemRight" valign="bottom"><b>active_log_out</b></td></tr>
+QTextEdit *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#acb081a83000d665b349943e012e14c67">active_log_out</a></td></tr>
+<tr class="memdesc:acb081a83000d665b349943e012e14c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to active log output. <br/></td></tr>
 <tr class="separator:acb081a83000d665b349943e012e14c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a898a7f35b61cbb1668be8ab027ee6c87"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a898a7f35b61cbb1668be8ab027ee6c87"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>chip_name</b></td></tr>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a898a7f35b61cbb1668be8ab027ee6c87">chip_name</a></td></tr>
+<tr class="memdesc:a898a7f35b61cbb1668be8ab027ee6c87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of probed chip. <br/></td></tr>
 <tr class="separator:a898a7f35b61cbb1668be8ab027ee6c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3641fe0d6d71b6fe3ada1a7fd9f0abe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af3641fe0d6d71b6fe3ada1a7fd9f0abe"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>coreboot_dir</b></td></tr>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#af3641fe0d6d71b6fe3ada1a7fd9f0abe">coreboot_dir</a></td></tr>
+<tr class="memdesc:af3641fe0d6d71b6fe3ada1a7fd9f0abe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to coreboot directory. <br/></td></tr>
 <tr class="separator:af3641fe0d6d71b6fe3ada1a7fd9f0abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9b9e4aa3b2225b372c723f900fd4840"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9b9e4aa3b2225b372c723f900fd4840"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>factory_bios_dir</b></td></tr>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#aa9b9e4aa3b2225b372c723f900fd4840">factory_bios_dir</a></td></tr>
+<tr class="memdesc:aa9b9e4aa3b2225b372c723f900fd4840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to factory BIOS file. <br/></td></tr>
 <tr class="separator:aa9b9e4aa3b2225b372c723f900fd4840"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe8040a491f4140c36c4d1cca2a63390"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe8040a491f4140c36c4d1cca2a63390"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>chip_found</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#afe8040a491f4140c36c4d1cca2a63390">chip_found</a></td></tr>
+<tr class="memdesc:afe8040a491f4140c36c4d1cca2a63390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if chip was found by flashrom. <br/></td></tr>
 <tr class="separator:afe8040a491f4140c36c4d1cca2a63390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade45675d9c29a12f3891c0e5ffb6b520"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ade45675d9c29a12f3891c0e5ffb6b520"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>programmer_initialized</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#ade45675d9c29a12f3891c0e5ffb6b520">programmer_initialized</a></td></tr>
+<tr class="memdesc:ade45675d9c29a12f3891c0e5ffb6b520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if programmer has been initialized by flashrom. <br/></td></tr>
 <tr class="separator:ade45675d9c29a12f3891c0e5ffb6b520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add53793006fe49da98302a2f0df4f34f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add53793006fe49da98302a2f0df4f34f"></a>
-<a class="el" href="classInfoDialog.html">InfoDialog</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>info_dialog</b></td></tr>
+<a class="el" href="classInfoDialog.html">InfoDialog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#add53793006fe49da98302a2f0df4f34f">info_dialog</a></td></tr>
+<tr class="memdesc:add53793006fe49da98302a2f0df4f34f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to <a class="el" href="classInfoDialog.html">InfoDialog</a>. <br/></td></tr>
 <tr class="separator:add53793006fe49da98302a2f0df4f34f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a739bb8827f4f89a8d0603ee30b07f7c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a739bb8827f4f89a8d0603ee30b07f7c1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a739bb8827f4f89a8d0603ee30b07f7c1">on_b_init_prog_clicked</a> ()</td></tr>
+<tr class="memdesc:a739bb8827f4f89a8d0603ee30b07f7c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when b_init_prog button is clicked Initializes a programmer selected in cb_sel_progr combo box. <br/></td></tr>
+<tr class="separator:a739bb8827f4f89a8d0603ee30b07f7c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aded4c0deda475f41cb48fedf6df3df63"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aded4c0deda475f41cb48fedf6df3df63"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#aded4c0deda475f41cb48fedf6df3df63">on_act_supported_list_triggered</a> ()</td></tr>
+<tr class="memdesc:aded4c0deda475f41cb48fedf6df3df63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_act_supported_list action is clicked Opens <a class="el" href="classSupported.html">Supported</a> window with list of hardware supported by flashrom. <br/></td></tr>
+<tr class="separator:aded4c0deda475f41cb48fedf6df3df63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993203a924e4c60865ce293bb46d15ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a993203a924e4c60865ce293bb46d15ac"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a993203a924e4c60865ce293bb46d15ac">on_act_preferences_triggered</a> ()</td></tr>
+<tr class="memdesc:a993203a924e4c60865ce293bb46d15ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_act_preferences action is clicked Opens <a class="el" href="classPreferences.html">Preferences</a> window with possible application options. <br/></td></tr>
+<tr class="separator:a993203a924e4c60865ce293bb46d15ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a447e7e603fbe7751a69c3db95b3ec012"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a447e7e603fbe7751a69c3db95b3ec012"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a447e7e603fbe7751a69c3db95b3ec012">on_act_about_triggered</a> ()</td></tr>
+<tr class="memdesc:a447e7e603fbe7751a69c3db95b3ec012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_act_about action is clicked Opens <a class="el" href="classAbout.html">About</a> window with information about application and used tools. <br/></td></tr>
+<tr class="separator:a447e7e603fbe7751a69c3db95b3ec012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32935bfab4fa2a17626957996b1fead7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32935bfab4fa2a17626957996b1fead7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a32935bfab4fa2a17626957996b1fead7">on_b_auto_get_bios_clicked</a> ()</td></tr>
+<tr class="memdesc:a32935bfab4fa2a17626957996b1fead7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_auto_get_bios button is clicked Reads BIOS image from chip and saves it in hardware_data/factory_bios.bin. <br/></td></tr>
+<tr class="separator:a32935bfab4fa2a17626957996b1fead7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4830493a356334bf5e96fa9b61da4e1d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4830493a356334bf5e96fa9b61da4e1d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a4830493a356334bf5e96fa9b61da4e1d">on_b_auto_set_bios_clicked</a> ()</td></tr>
+<tr class="memdesc:a4830493a356334bf5e96fa9b61da4e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_auto_set_bios button is clicked Opens QFileDialog to set a path to factory BIOS image. <br/></td></tr>
+<tr class="separator:a4830493a356334bf5e96fa9b61da4e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c4de9fbdb4e838461ead091fef3fce"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9c4de9fbdb4e838461ead091fef3fce"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#af9c4de9fbdb4e838461ead091fef3fce">on_b_auto_get_hw_data_clicked</a> ()</td></tr>
+<tr class="memdesc:af9c4de9fbdb4e838461ead091fef3fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_auto_get_hw_data button is clicked Opens QFileDialog to set a path to factory BIOS image. <br/></td></tr>
+<tr class="separator:af9c4de9fbdb4e838461ead091fef3fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a030136de444199a8119222d3c8093664"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a030136de444199a8119222d3c8093664"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a030136de444199a8119222d3c8093664">on_b_auto_build_img_clicked</a> ()</td></tr>
+<tr class="memdesc:a030136de444199a8119222d3c8093664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_auto_build_img button is clicked Builds coreboot image and copies it to application directory. <br/></td></tr>
+<tr class="separator:a030136de444199a8119222d3c8093664"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01786662cf8383bbdad963120a2834f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01786662cf8383bbdad963120a2834f1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a01786662cf8383bbdad963120a2834f1">on_b_auto_flash_clicked</a> ()</td></tr>
+<tr class="memdesc:a01786662cf8383bbdad963120a2834f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_auto_flash button is clicked Writes coreboot image to chip. <br/></td></tr>
+<tr class="separator:a01786662cf8383bbdad963120a2834f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88dc514059002f16a2aa3879875a016e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88dc514059002f16a2aa3879875a016e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a88dc514059002f16a2aa3879875a016e">on_b_read_clicked</a> ()</td></tr>
+<tr class="memdesc:a88dc514059002f16a2aa3879875a016e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_read button is clicked Opens QFileDialog, reads chip content and saves it to selected file. <br/></td></tr>
+<tr class="separator:a88dc514059002f16a2aa3879875a016e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cc92e76d7af1478e51152bdc70a1b73"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6cc92e76d7af1478e51152bdc70a1b73"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a6cc92e76d7af1478e51152bdc70a1b73">on_b_probe_clicked</a> ()</td></tr>
+<tr class="memdesc:a6cc92e76d7af1478e51152bdc70a1b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_probe button is clicked Probes for all known chips, if multiple chips are found it opens <a class="el" href="classChooseChip.html">ChooseChip</a> dialog to select particular chip and probe for this specified chip again. <br/></td></tr>
+<tr class="separator:a6cc92e76d7af1478e51152bdc70a1b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab499c9bac34bc0b0a129daf2f98be600"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab499c9bac34bc0b0a129daf2f98be600"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#ab499c9bac34bc0b0a129daf2f98be600">on_b_verify_clicked</a> ()</td></tr>
+<tr class="memdesc:ab499c9bac34bc0b0a129daf2f98be600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_verify button is clicked Opens QFileDialog, reads chip content and compares it with selected file. <br/></td></tr>
+<tr class="separator:ab499c9bac34bc0b0a129daf2f98be600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a236be77c3d33de2f5471782e34fb367f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a236be77c3d33de2f5471782e34fb367f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a236be77c3d33de2f5471782e34fb367f">on_b_erase_clicked</a> ()</td></tr>
+<tr class="memdesc:a236be77c3d33de2f5471782e34fb367f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_erase button is clicked Erases chip conetent. <br/></td></tr>
+<tr class="separator:a236be77c3d33de2f5471782e34fb367f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e6672a66f7195d9b0d76d36aa943bf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1e6672a66f7195d9b0d76d36aa943bf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#aa1e6672a66f7195d9b0d76d36aa943bf">on_b_flash_clicked</a> ()</td></tr>
+<tr class="memdesc:aa1e6672a66f7195d9b0d76d36aa943bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_flash button is clicked Opens QFileDialog and writes selected file content to chip. <br/></td></tr>
+<tr class="separator:aa1e6672a66f7195d9b0d76d36aa943bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af195c59d4c2855425a0b71ccb90f831f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af195c59d4c2855425a0b71ccb90f831f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#af195c59d4c2855425a0b71ccb90f831f">on_b_sel_bios_rom_clicked</a> ()</td></tr>
+<tr class="memdesc:af195c59d4c2855425a0b71ccb90f831f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_sel_bios_rom button is clicked Opens QFileDialog to select a rom for extraction. <br/></td></tr>
+<tr class="separator:af195c59d4c2855425a0b71ccb90f831f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afde47b8ac1142cac0203201773bc32e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afde47b8ac1142cac0203201773bc32e1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#afde47b8ac1142cac0203201773bc32e1">on_b_sel_bios_out_clicked</a> ()</td></tr>
+<tr class="memdesc:afde47b8ac1142cac0203201773bc32e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_sel_bios_out button is clicked Opens QFileDialog to select output directory for extraction. <br/></td></tr>
+<tr class="separator:afde47b8ac1142cac0203201773bc32e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6d361a650d166d2d1735f4200dbefbe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6d361a650d166d2d1735f4200dbefbe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#ac6d361a650d166d2d1735f4200dbefbe">on_b_extract_clicked</a> ()</td></tr>
+<tr class="memdesc:ac6d361a650d166d2d1735f4200dbefbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_extract button is clicked Extracts rom contents with use of bios_extract tool. <br/></td></tr>
+<tr class="separator:ac6d361a650d166d2d1735f4200dbefbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a610d1d0afb9bcfa9eb8a7866cd257504"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a610d1d0afb9bcfa9eb8a7866cd257504"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a610d1d0afb9bcfa9eb8a7866cd257504">on_b_create_rom_clicked</a> ()</td></tr>
+<tr class="memdesc:a610d1d0afb9bcfa9eb8a7866cd257504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_create_rom button is clicked Creates image with use of cbfs_tool. <br/></td></tr>
+<tr class="separator:a610d1d0afb9bcfa9eb8a7866cd257504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f42eb351b8c54a64ced019a07d8e4c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f42eb351b8c54a64ced019a07d8e4c2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a7f42eb351b8c54a64ced019a07d8e4c2">on_b_sel_boot_block_clicked</a> ()</td></tr>
+<tr class="memdesc:a7f42eb351b8c54a64ced019a07d8e4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_sel_boot_block button is clicked Opens QFileDialog to select boot block file. <br/></td></tr>
+<tr class="separator:a7f42eb351b8c54a64ced019a07d8e4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af96f3db5924f0a35c66a59fbe614a289"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af96f3db5924f0a35c66a59fbe614a289"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#af96f3db5924f0a35c66a59fbe614a289">on_b_ropt_select_clicked</a> ()</td></tr>
+<tr class="memdesc:af96f3db5924f0a35c66a59fbe614a289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_ropt_select button is clicked Opens QFileDialog to select rom file for cbfs_tool. <br/></td></tr>
+<tr class="separator:af96f3db5924f0a35c66a59fbe614a289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1db273138c56264df50ce331cecd4dfb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1db273138c56264df50ce331cecd4dfb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a1db273138c56264df50ce331cecd4dfb">on_b_add_component_clicked</a> ()</td></tr>
+<tr class="memdesc:a1db273138c56264df50ce331cecd4dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_add_component button is clicked Opens <a class="el" href="classAddComponent.html">AddComponent</a> dialog. <br/></td></tr>
+<tr class="separator:a1db273138c56264df50ce331cecd4dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a848f02b599ae50b1f782ce3b134bbfb8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a848f02b599ae50b1f782ce3b134bbfb8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a848f02b599ae50b1f782ce3b134bbfb8">on_b_remove_comp_clicked</a> ()</td></tr>
+<tr class="memdesc:a848f02b599ae50b1f782ce3b134bbfb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_remove_comp button is clicked Opens <a class="el" href="classDeleteComponents.html">DeleteComponents</a> dialog. <br/></td></tr>
+<tr class="separator:a848f02b599ae50b1f782ce3b134bbfb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ec4a06e4e38781eb7b913fed92733e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5ec4a06e4e38781eb7b913fed92733e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#ab5ec4a06e4e38781eb7b913fed92733e">on_tabWidget_currentChanged</a> (int index)</td></tr>
+<tr class="memdesc:ab5ec4a06e4e38781eb7b913fed92733e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when tabWidget tab is changed Sets appropriate log output to active_log_out pointer. <br/></td></tr>
+<tr class="separator:ab5ec4a06e4e38781eb7b913fed92733e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aa569b50f0f5a2628569f179e6881957c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa569b50f0f5a2628569f179e6881957c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#aa569b50f0f5a2628569f179e6881957c">fill_cb_programmers</a> ()</td></tr>
+<tr class="memdesc:aa569b50f0f5a2628569f179e6881957c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill cb_programmers combo box with available programmers. <br/></td></tr>
+<tr class="separator:aa569b50f0f5a2628569f179e6881957c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add8df6b342782960fb076672be9c69ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add8df6b342782960fb076672be9c69ec"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#add8df6b342782960fb076672be9c69ec">fill_cb_arch</a> ()</td></tr>
+<tr class="memdesc:add8df6b342782960fb076672be9c69ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill cb_arch combo box with available architectures. <br/></td></tr>
+<tr class="separator:add8df6b342782960fb076672be9c69ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad98fcd8753232a1c6184466dbb0fa3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad98fcd8753232a1c6184466dbb0fa3d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#aad98fcd8753232a1c6184466dbb0fa3d">fill_cb_payload</a> ()</td></tr>
+<tr class="memdesc:aad98fcd8753232a1c6184466dbb0fa3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill cb_payload combo box with available payloads. <br/></td></tr>
+<tr class="separator:aad98fcd8753232a1c6184466dbb0fa3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a666d6e863a93675876ee998efe0be38b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a666d6e863a93675876ee998efe0be38b"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a666d6e863a93675876ee998efe0be38b">cbfs_rom_path</a></td></tr>
+<tr class="memdesc:a666d6e863a93675876ee998efe0be38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to CBFS rom image for cbfs_tool. <br/></td></tr>
+<tr class="separator:a666d6e863a93675876ee998efe0be38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f5cd2886112a393e4de3e9f4eebfa22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f5cd2886112a393e4de3e9f4eebfa22"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a5f5cd2886112a393e4de3e9f4eebfa22">bios_rom_path</a></td></tr>
+<tr class="memdesc:a5f5cd2886112a393e4de3e9f4eebfa22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to BIOS image for bios_extract tool. <br/></td></tr>
+<tr class="separator:a5f5cd2886112a393e4de3e9f4eebfa22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb69c52f622073f0f67fb95290428b8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb69c52f622073f0f67fb95290428b8c"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#adb69c52f622073f0f67fb95290428b8c">bootblock_path</a></td></tr>
+<tr class="memdesc:adb69c52f622073f0f67fb95290428b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to boot block for bios_extract tool. <br/></td></tr>
+<tr class="separator:adb69c52f622073f0f67fb95290428b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1a1f8ce9c37a7ac70d21402759638b3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1a1f8ce9c37a7ac70d21402759638b3"></a>
+QStandardItemModel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#aa1a1f8ce9c37a7ac70d21402759638b3">model</a></td></tr>
+<tr class="memdesc:aa1a1f8ce9c37a7ac70d21402759638b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to model responsible for storing data of corresponding rom content in cbfs_tool. <br/></td></tr>
+<tr class="separator:aa1a1f8ce9c37a7ac70d21402759638b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a7aa165ddf55717d85ab6f744f63c8795"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString MainWindow::get_cbfs_rom_path </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return path to rom loaded to cbfs_tool. </p>
+<dl class="section return"><dt>Returns</dt><dd>path tom rom loaded to cbfs_tool </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="mainwindow_8h_source.html">mainwindow.h</a></li>
 <li>mainwindow.cpp</li>
@@ -141,7 +299,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>programmer_initialize
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,6 +83,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classChooseChip-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ChooseChip Class Reference</div>  </div>
@@ -102,13 +104,79 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a86433ee7ca248b75b72cdee5c484cc31"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a86433ee7ca248b75b72cdee5c484cc31"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ChooseChip</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a86433ee7ca248b75b72cdee5c484cc31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07ac26f7b12d03e8c8dd04f1dfd24c58"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07ac26f7b12d03e8c8dd04f1dfd24c58"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_chip</b> (QString chip_name)</td></tr>
+<tr class="memitem:a07ac26f7b12d03e8c8dd04f1dfd24c58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChooseChip.html#a07ac26f7b12d03e8c8dd04f1dfd24c58">add_chip</a> (QString chip_name)</td></tr>
+<tr class="memdesc:a07ac26f7b12d03e8c8dd04f1dfd24c58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add chip name to chip list.  <a href="#a07ac26f7b12d03e8c8dd04f1dfd24c58">More...</a><br/></td></tr>
 <tr class="separator:a07ac26f7b12d03e8c8dd04f1dfd24c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae34f2a29b05ff8cbb6acc6b72d841370"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae34f2a29b05ff8cbb6acc6b72d841370"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_flash_ctx_ptr</b> (fl_flashctx_t **ctx_ptr)</td></tr>
+<tr class="memitem:ae34f2a29b05ff8cbb6acc6b72d841370"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChooseChip.html#ae34f2a29b05ff8cbb6acc6b72d841370">set_flash_ctx_ptr</a> (fl_flashctx_t **ctx_ptr)</td></tr>
+<tr class="memdesc:ae34f2a29b05ff8cbb6acc6b72d841370"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set pointer to flash context pointer.  <a href="#ae34f2a29b05ff8cbb6acc6b72d841370">More...</a><br/></td></tr>
 <tr class="separator:ae34f2a29b05ff8cbb6acc6b72d841370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:aad187a6776af0d573601b59e6f25c7fc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad187a6776af0d573601b59e6f25c7fc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChooseChip.html#aad187a6776af0d573601b59e6f25c7fc">on_b_chip_ok_clicked</a> ()</td></tr>
+<tr class="memdesc:aad187a6776af0d573601b59e6f25c7fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when b_chip_ok button is clicked Probes for a chip selected from a list of chips found and sets chip name in <a class="el" href="classMainWindow.html">MainWindow</a>. <br/></td></tr>
+<tr class="separator:aad187a6776af0d573601b59e6f25c7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:addc79b304970f2239241f74ed1537e26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="addc79b304970f2239241f74ed1537e26"></a>
+Ui::ChooseChip *&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b></td></tr>
+<tr class="separator:addc79b304970f2239241f74ed1537e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affacd5bd1d39467649d05bbd2fe299a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="affacd5bd1d39467649d05bbd2fe299a0"></a>
+fl_flashctx_t **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChooseChip.html#affacd5bd1d39467649d05bbd2fe299a0">flash_context_ptr</a></td></tr>
+<tr class="memdesc:affacd5bd1d39467649d05bbd2fe299a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to flash context pointer. <br/></td></tr>
+<tr class="separator:affacd5bd1d39467649d05bbd2fe299a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a07ac26f7b12d03e8c8dd04f1dfd24c58"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ChooseChip::add_chip </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>chip_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add chip name to chip list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chip_name</td><td>[in] Name of a chip </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae34f2a29b05ff8cbb6acc6b72d841370"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ChooseChip::set_flash_ctx_ptr </td>
+          <td>(</td>
+          <td class="paramtype">fl_flashctx_t **&#160;</td>
+          <td class="paramname"><em>ctx_ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set pointer to flash context pointer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx_ptr</td><td>[in] pointer to flash context pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="choosechip_8h_source.html">choosechip.h</a></li>
 <li>choosechip.cpp</li>
@@ -116,7 +184,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>set_flash_ctx_ptr</b>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -127,35 +128,61 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        ~<a class="code" href="classSupported.html">Supported</a>();</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">void</span> show_flash_chips();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> show_boards();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">void</span> show_chipsets();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> on_cb_sel_hardware_currentIndexChanged(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span> on_cb_sel_vendor_currentIndexChanged();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">void</span> on_edit_name_textChanged(<span class="keyword">const</span> QString &amp;arg1);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> on_cb_sel_custom_currentIndexChanged();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        QString test_state_to_qstring(fl_test_state test_state);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="classUi_1_1Supported.html">Ui::Supported</a> *ui;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        QStandardItemModel *model;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="classMultiSortFilterModel.html">MultiSortFilterModel</a> *sortFilterModel;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        fl_flashchip_info *flashchip_info;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        fl_board_info *boards_list;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        fl_chipset_info *chipsets_list;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        QStringList vendor_list;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        QStringList custom_list;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif // SUPPORTED_H</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classSupported.html#a5f930944e34f47597778b4b22c417948">show_flash_chips</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classSupported.html#ac6789f9133847caa77940d55ccd5a987">show_boards</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classSupported.html#aee93c08aece1691f7cad5553679ce68a">show_chipsets</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classSupported.html#a259953851cc09b60bb4ba24de98ca878">on_cb_sel_hardware_currentIndexChanged</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classSupported.html#aa39f31f95d29e04e5f56f453e48407bf">on_cb_sel_vendor_currentIndexChanged</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classSupported.html#a826ba824bd4976606ac802c82d36c137">on_edit_name_textChanged</a>(<span class="keyword">const</span> QString &amp;arg1);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classSupported.html#a66d4b56dcf19033d924aa2eaa84878e8">on_cb_sel_custom_currentIndexChanged</a>();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        QString <a class="code" href="classSupported.html#a4b2e4f8b601fafd01292634bdad0ff54">test_state_to_qstring</a>(fl_test_state test_state);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        Ui::Supported *ui;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classSupported.html#ab97cf13bd06bcb843680fcdb4c23af40">  101</a></span>&#160;        QStandardItemModel *<a class="code" href="classSupported.html#ab97cf13bd06bcb843680fcdb4c23af40">model</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classSupported.html#a3892a8495afd3462ecb85159ce66cba6">  106</a></span>&#160;        <a class="code" href="classMultiSortFilterModel.html">MultiSortFilterModel</a> *<a class="code" href="classSupported.html#a3892a8495afd3462ecb85159ce66cba6">sortFilterModel</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classSupported.html#a39dcba29063dccb5332c5b4ff6981762">  111</a></span>&#160;        fl_flashchip_info *<a class="code" href="classSupported.html#a39dcba29063dccb5332c5b4ff6981762">flashchip_info</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classSupported.html#ad2a03ef9b5b244b68a7bbf17582659d5">  116</a></span>&#160;        fl_board_info *<a class="code" href="classSupported.html#ad2a03ef9b5b244b68a7bbf17582659d5">boards_list</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classSupported.html#abf95fcabf0021088ef140ceb513e083f">  121</a></span>&#160;        fl_chipset_info *<a class="code" href="classSupported.html#abf95fcabf0021088ef140ceb513e083f">chipsets_list</a>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classSupported.html#a41144cd3de72ef2f904d44fd665c4dec">  126</a></span>&#160;        QStringList <a class="code" href="classSupported.html#a41144cd3de72ef2f904d44fd665c4dec">vendor_list</a>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="classSupported.html#a6f5ac2a86f3508e7582a0f59a790224e">  131</a></span>&#160;        QStringList <a class="code" href="classSupported.html#a6f5ac2a86f3508e7582a0f59a790224e">custom_list</a>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;};</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#endif // SUPPORTED_H</span></div>
+<div class="ttc" id="classSupported_html_a4b2e4f8b601fafd01292634bdad0ff54"><div class="ttname"><a href="classSupported.html#a4b2e4f8b601fafd01292634bdad0ff54">Supported::test_state_to_qstring</a></div><div class="ttdeci">QString test_state_to_qstring(fl_test_state test_state)</div><div class="ttdoc">Conver fl_test_state to QString. </div><div class="ttdef"><b>Definition:</b> supported.cpp:221</div></div>
+<div class="ttc" id="classSupported_html_aa39f31f95d29e04e5f56f453e48407bf"><div class="ttname"><a href="classSupported.html#aa39f31f95d29e04e5f56f453e48407bf">Supported::on_cb_sel_vendor_currentIndexChanged</a></div><div class="ttdeci">void on_cb_sel_vendor_currentIndexChanged()</div><div class="ttdoc">Called when cb_sel_vendor combo box index changed Applies vendor filter according to selected value i...</div><div class="ttdef"><b>Definition:</b> supported.cpp:260</div></div>
 <div class="ttc" id="classSupported_html"><div class="ttname"><a href="classSupported.html">Supported</a></div><div class="ttdef"><b>Definition:</b> supported.h:37</div></div>
+<div class="ttc" id="classSupported_html_a41144cd3de72ef2f904d44fd665c4dec"><div class="ttname"><a href="classSupported.html#a41144cd3de72ef2f904d44fd665c4dec">Supported::vendor_list</a></div><div class="ttdeci">QStringList vendor_list</div><div class="ttdoc">List of hardware vendors. </div><div class="ttdef"><b>Definition:</b> supported.h:126</div></div>
+<div class="ttc" id="classSupported_html_a6f5ac2a86f3508e7582a0f59a790224e"><div class="ttname"><a href="classSupported.html#a6f5ac2a86f3508e7582a0f59a790224e">Supported::custom_list</a></div><div class="ttdeci">QStringList custom_list</div><div class="ttdoc">List of custom filter options. </div><div class="ttdef"><b>Definition:</b> supported.h:131</div></div>
 <div class="ttc" id="classMultiSortFilterModel_html"><div class="ttname"><a href="classMultiSortFilterModel.html">MultiSortFilterModel</a></div><div class="ttdef"><b>Definition:</b> multisortfiltermodel.h:26</div></div>
-<div class="ttc" id="classUi_1_1Supported_html"><div class="ttname"><a href="classUi_1_1Supported.html">Ui::Supported</a></div><div class="ttdef"><b>Definition:</b> ui_supported.h:96</div></div>
+<div class="ttc" id="classSupported_html_aee93c08aece1691f7cad5553679ce68a"><div class="ttname"><a href="classSupported.html#aee93c08aece1691f7cad5553679ce68a">Supported::show_chipsets</a></div><div class="ttdeci">void show_chipsets()</div><div class="ttdoc">Show supported chipsets. </div><div class="ttdef"><b>Definition:</b> supported.cpp:184</div></div>
+<div class="ttc" id="classSupported_html_a5f930944e34f47597778b4b22c417948"><div class="ttname"><a href="classSupported.html#a5f930944e34f47597778b4b22c417948">Supported::show_flash_chips</a></div><div class="ttdeci">void show_flash_chips()</div><div class="ttdoc">Show supported flash chips. </div><div class="ttdef"><b>Definition:</b> supported.cpp:60</div></div>
+<div class="ttc" id="classSupported_html_ac6789f9133847caa77940d55ccd5a987"><div class="ttname"><a href="classSupported.html#ac6789f9133847caa77940d55ccd5a987">Supported::show_boards</a></div><div class="ttdeci">void show_boards()</div><div class="ttdoc">Show supported motherboards. </div><div class="ttdef"><b>Definition:</b> supported.cpp:150</div></div>
+<div class="ttc" id="classSupported_html_a39dcba29063dccb5332c5b4ff6981762"><div class="ttname"><a href="classSupported.html#a39dcba29063dccb5332c5b4ff6981762">Supported::flashchip_info</a></div><div class="ttdeci">fl_flashchip_info * flashchip_info</div><div class="ttdoc">Pointer to flashchip_info structure responsible for storing data about chip. </div><div class="ttdef"><b>Definition:</b> supported.h:111</div></div>
+<div class="ttc" id="classSupported_html_a259953851cc09b60bb4ba24de98ca878"><div class="ttname"><a href="classSupported.html#a259953851cc09b60bb4ba24de98ca878">Supported::on_cb_sel_hardware_currentIndexChanged</a></div><div class="ttdeci">void on_cb_sel_hardware_currentIndexChanged(int index)</div><div class="ttdoc">Called when cb_sel_hardware combo box index changed. </div><div class="ttdef"><b>Definition:</b> supported.cpp:238</div></div>
+<div class="ttc" id="classSupported_html_ab97cf13bd06bcb843680fcdb4c23af40"><div class="ttname"><a href="classSupported.html#ab97cf13bd06bcb843680fcdb4c23af40">Supported::model</a></div><div class="ttdeci">QStandardItemModel * model</div><div class="ttdoc">Pointer to model responsible for storing data of supported hardware. </div><div class="ttdef"><b>Definition:</b> supported.h:101</div></div>
+<div class="ttc" id="classSupported_html_a3892a8495afd3462ecb85159ce66cba6"><div class="ttname"><a href="classSupported.html#a3892a8495afd3462ecb85159ce66cba6">Supported::sortFilterModel</a></div><div class="ttdeci">MultiSortFilterModel * sortFilterModel</div><div class="ttdoc">Pointer to extended model responsible for applying filters. </div><div class="ttdef"><b>Definition:</b> supported.h:106</div></div>
+<div class="ttc" id="classSupported_html_a66d4b56dcf19033d924aa2eaa84878e8"><div class="ttname"><a href="classSupported.html#a66d4b56dcf19033d924aa2eaa84878e8">Supported::on_cb_sel_custom_currentIndexChanged</a></div><div class="ttdeci">void on_cb_sel_custom_currentIndexChanged()</div><div class="ttdoc">Called when sel_custom combo box index changed Applies custom filterr according to selected value in ...</div><div class="ttdef"><b>Definition:</b> supported.cpp:274</div></div>
+<div class="ttc" id="classSupported_html_abf95fcabf0021088ef140ceb513e083f"><div class="ttname"><a href="classSupported.html#abf95fcabf0021088ef140ceb513e083f">Supported::chipsets_list</a></div><div class="ttdeci">fl_chipset_info * chipsets_list</div><div class="ttdoc">Pointer to chipstes_list structure responsible for storing data about chipstes. </div><div class="ttdef"><b>Definition:</b> supported.h:121</div></div>
+<div class="ttc" id="classSupported_html_a826ba824bd4976606ac802c82d36c137"><div class="ttname"><a href="classSupported.html#a826ba824bd4976606ac802c82d36c137">Supported::on_edit_name_textChanged</a></div><div class="ttdeci">void on_edit_name_textChanged(const QString &amp;arg1)</div><div class="ttdoc">Called when value of edit_name edit text changed Applies name filter according to edit_name text...</div><div class="ttdef"><b>Definition:</b> supported.cpp:267</div></div>
+<div class="ttc" id="classSupported_html_ad2a03ef9b5b244b68a7bbf17582659d5"><div class="ttname"><a href="classSupported.html#ad2a03ef9b5b244b68a7bbf17582659d5">Supported::boards_list</a></div><div class="ttdeci">fl_board_info * boards_list</div><div class="ttdoc">Pointer to boards_list structure responsible for storing data about board. </div><div class="ttdef"><b>Definition:</b> supported.h:116</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

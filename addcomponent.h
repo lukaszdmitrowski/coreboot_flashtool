@@ -36,12 +36,32 @@ public:
         ~AddComponent();
 
 private slots:
+        /**
+         * @brief Called when b_sel_component button is clicked
+         *
+         * Calls QFileDialog to select a path for component
+         *
+         */
         void on_b_sel_component_clicked();
+
+        /**
+         * @brief Called when b_add_component button is clicked
+         *
+         * Adds component to CBFS image
+         *
+         */
         void on_b_add_component_clicked();
 
 private:
+        /**
+         * @brief Fills cb_type combo box with possible component types
+         */
         void fill_cb_type();
         Ui::AddComponent *ui;
+
+        /**
+         * @brief Path to component
+         */
         QString component_path;
 };
 

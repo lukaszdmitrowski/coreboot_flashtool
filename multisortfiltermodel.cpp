@@ -55,14 +55,12 @@ bool MultiSortFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
              ++iter)
         {
                 if (iter.value().isEmpty()) {
-                        //Debug() << "empty iter.value()";
                         continue;
                 }
 
-                //qDebug() << "iter.value: " << iter.value();
                 QRegExp re("\\d*");
                 QModelIndex index = sourceModel()->index(sourceRow, iter.key(), sourceParent);
-                //qDebug() << "index.data: " << index.data().toString();
+
                 if (re.exactMatch(index.data().toString())) {
                         ret = index.data().toString() == iter.value();
                 } else {

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,18 +89,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This is the complete list of members for <a class="el" href="classFlasher.html">Flasher</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="classFlasher.html#a0c680da97e2089e9acb5e306b7831a25">erase_chip</a>()</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Flasher</b>() (defined in <a class="el" href="classFlasher.html">Flasher</a>)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>get_chip_size</b>() (defined in <a class="el" href="classFlasher.html">Flasher</a>)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classFlasher.html#ad41b2dded5ee4422a204470d34785670">init_flashrom</a>()</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classFlasher.html#ab91e98b53e9d227e6dc973df0e4171de">probe_chip</a>()</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classFlasher.html#aa216f16d2fc46faee3bde07c05d91260">read_chip</a>(unsigned char **data_out, unsigned long *const chip_size)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classFlasher.html#ae7358cf483ac7c1460e87e0825ac0374">shutdown_flashrom</a>()</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classFlasher.html#a333de6a14a78764fddd2ffcdf38980f4">verify_chip</a>(unsigned char **buffer, unsigned long buffer_size)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classFlasher.html#af32ba6559c73a8032bbc42b3860a2d1d">write_chip</a>(unsigned char **data, unsigned long data_size)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classFlasher.html#a68d9f33b970d7cc996ebc6bf068d7efa">flash_context</a></td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Flasher</b>() (defined in <a class="el" href="classFlasher.html">Flasher</a>)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>get_chip_size</b>() (defined in <a class="el" href="classFlasher.html">Flasher</a>)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classFlasher.html#ad41b2dded5ee4422a204470d34785670">init_flashrom</a>()</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classFlasher.html#ab91e98b53e9d227e6dc973df0e4171de">probe_chip</a>()</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classFlasher.html#aa216f16d2fc46faee3bde07c05d91260">read_chip</a>(unsigned char **data_out, unsigned long *const chip_size)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classFlasher.html#ae7358cf483ac7c1460e87e0825ac0374">shutdown_flashrom</a>()</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classFlasher.html#a333de6a14a78764fddd2ffcdf38980f4">verify_chip</a>(unsigned char **buffer, unsigned long buffer_size)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classFlasher.html#af32ba6559c73a8032bbc42b3860a2d1d">write_chip</a>(unsigned char **data, unsigned long data_size)</td><td class="entry"><a class="el" href="classFlasher.html">Flasher</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,6 +83,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classPreferences-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Preferences Class Reference</div>  </div>
@@ -102,6 +104,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3fc460c1a11115945b78b2d35d7ade00"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3fc460c1a11115945b78b2d35d7ade00"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Preferences</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a3fc460c1a11115945b78b2d35d7ade00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a83bf1d482341198af6bef5f53f303115"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83bf1d482341198af6bef5f53f303115"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreferences.html#a83bf1d482341198af6bef5f53f303115">on_b_sel_cor_path_clicked</a> ()</td></tr>
+<tr class="memdesc:a83bf1d482341198af6bef5f53f303115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_sel_cor_path is clicked Opens QFileDialog for selecting path to coreboot directory. <br/></td></tr>
+<tr class="separator:a83bf1d482341198af6bef5f53f303115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5118d905da7367cf46256c0daf8a2f5b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5118d905da7367cf46256c0daf8a2f5b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreferences.html#a5118d905da7367cf46256c0daf8a2f5b">on_b_ok_clicked</a> ()</td></tr>
+<tr class="memdesc:a5118d905da7367cf46256c0daf8a2f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when on_b_ok button is clicked Saves coreboot path to preferences.cfg file and application variables. <br/></td></tr>
+<tr class="separator:a5118d905da7367cf46256c0daf8a2f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad1e1eb6aa662fc386473268b35c891fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1e1eb6aa662fc386473268b35c891fb"></a>
+Ui::Preferences *&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b></td></tr>
+<tr class="separator:ad1e1eb6aa662fc386473268b35c891fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="preferences_8h_source.html">preferences.h</a></li>
@@ -110,7 +129,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

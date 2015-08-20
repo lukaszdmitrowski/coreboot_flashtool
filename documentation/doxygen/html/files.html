@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li class="current"><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -87,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr id="row_0_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="about_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>about.h</b></td><td class="desc"></td></tr>
 <tr id="row_1_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="addcomponent_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>addcomponent.h</b></td><td class="desc"></td></tr>
 <tr id="row_2_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="choosechip_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>choosechip.h</b></td><td class="desc"></td></tr>
-<tr id="row_3_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="constants_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>constants.h</b></td><td class="desc"></td></tr>
+<tr id="row_3_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="constants_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="constants_8h.html" target="_self">constants.h</a></td><td class="desc"></td></tr>
 <tr id="row_4_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="datagatherer_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>datagatherer.h</b></td><td class="desc"></td></tr>
 <tr id="row_5_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="deletecomponents_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>deletecomponents.h</b></td><td class="desc"></td></tr>
 <tr id="row_6_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="flasher_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>flasher.h</b></td><td class="desc"></td></tr>
@@ -96,21 +97,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr id="row_9_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="multisortfiltermodel_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>multisortfiltermodel.h</b></td><td class="desc"></td></tr>
 <tr id="row_10_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="preferences_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>preferences.h</b></td><td class="desc"></td></tr>
 <tr id="row_11_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="supported_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>supported.h</b></td><td class="desc"></td></tr>
-<tr id="row_12_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__about_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_about.h</b></td><td class="desc"></td></tr>
-<tr id="row_13_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__addcomponent_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_addcomponent.h</b></td><td class="desc"></td></tr>
-<tr id="row_14_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__choosechip_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_choosechip.h</b></td><td class="desc"></td></tr>
-<tr id="row_15_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__deletecomponents_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_deletecomponents.h</b></td><td class="desc"></td></tr>
-<tr id="row_16_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__infodialog_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_infodialog.h</b></td><td class="desc"></td></tr>
-<tr id="row_17_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__mainwindow_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_mainwindow.h</b></td><td class="desc"></td></tr>
-<tr id="row_18_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__preferences_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_preferences.h</b></td><td class="desc"></td></tr>
-<tr id="row_19_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="ui__supported_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>ui_supported.h</b></td><td class="desc"></td></tr>
-<tr id="row_20_" class="even"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="utests_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>utests.h</b></td><td class="desc"></td></tr>
+<tr id="row_12_" class="even"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="utests_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>utests.h</b></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:34 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

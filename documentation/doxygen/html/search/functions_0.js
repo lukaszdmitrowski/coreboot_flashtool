@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['erase_5fchip',['erase_chip',['../classFlasher.html#a0c680da97e2089e9acb5e306b7831a25',1,'Flasher']]]
+  ['add_5fchip',['add_chip',['../classChooseChip.html#a07ac26f7b12d03e8c8dd04f1dfd24c58',1,'ChooseChip']]]
 ];

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classFlasher-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Flasher Class Reference</div>  </div>
@@ -97,24 +98,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae7358cf483ac7c1460e87e0825ac0374"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#ae7358cf483ac7c1460e87e0825ac0374">shutdown_flashrom</a> ()</td></tr>
 <tr class="memdesc:ae7358cf483ac7c1460e87e0825ac0374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shut down flashrom.  <a href="#ae7358cf483ac7c1460e87e0825ac0374">More...</a><br/></td></tr>
 <tr class="separator:ae7358cf483ac7c1460e87e0825ac0374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91e98b53e9d227e6dc973df0e4171de"><td class="memItemLeft" align="right" valign="top">RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#ab91e98b53e9d227e6dc973df0e4171de">probe_chip</a> ()</td></tr>
+<tr class="memitem:ab91e98b53e9d227e6dc973df0e4171de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#ab91e98b53e9d227e6dc973df0e4171de">probe_chip</a> ()</td></tr>
 <tr class="memdesc:ab91e98b53e9d227e6dc973df0e4171de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probe for all known chips.  <a href="#ab91e98b53e9d227e6dc973df0e4171de">More...</a><br/></td></tr>
 <tr class="separator:ab91e98b53e9d227e6dc973df0e4171de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa216f16d2fc46faee3bde07c05d91260"><td class="memItemLeft" align="right" valign="top">RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#aa216f16d2fc46faee3bde07c05d91260">read_chip</a> (unsigned char **data_out, unsigned long *const chip_size)</td></tr>
+<tr class="memitem:aa216f16d2fc46faee3bde07c05d91260"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#aa216f16d2fc46faee3bde07c05d91260">read_chip</a> (unsigned char **data_out, unsigned long *const chip_size)</td></tr>
 <tr class="memdesc:aa216f16d2fc46faee3bde07c05d91260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read chip content to array.  <a href="#aa216f16d2fc46faee3bde07c05d91260">More...</a><br/></td></tr>
 <tr class="separator:aa216f16d2fc46faee3bde07c05d91260"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a333de6a14a78764fddd2ffcdf38980f4"><td class="memItemLeft" align="right" valign="top">RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#a333de6a14a78764fddd2ffcdf38980f4">verify_chip</a> (unsigned char **buffer, unsigned long buffer_size)</td></tr>
+<tr class="memitem:a333de6a14a78764fddd2ffcdf38980f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#a333de6a14a78764fddd2ffcdf38980f4">verify_chip</a> (unsigned char **buffer, unsigned long buffer_size)</td></tr>
 <tr class="memdesc:a333de6a14a78764fddd2ffcdf38980f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify chip content with specified data.  <a href="#a333de6a14a78764fddd2ffcdf38980f4">More...</a><br/></td></tr>
 <tr class="separator:a333de6a14a78764fddd2ffcdf38980f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c680da97e2089e9acb5e306b7831a25"><td class="memItemLeft" align="right" valign="top">RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#a0c680da97e2089e9acb5e306b7831a25">erase_chip</a> ()</td></tr>
+<tr class="memitem:a0c680da97e2089e9acb5e306b7831a25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#a0c680da97e2089e9acb5e306b7831a25">erase_chip</a> ()</td></tr>
 <tr class="memdesc:a0c680da97e2089e9acb5e306b7831a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase chip contents.  <a href="#a0c680da97e2089e9acb5e306b7831a25">More...</a><br/></td></tr>
 <tr class="separator:a0c680da97e2089e9acb5e306b7831a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af32ba6559c73a8032bbc42b3860a2d1d"><td class="memItemLeft" align="right" valign="top">RET_VAL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#af32ba6559c73a8032bbc42b3860a2d1d">write_chip</a> (unsigned char **data, unsigned long data_size)</td></tr>
+<tr class="memitem:af32ba6559c73a8032bbc42b3860a2d1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#af32ba6559c73a8032bbc42b3860a2d1d">write_chip</a> (unsigned char **data, unsigned long data_size)</td></tr>
 <tr class="memdesc:af32ba6559c73a8032bbc42b3860a2d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write input data to chip.  <a href="#af32ba6559c73a8032bbc42b3860a2d1d">More...</a><br/></td></tr>
 <tr class="separator:af32ba6559c73a8032bbc42b3860a2d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3dc0d4e0f4576e0cf998c50d4563d9e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3dc0d4e0f4576e0cf998c50d4563d9e"></a>
 unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>get_chip_size</b> ()</td></tr>
 <tr class="separator:ad3dc0d4e0f4576e0cf998c50d4563d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a68d9f33b970d7cc996ebc6bf068d7efa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68d9f33b970d7cc996ebc6bf068d7efa"></a>
+static fl_flashctx_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlasher.html#a68d9f33b970d7cc996ebc6bf068d7efa">flash_context</a> = NULL</td></tr>
+<tr class="memdesc:a68d9f33b970d7cc996ebc6bf068d7efa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash context Pointer to libflashrom flash context (struct flashctx) <br/></td></tr>
+<tr class="separator:a68d9f33b970d7cc996ebc6bf068d7efa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a0c680da97e2089e9acb5e306b7831a25"></a>
@@ -122,7 +130,7 @@ unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>get_chip_siz
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">RET_VAL Flasher::erase_chip </td>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> Flasher::erase_chip </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -131,11 +139,11 @@ unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>get_chip_siz
 </div><div class="memdoc">
 
 <p>Erase chip contents. </p>
-<dl class="section return"><dt>Returns</dt><dd>SUCCESS - data successfully read </dd>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Data successfully read </dd>
 <dd>
-ERR_PROG_NOT_INIT - programmer not initialized </dd>
+ERR_PROG_NOT_INIT - Programmer not initialized </dd>
 <dd>
-ERR_CHIP_NOT_PROBED - chip not probed (no flash context) </dd></dl>
+ERR_CHIP_NOT_PROBED - Chip not probed (no flash context) </dd></dl>
 
 </div>
 </div>
@@ -162,7 +170,7 @@ ERR_CHIP_NOT_PROBED - chip not probed (no flash context) </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">RET_VAL Flasher::probe_chip </td>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> Flasher::probe_chip </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -172,15 +180,15 @@ ERR_CHIP_NOT_PROBED - chip not probed (no flash context) </dd></dl>
 
 <p>Probe for all known chips. </p>
 <p>Probes for all known chips and if multiple chips are found outputs them in choose dialog</p>
-<dl class="section return"><dt>Returns</dt><dd>SUCCESS - chip successfully probed </dd>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Chip successfully probed </dd>
 <dd>
-ERR_PROG_NOT_INIT - programmer not initialized </dd>
+ERR_PROG_NOT_INIT - Programmer not initialized </dd>
 <dd>
-ERR_CHIP_PROBED - chip has been already probed </dd>
+ERR_CHIP_PROBED - Chip has been already probed </dd>
 <dd>
-ERR_PROBE_FAILED - probing failed </dd>
+ERR_PROBE_FAILED - Probing failed </dd>
 <dd>
-UNKNOWN - unknown error </dd></dl>
+UNKNOWN - Unknown error </dd></dl>
 
 </div>
 </div>
@@ -189,7 +197,7 @@ UNKNOWN - unknown error </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">RET_VAL Flasher::read_chip </td>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> Flasher::read_chip </td>
           <td>(</td>
           <td class="paramtype">unsigned char **&#160;</td>
           <td class="paramname"><em>data_out</em>, </td>
@@ -212,20 +220,20 @@ UNKNOWN - unknown error </dd></dl>
 <p>Reads chip content, then allocates memory and fills it with read data</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data_out</td><td>[out] pointer to read data </td></tr>
-    <tr><td class="paramname">chip_size</td><td>[out] size of chip in bytes </td></tr>
+    <tr><td class="paramname">data_out</td><td>[out] Pointer to read data </td></tr>
+    <tr><td class="paramname">chip_size</td><td>[out] Size of chip in bytes</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SUCCESS - data successfully read </dd>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Data successfully read </dd>
 <dd>
-ERR_PROG_NOT_INIT - programmer not initialized </dd>
+ERR_PROG_NOT_INIT - Programmer not initialized </dd>
 <dd>
-ERR_CHIP_NOT_PROBED - chip not probed (no flash context) </dd>
+ERR_CHIP_NOT_PROBED - Chip not probed (no flash context) </dd>
 <dd>
-ERR_MEM_ALLOC - memory allocation failed </dd>
+ERR_MEM_ALLOC - Memory allocation failed </dd>
 <dd>
-UNKNOWN - unknown error </dd></dl>
+UNKNOWN - Unknown error </dd></dl>
 
 </div>
 </div>
@@ -252,7 +260,7 @@ UNKNOWN - unknown error </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">RET_VAL Flasher::verify_chip </td>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> Flasher::verify_chip </td>
           <td>(</td>
           <td class="paramtype">unsigned char **&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
@@ -275,21 +283,21 @@ UNKNOWN - unknown error </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>[in] pointer to input data </td></tr>
-    <tr><td class="paramname">buffer_size</td><td>[in] size of pointed data in bytes </td></tr>
+    <tr><td class="paramname">buffer_size</td><td>[in] size of pointed data in bytes</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SUCCESS - data successfully read </dd>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Data successfully read </dd>
 <dd>
-ERR_PROG_NOT_INIT - programmer not initialized </dd>
+ERR_PROG_NOT_INIT - Programmer not initialized </dd>
 <dd>
-ERR_CHIP_NOT_PROBED - chip not probed (no flash context) </dd>
+ERR_CHIP_NOT_PROBED - Chip not probed (no flash context) </dd>
 <dd>
-ERR_CHIP_NOT_VERIFIED - chip contents is not consistent with input data </dd>
+ERR_CHIP_NOT_VERIFIED - Chip contents is not consistent with input data </dd>
 <dd>
-ERR_BUF_SIZE_DIFF - size of input data is not consistent with size of a chip </dd>
+ERR_BUF_SIZE_DIFF - Size of input data is not consistent with size of a chip </dd>
 <dd>
-UNKNOWN - unknown error </dd></dl>
+UNKNOWN - Unknown error </dd></dl>
 
 </div>
 </div>
@@ -298,7 +306,7 @@ UNKNOWN - unknown error </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">RET_VAL Flasher::write_chip </td>
+          <td class="memname"><a class="el" href="constants_8h.html#a162259a19a6f1c2e286a49703fab74fa">RET_VAL</a> Flasher::write_chip </td>
           <td>(</td>
           <td class="paramtype">unsigned char **&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -320,22 +328,22 @@ UNKNOWN - unknown error </dd></dl>
 <p>Write input data to chip. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>[in] pointer to input data </td></tr>
-    <tr><td class="paramname">data_size</td><td>[in] size of pointed data in bytes </td></tr>
+    <tr><td class="paramname">data</td><td>[in] Pointer to input data </td></tr>
+    <tr><td class="paramname">data_size</td><td>[in] Size of pointed data in bytes</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SUCCESS - data successfully read </dd>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS - Data successfully read </dd>
 <dd>
-ERR_PROG_NOT_INIT - programmer not initialized </dd>
+ERR_PROG_NOT_INIT - Programmer not initialized </dd>
 <dd>
-ERR_CHIP_NOT_PROBED - chip not probed (no flash context) </dd>
+ERR_CHIP_NOT_PROBED - Chip not probed (no flash context) </dd>
 <dd>
-ERR_WRITE_FAILED - write to chip failed </dd>
+ERR_WRITE_FAILED - Write to chip failed </dd>
 <dd>
-ERR_BUF_SIZE_DIFF - size of input data is not consistent with size of a chip </dd>
+ERR_BUF_SIZE_DIFF - Size of input data is not consistent with size of a chip </dd>
 <dd>
-UNKNOWN - unknown error </dd></dl>
+UNKNOWN - Unknown error </dd></dl>
 
 </div>
 </div>
@@ -346,7 +354,7 @@ UNKNOWN - unknown error </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 09:26:33 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 13:58:19 for End User Flash Tool by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
