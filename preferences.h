@@ -37,16 +37,21 @@ public:
 
 private slots:
         /**
-         * @brief Called when on_b_sel_cor_path is clicked
+         * @brief Called when b_sel_cor_path button is clicked
          * Opens QFileDialog for selecting path to coreboot directory
          */
         void on_b_sel_cor_path_clicked();
 
+        /**
+         * @brief Called when b_sel_conf_path button is clicked
+         * Opens QFileDialog for selecting xml file with known working configurations
+         */
         void on_b_sel_conf_path_clicked();
 
         /**
-         * @brief Called when on_b_ok button is clicked
-         * Saves coreboot path to preferences.cfg file and application variables
+         * @brief Called when b_ok button is clicked
+         * Saves coreboot and known working configurations xml file path
+         * to preferences.cfg file and application variables
          */
         void on_b_ok_clicked();
 

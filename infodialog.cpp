@@ -105,6 +105,12 @@ void InfoDialog::show_message(RET_VAL ret_val)
         exec();
 }
 
+void InfoDialog::show_message(QString message)
+{
+        ui->l_info->setText(message);
+        exec();
+}
+
 void InfoDialog::on_b_ok_clicked()
 {
         close();

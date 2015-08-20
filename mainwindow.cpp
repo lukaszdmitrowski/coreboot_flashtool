@@ -286,7 +286,11 @@ void MainWindow::on_b_auto_get_bios_clicked()
         QApplication::processEvents();
         ret = data_gatherer.save_bios_rom_factory("hardware_data/factory_bios.bin");
         setWindowTitle("Coreboot Flash Tool");
-        info_dialog->show_message(ret);
+        if (ret == SUCCESS) {
+                info_dialog->show_message("BIOS image saved to hardware_data/factory_bios.bin");
+        } else {
+                info_dialog->show_message(ret);
+        }
 }
 
 void MainWindow::on_b_auto_set_bios_clicked()

@@ -17,10 +17,16 @@ public:
         ~InfoDialog();
 
         /**
-         * @brief Shows dialog with info(error) message
+         * @brief Show dialog with info(error) message
          * @param ret_val [in] error type
          */
         void show_message(RET_VAL ret_val);
+
+        /**
+         * @brief Show dialog with provided message
+         * @param message [in] - message to be shown in dialog
+         */
+        void show_message(QString message);
 
 private slots:
         /**
