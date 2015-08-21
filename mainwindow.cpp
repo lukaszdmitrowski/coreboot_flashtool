@@ -693,7 +693,7 @@ QString MainWindow::get_cbfs_rom_path()
 
 void MainWindow::on_b_ropt_select_clicked()
 {
-        cbfs_rom_path = QFileDialog::getOpenFileName(this, tr("Select bootblock"), ".", "All files (*.*)");
+        cbfs_rom_path = QFileDialog::getOpenFileName(this, tr("Select ROM"), ".", "All files (*.*)");
 
         char **cbfs_params;
         /* PROGNAME(1) + NAME(1) + COMMAND(1) */
