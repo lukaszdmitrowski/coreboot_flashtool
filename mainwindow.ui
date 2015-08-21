@@ -65,6 +65,10 @@
      <number>0</number>
     </property>
     <widget class="QWidget" name="tab_auto">
+     <attribute name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/icons/icons/auto.svg</normaloff>:/icons/icons/auto.svg</iconset>
+     </attribute>
      <attribute name="title">
       <string>Auto</string>
      </attribute>

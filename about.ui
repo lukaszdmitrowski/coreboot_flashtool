@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>155</height>
+    <width>437</width>
+    <height>141</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,24 +17,11 @@
    <iconset resource="resources.qrc">
     <normaloff>:/icons/icons/about.png</normaloff>:/icons/icons/about.png</iconset>
   </property>
-  <widget class="QLabel" name="l_coreboot">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>141</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Coreboot version:</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="l_flashrom">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>50</y>
+     <y>60</y>
      <width>131</width>
      <height>19</height>
     </rect>
@@ -60,9 +47,9 @@
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>50</y>
-     <width>221</width>
-     <height>19</height>
+     <y>60</y>
+     <width>231</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -72,14 +59,27 @@
   <widget class="QPushButton" name="b_about_close">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>110</y>
+     <x>170</x>
+     <y>90</y>
      <width>104</width>
      <height>29</height>
     </rect>
    </property>
    <property name="text">
     <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_info">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>20</y>
+     <width>321</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>This application is part of the coreboot project</string>
    </property>
   </widget>
  </widget>

@@ -11,5 +11,6 @@
         <file>icons/options.png</file>
         <file>icons/remove.png</file>
         <file>icons/supported.png</file>
+        <file>icons/auto.svg</file>
     </qresource>
 </RCC>
