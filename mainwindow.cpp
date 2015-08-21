@@ -593,14 +593,14 @@ void MainWindow::on_b_create_rom_clicked()
 
 void MainWindow::on_b_add_component_clicked()
 {
-        AddComponent add_component_window;
+        AddComponent add_component_window(this);
         add_component_window.setModal(true);
         add_component_window.exec();
 }
 
 void MainWindow::on_b_remove_comp_clicked()
 {
-        DeleteComponents delete_component_window;
+        DeleteComponents delete_component_window(this);
         delete_component_window.setModal(true);
         delete_component_window.exec();
 }
