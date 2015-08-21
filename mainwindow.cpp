@@ -365,10 +365,6 @@ void MainWindow::on_b_auto_build_img_clicked()
         QString display_panel = data_gatherer.get_display_panel_model();
         QString graphic_card = data_gatherer.get_graphic_card_model();
 
-        //qDebug() << "motherboard: " << motherboard;
-        //qDebug() << "graphic_card: " << graphic_card;
-        //qDebug() << "display_panel: " << display_panel;
-
         if (!hardware_info.open(QIODevice::ReadOnly)) {
                 ret = ERR_FILE_HW_XML;
                 info_dialog->show_message(ret);
@@ -410,16 +406,10 @@ void MainWindow::on_b_auto_build_img_clicked()
                         is_panel_ok = (display_panel == panel_config);
                 }
 
-                //qDebug() << is_board_ok;
-                //qDebug() << is_gpu_ok;
-                //qDebug() << is_panel_ok;
-                //qDebug() << "need bios: " << need_vgabios;
-
                 conf_child = conf_child.nextSibling();
                 if (is_board_ok && is_gpu_ok && is_panel_ok) {
                         if (need_vgabios == "factory") {
                                 QFileInfo factory_bios(factory_bios_dir);
-                                qDebug() << factory_bios_dir;
 
                                 if (factory_bios.exists()) {
 
