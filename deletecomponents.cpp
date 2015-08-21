@@ -22,8 +22,6 @@
 #include "ui_deletecomponents.h"
 #include "mainwindow.h"
 
-#include <QDebug>
-
 extern "C" {
 #include "libcbfstool.h"
 }
@@ -55,10 +53,6 @@ void DeleteComponents::on_b_remove_comp_clicked()
                 params[param_count] = "-n";
                 params[param_count + 1] = ui->edit_name->text();
                 param_count += 2;
-        }
-
-        for (int i = 0; i < 5; ++i) {
-                qDebug() << "param: " << params[i];
         }
 
         cbfs_params = new char*[param_count];
