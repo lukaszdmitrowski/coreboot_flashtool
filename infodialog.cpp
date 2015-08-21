@@ -91,7 +91,7 @@ void InfoDialog::show_message(RET_VAL ret_val)
                 ui->l_info->setText("Coreboot compilation failed!");
                 break;
         case ERR_COREBOOT_NEED_FACTORY_BIOS:
-                ui->l_info->setText("This configuration requires factory VGABIOS, plase use 'Set factory BIOS button'");
+                ui->l_info->setText("This configuration requires factory VGABIOS, plase use 'Set factory BIOS' button");
                 break;
         case ERR_COREBOOT_NOROM:
                 ui->l_info->setText("Can't find coreboot rom!");
