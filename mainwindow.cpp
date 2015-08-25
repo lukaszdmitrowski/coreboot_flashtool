@@ -355,6 +355,9 @@ void MainWindow::on_b_auto_build_img_clicked()
 
         hardware_data_path = QFileDialog::getOpenFileName(this, tr("Select hardware data for target system"), ".", "All files (*.tar)");
 
+        if (hardware_data_path.isEmpty())
+                return;
+
         ret = data_gatherer.unpack_hardware_data_archive(hardware_data_path);
         if (ret != SUCCESS) {
                 info_dialog->show_message(ret);
