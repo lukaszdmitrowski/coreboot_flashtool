@@ -59,7 +59,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
         active_log_out = ui->log_auto;
         chip_name = "";
-        coreboot_dir = "coreboot";
+        coreboot_dir = "coreboot/";
+        configurations_path = "hardware_info.xml";
         factory_bios_dir = "hardware_data/factory_bios.bin";
         chip_found = false;
         programmer_initialized = false;
