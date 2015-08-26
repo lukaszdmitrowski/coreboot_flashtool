@@ -97,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 configurations_path_line.remove("configurations_path: ");
                 configurations_path = configurations_path_line;
         } else {
-                w->info_dialog->show_message(ERR_FILE_CONFIG);
+                info_dialog->show_message(ERR_FILE_CONFIG);
         }
 }
 
@@ -483,10 +483,17 @@ void MainWindow::on_b_auto_build_img_clicked()
         delete sha_wrapper;
 
         if (is_config_ok) {
+
+                QDir coreboot_configs_dir("coreboot_configs");
+
+                if (!coreboot_configs_dir.exists()) {
+                    info_dialog->show_message("No coreboot_configs directory!");
+                }
+
                 QString working_config = config.lastChild().firstChild().toText().data() + "_"
                                 + ui->cb_auto_sel_payload->currentText();
                 QString copy_config_cmd = "cp coreboot_configs/" + working_config + " " +
-                                          coreboot_dir + "/.config";
+                                          coreboot_dir + ".config";
                 QString make_coreboot_cmd = "make -C " + coreboot_dir;
                 QString cp_coreboot_cmd = "cp " + coreboot_dir + "/build/coreboot.rom coreboot.rom";
 
